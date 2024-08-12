@@ -580,70 +580,45 @@
 
     <script>
         // for course progress fetch & display.
-        // Fetch and display course progress for logged-in users.
-        $.ajax({
-            url: '/learning_progress',
-            type: 'GET',
-            success: function (response) {
-                var container = $('.scroll-by-count');
-                var template = container.find('.template');
 
-                if (Array.isArray(response) && response.length > 0) {
-                    var courseElements = response.map(function (course) {
-                        var clone = template.clone().show();
-                        clone.find('a').attr('href', './learn/' + course.slug);
-                        clone.find('img').attr('src', './static/img/course/' + course.image);
-                        clone.find('.font-heading').text(course.title);
-                        clone.find('.text-muted').text(course.progress + '%');
-                        clone.find('.progress-bar').css('width', course.progress + '%');
-                        return clone;
-                    });
+        $(document).ready(function () {
+            $.ajax({
+                url: '/learning_progress',
+                type: 'GET',
+                success: function (response) {
+                    // console.log('Response from /learning_progress:', response);
 
-                    container.empty().append(courseElements);
+                    if (Array.isArray(response)) {
+                        var userCourses = response;
+                        console.log(userCourses);
 
-                } else {
-                    // If no learning progress, show the placeholder experience.
-                    var placeholderCourses = [
-                        {
-                            title: "Welcome, Intellect!",
-                            slug: "welcome",
-                            // image: "welcome.webp",
-                            image: "graduate.png",
-                            desc: "Select a course to start learning. Click Start Now to access content."
-                        },
-                        {
-                            title: "Track Your Progress",
-                            slug: "track-progress",
-                            // image: "track.webp",
-                            image: "graduate.png",
-                            desc: "When you're' enrolled, you can track your learning progress here."
-                        },
-                        {
-                            title: "Explore Courses",
-                            slug: "explore-courses",
-                            // image: "explore.webp",
-                            image: "graduate.png",
-                            desc: "Browse our courses and discover your next learning journey."
-                        }
-                    ];
+                        var container = $('.scroll-by-count');
+                        var template = container.find('.template');
+                        var courseCount = userCourses.length;
+                        container.attr('data-count', courseCount);
 
-                    var courseElements = placeholderCourses.map(function (course) {
-                        var clone = template.clone().show();
-                        clone.find('a').attr('href', './learn/' + course.slug);
-                        clone.find('img').attr('src', './static/img/course/' + course.image);
-                        clone.find('.font-heading').text(course.title);
-                        clone.find('.text-muted').text(course.desc);
-                        return clone;
-                    });
+                        // Use map() to generate an array of cloned elements for each course
+                        var courseElements = userCourses.map(function (course) {
+                            var clone = template.clone().show();
+                            clone.find('a').attr('href', './learn/' + course.slug);
+                            clone.find('img').attr('src', './static/img/course/' + course.image);
+                            clone.find('.font-heading').text(course.title);
+                            clone.find('.text-muted').text(course.progress + '%');
+                            clone.find('.progress-bar').css('width', course.progress + '%');
+                            return clone;
+                        });
 
-                    container.empty().append(courseElements);
+                        container.empty().append(courseElements);
+                        // $('.scroll-by-count').empty().append(courseElements); //both works
+                    } else {
+                        console.error('Expected an array but got:', response);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching learning progress:', error);
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching learning progress:', error);
-            }
+            });
         });
-
 
         // for fetching/displaying notifications
         $(function () {

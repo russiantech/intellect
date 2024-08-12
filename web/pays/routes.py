@@ -1,15 +1,14 @@
 import secrets
-import json, traceback, jsonschema, time, requests
+import traceback, requests
 from flask_login import current_user, login_required
 from flask import current_app, jsonify, redirect, render_template, request, Blueprint, url_for
 from web.models import db, User, Payment, Course, Enrollment
 from web.apis.make_slug import generate_random_id
 from web.apis.errors import handle_response
 from web.extensions import csrf
-from os import getenv, path
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()
 
 pay = Blueprint('pay', __name__)
 
@@ -88,12 +87,17 @@ def support_pay():
     try:
         if request.method == "POST":
             # Get the amount, email, and subscription details from the form
-            amount = request.form.get('amount')
+            # amount = int(request.form.get('amount', 0))
+            amount = request.form.get('amount', 0).strip()
             email = request.form.get('email', current_user.email if current_user.is_authenticated else None)
             subscription = request.form.get('subscription')
 
             if not email:
                 return jsonify({"success": False, "error": "A valid email address is required for receipt of payment"})
+
+            # if not amount or amount <= 0 :
+            if not amount.isdigit() or int(amount) <= 0:
+                return jsonify({"success": False, "error": "Kindly provide an amount to continue"})
     
             # Prepare request details
             url = "https://api.flutterwave.com/v3/payments"
@@ -122,6 +126,7 @@ def support_pay():
                 }
             }
 
+            from requests.exceptions import ConnectionError, Timeout, RequestException
             try:
                 # Check if it's a subscription payment
                 interval = request.form.get('interval', None)
@@ -185,10 +190,19 @@ def support_pay():
                 db.session.commit()
 
                 # Redirect the user to the payment link
-                return jsonify({"success": True, "message": "Redirecting to payment gateway...", "redirect_url": payment_link}), 200
+                return jsonify({"success": True, "message": "Continue to pay securely..", "redirect_url": payment_link}), 200
 
-            except requests.exceptions.RequestException as e:
-                # Handle network-related errors (e.g., no internet connection)
+            
+            except ConnectionError:
+                # Handle the case where the user is not connected to the internet
+                return jsonify({"success": False, "error": "No internet connection. Please check your network and try again."}), 500
+
+            except Timeout:
+                # Handle request timeout
+                return jsonify({"success": False, "error": "The request timed out. Please try again later."}), 500
+
+            except RequestException as e:
+                # Handle other types of request exceptions
                 return jsonify({"success": False, "error": f"An error occurred: {str(e)}"}), 500
 
         return jsonify({"success": False, "error": "Invalid request method"}), 405
