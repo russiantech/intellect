@@ -62,9 +62,10 @@ from flask_migrate import Migrate
 migrate = Migrate()
 
 
-# openai.api_key = current_app.config['OPENAI_API_KEY']
-from openai import OpenAI
-client = OpenAI()
+
+import openai
+openai.api_key = getenv('OPENAI_API_KEY') # Set your API key here
+client = openai.OpenAI() # Then create the client
 
 def make_available():
 
