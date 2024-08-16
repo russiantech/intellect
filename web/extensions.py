@@ -61,14 +61,11 @@ cache = Cache(config=Config.REDIS_CONFIG)
 from flask_migrate import Migrate
 migrate = Migrate()
 
-def setup_logging(app):
-    if not app.debug:
-        formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
-        handler = RotatingFileHandler('app.log', maxBytes=100000, backupCount=10)
-        handler.setLevel(app.config['LOGGING_LEVEL'])
-        handler.setFormatter(formatter)
-        app.logger.addHandler(handler)
-    
+
+# openai.api_key = current_app.config['OPENAI_API_KEY']
+from openai import OpenAI
+client = OpenAI()
+
 def make_available():
 
     # Create a context dictionary with the variables you want to make available
@@ -100,6 +97,8 @@ def make_available():
     return context
 
 def init_ext(app):
+
+    # client.init_app(app)
 
     from web.models import s_manager
     s_manager.init_app(app)

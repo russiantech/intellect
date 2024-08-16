@@ -13,6 +13,7 @@ class Config:
 
     FLASK_APP = 'app.py'
     SECRET_KEY = getenv('SECRET_KEY')
+    OPENAI_API_KEY = getenv('OPENAI_API_KEY')
     UPLOAD_FOLDER = getenv('upload_url')
     MAX_CONTENT_PATH = None
     LANGUAGES = ['en', 'es']
@@ -92,6 +93,7 @@ class DevelopmentConfig(Config):
     
     SQLALCHEMY_DATABASE_URI = getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///')
     RAVE_SECRET_KEY = getenv('RAVE_TEST_SECRET_KEY')
+    RAVE_SECRET_KEY = getenv('RAVE_LIVE_SECRET_KEY')
     #SQLALCHEMY_ECHO = True
     #//SESSION_TYPE = 'filesystem'
 

@@ -595,7 +595,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-        console.log("DOM fully loaded and parsed");
+        // console.log("DOM fully loaded and parsed");
 
         var categoriesDiv = document.getElementById("categories_div");
         categoriesDiv.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...';
@@ -607,7 +607,7 @@
             if (xhr.status === 200) {
                 try {
                     var response = JSON.parse(xhr.responseText);
-                    console.log('Categories fetched:', response);
+                    // console.log('Categories fetched:', response);
 
                     // categoriesDiv.innerHTML = ""; // Clear the spinner
 

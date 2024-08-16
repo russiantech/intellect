@@ -2,7 +2,7 @@
 #from web.extensions import *
 
 from  web.extensions import (
-    confiq_app, init_ext, make_available, setup_logging
+    confiq_app, init_ext, make_available
 )
 
 def create_app(config_name):
@@ -44,6 +44,9 @@ def create_app(config_name):
     app.register_blueprint(socket_bp)
 
     #My-New APi Endpoints
+    from web.apis.x_courses.x_recommend_bak import x_recommend_bp
+    app.register_blueprint(x_recommend_bp)
+
     from web.apis.x_courses.x_categories import x_category_bp
     app.register_blueprint(x_category_bp)
 

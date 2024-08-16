@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Informations . Russian Developers{% endblock title %}
+{% block title %}Info . Intellect{% endblock title %}
 {% block page_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}" />
 {% endblock page_css %}
@@ -290,6 +290,8 @@
 <script src="{{ url_for('static', filename='js/pages/course.detail.js')}}"></script>
 
 <script> 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const currentUrl = window.location.href;
     const courseSlug = getCourseSlugFromUrl(currentUrl);
@@ -341,6 +343,12 @@ function fetchCourseBySlug(courseSlug) {
             if(response.title){
                 // Set the page title dynamically
                 document.title = `${response.title} . Russian Developers`;
+            }
+
+            if(response.id){
+                // Store interactions in local storage (for non-logged-in users)
+                // storeInteractionLocally(response.id, response.title, 'view')
+                trackInteraction(response.title, response.desc, 'click');
             }
             
             // Define an array of IDs to update

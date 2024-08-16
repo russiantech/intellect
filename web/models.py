@@ -268,7 +268,7 @@ class Category(db.Model):
         slug = title.lower()
         self.slug = slugify(slug)
 
-class Interaction(db.Model):
+""" class Interaction1(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     course_id = db.Column(db.Integer)
@@ -278,8 +278,21 @@ class Interaction(db.Model):
     like = db.Column(db.Boolean)
     comment = db.Column(db.Text)
     timestamp = db.Column(db.DateTime)
-    is_enrolled = db.Column(db.Boolean)
+    is_enrolled = db.Column(db.Boolean) """
 
+class Interaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=True)  # Nullable for non-logged in users
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
+    action = db.Column(db.String(50))  # e.g., 'view', 'rate'
+    count = db.Column(db.Integer, default=1)
+    
+    created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    deleted = db.Column(db.Boolean(), default=False)
+    active =  db.Column(db.Boolean(), default=True)
+
+    
 class Course(db.Model):
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.png')
