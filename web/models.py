@@ -7,6 +7,8 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask_login import UserMixin
 #from flask_security import RoleMixin
 from sqlalchemy.sql import func
+from sqlalchemy import CheckConstraint, UniqueConstraint
+
 from flask import current_app
 # from werkzeug.security import generate_password_hash, check_password_hash
 from slugify import slugify
@@ -22,7 +24,7 @@ db = SQLAlchemy()
 from flask_login import LoginManager
 s_manager = LoginManager()
 
-s_manager.login_view = 'auth.signin'
+s_manager.login_view = 'auth_api.signin'
 @s_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -61,6 +63,12 @@ user_topic_progress = db.Table('user_topic_progress',
     db.Column('completed', db.Boolean, default=False)
 )
 
+# Association table to link Paths and Courses
+path_course_association = db.Table('path_course_association',
+    db.Column('path_id', db.Integer, db.ForeignKey('path.id')),
+    db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
+)
+
 class Brand(db.Model):
     __tablename__ = 'brand'
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)
@@ -95,7 +103,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(100), index=True)
     username = db.Column(db.String(100), index=True, nullable=False, unique=True)
     email = db.Column(db.String(100), unique=True, nullable=False, index=True)
-    phone = db.Column(db.String(20), unique=True, index=True)  #str type recommended bcos they're not meant for calculations
+    phone = db.Column(db.String(20), unique=True, index=True)  # str type recommended because they're not meant for calculations
     password = db.Column(db.String(500), index=True, nullable=False)
     image = db.Column(db.String(1000), default='default.svg')
     title = db.Column(db.String(50))
@@ -103,41 +111,39 @@ class User(db.Model, UserMixin):
     city = db.Column(db.String(50))
     lang = db.Column(db.String(100))
     about = db.Column(db.String(5000))
-    src= db.Column(db.String(50))
-    socials = db.Column(db.JSON) # socials: { 'fb': '@chrisjsm', 'insta': '@chris', 'twit': '@chris','linkedin': '', 'whats':'@techa' }
-    #type = db.Column(db.Enum('0', '1', '2'), default='2')  # ['admin','tutor','student']
-    # instructors
+    src = db.Column(db.String(50))
+    socials = db.Column(db.JSON)  # socials: { 'fb': '@chrisjsm', 'insta': '@chris', 'twit': '@chris','linkedin': '', 'whats':'@techa' }
     duration = db.Column(db.Integer(), default=72)  # hours per week
     education = db.Column(db.String(100))
-    course_count = db.Column(db.Integer) # course count for instructor
-    comment_count = db.Column(db.Integer) # comment count for instructor
-    trainee = db.Column(db.Integer)  
+    course_count = db.Column(db.Integer)  # course count for instructor
+    comment_count = db.Column(db.Integer)  # comment count for instructor
+    trainee = db.Column(db.Integer)
     ratings = db.Column(db.Integer)
     reviews = db.Column(db.Integer)
-    # students
     ip = db.Column(db.String(50))
-    verified = db.Column(db.Boolean(), default=False)  # verified or not(users)
+    verified = db.Column(db.Boolean(), default=False)  # verified or not (users)
     graduated = db.Column(db.Boolean(), default=False)
-
     bank = db.Column(db.Integer)
     online = db.Column(db.Boolean(), default=False)  # 1-online, 0-offline
     last_seen = db.Column(db.DateTime)
 
-    enrollments = db.relationship('Enrollment', backref='user', lazy=True)
-    topic_progress = db.relationship('Topic', secondary=user_topic_progress, backref=db.backref('users', lazy=True))
+    # Define relationships with cascade delete
+    enrollments = db.relationship('Enrollment', backref='user', lazy=True, cascade="all, delete-orphan")
+    topic_progress = db.relationship('Topic', secondary=user_topic_progress, cascade="all, delete", backref=db.backref('users', lazy=True))
 
-    payments = db.relationship("Payment", backref="user", lazy=True)  # Payment->course
+    payments = db.relationship("Payment", backref="user", lazy=True, cascade="all, delete-orphan")
+    roles = db.relationship('Role', secondary=user_role_association, back_populates='users', cascade="all, delete", lazy='dynamic')
+    course = db.relationship('Course', secondary=user_course_association, back_populates='user', cascade="all, delete", lazy=True)  # many-to-many
+    feedback = db.relationship("Feedback", backref='author', lazy=True, cascade="all, delete-orphan")
 
-    roles = db.relationship('Role', secondary=user_role_association, back_populates='users', lazy='dynamic')
-    course = db.relationship('Course', secondary=user_course_association, back_populates='user', lazy=True)  # user->course(many-many) // backref='user',
-    feedback = db.relationship("Feedback", backref='author', lazy=True)  # feedback->user
+    chat = db.relationship('Chat', foreign_keys='Chat._from', backref='user', lazy='dynamic', cascade="all, delete-orphan")
 
-    chat = db.relationship('Chat', foreign_keys='Chat._from', backref='user', lazy='dynamic')
+    notifications = db.relationship('Notification', backref='user', lazy='dynamic', cascade="all, delete-orphan")
+    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id', backref='author', lazy='dynamic', cascade="all, delete-orphan")
+    messages_received = db.relationship('Message', foreign_keys='Message.recipient_id', backref='recipient', lazy='dynamic', cascade="all, delete-orphan")
 
-    notifications = db.relationship('Notification', backref='user', lazy='dynamic')
-    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id', backref='author', lazy='dynamic')
-    messages_received = db.relationship('Message', foreign_keys='Message.recipient_id', backref='recipient', lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
+
 
     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
@@ -174,9 +180,9 @@ class User(db.Model, UserMixin):
         return n
     
     # from web.extensions import bcrypt
-    bcrypt = __import__('web.extensions', fromlist=['bcrypt']).bcrypt # fromlist=['bcrypt'] tells __import__ that you are specifically interested in importing bcrypt from the web.extensions module.
     # bcrypt = __import__('web.extensions').bcrypt
-
+    # fromlist=['bcrypt'] tells __import__ that you are specifically interested in importing bcrypt from the web.extensions module.
+    bcrypt = __import__('web.extensions', fromlist=['bcrypt']).bcrypt 
     def set_password(self, password: str) -> None:
         """Hashes the password using bcrypt and stores it."""
         if not password:
@@ -192,7 +198,7 @@ class User(db.Model, UserMixin):
     #Single method can be used for different tokens
     # -> ['reset', 'verify', or 'confirm']
     def make_token(self, token_type: str = "reset_password") -> str:
-        """Generates a secure token for specified token type."""
+        """Generates a secure token for specified token type(like ["reset_password", "verify_email"] etc)."""
         serializer = Serializer(current_app.config["SECRET_KEY"])
         return serializer.dumps({"user_email": self.email, "token_type": token_type}, salt=self.password)
         
@@ -207,7 +213,7 @@ class User(db.Model, UserMixin):
                 salt=user.password,
             )
                 
-            if token_data["token_type"] in ["reset_password", "confirm_email"]:
+            if token_data["token_type"] in ["reset_password", "verify_email"]:
                 user.token_type = token_data["token_type"]
                 return user
             
@@ -246,7 +252,8 @@ class Payment(db.Model):
     provider = db.Column(db.String(100)) #['dollar, naira etc]
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     course_id = db.Column(db.Integer, db.ForeignKey('course.id') )
-
+    path_id = db.Column(db.Integer, db.ForeignKey('path.id'), nullable=True)
+    is_subscription = db.Column(db.Boolean, default=False)  # New field for marking subscription payments
     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     deleted = db.Column(db.Boolean(), default=False)
@@ -292,7 +299,6 @@ class Interaction(db.Model):
     deleted = db.Column(db.Boolean(), default=False)
     active =  db.Column(db.Boolean(), default=True)
 
-    
 class Course(db.Model):
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.png')
@@ -300,9 +306,9 @@ class Course(db.Model):
     desc = db.Column(db.Text)
     video = db.Column(db.String(1000))
     material = db.Column(db.String(100))
-    fee = db.Column(db.Integer)
+    fee = db.Column(db.Integer, default=0)
     lang = db.Column(db.String(50), default='en')
-    duration = db.Column(db.String(50), default='weeks') #['hours', 'days', 'weeks', 'months', 'years' ]
+    duration = db.Column(db.String(50), default='0') #['hours', 'days', 'weeks', 'months', 'years' ]
     level = db.Column(db.String(50), default='pro') # ['Novice',"Beginner","Pro/professional", 'Expert', 'advanced']
     views = db.Column(db.Integer, nullable=True, default=0) # count views
     comment = db.Column(db.Integer, nullable=True)  # comment count
@@ -312,9 +318,13 @@ class Course(db.Model):
     status = db.Column(db.String(100), default='published')  # ['published','unpublished','pending']
     slug = db.Column(db.String(50))
     user = db.relationship('User', secondary=user_course_association, back_populates='course')
+    paths = db.relationship('Path', secondary=path_course_association, back_populates='courses')
     enrollments = db.relationship('Enrollment', backref='course', lazy=True)
+    quizzes = db.relationship('Quiz', backref='courses')
+    
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', secondary=category_course_association, backref=db.backref('course', lazy='dynamic'), lazy='dynamic')
+    
     payment = db.relationship("Payment", backref="course", lazy=True)  # Payment->course
     lessons = db.relationship("Lesson", back_populates="course", lazy=True)  # lesson->course
     topics = db.relationship("Topic", backref="course", lazy=True)  # Topic->course
@@ -364,7 +374,7 @@ class Course(db.Model):
         """Serialize the Course object by dynamically accessing the specified attributes."""
         try:
             if include_only is None:
-                include_only = ['id', 'category_id', 'image', 'title', 'desc', 'comment', 'rating', 'fee', 'level', 'rating', 'views', 'duration', 'created', 'slug']
+                include_only = ['id', 'category_id', 'image', 'title', 'desc', 'comment', 'rating', 'fee', 'level', 'views', 'duration', 'created', 'slug']
 
             data = {x: getattr(self, x) for x in include_only}
 
@@ -407,7 +417,6 @@ class Course(db.Model):
 
         return data
 
-
 class Lesson(db.Model):
     __tablename__ = 'lesson'
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)
@@ -448,9 +457,7 @@ class Lesson(db.Model):
 
         return data
 
-        
 #DON'T FORET backref 'course' from Course Model when inserting data, even for all others
-
 class Topic(db.Model):
     __tablename__ = 'topic'
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)
@@ -502,17 +509,135 @@ class Content(db.Model):
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
     topic = db.relationship('Topic', backref=db.backref('contents', lazy=True))
 
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=True)
+    path_id = db.Column(db.Integer, db.ForeignKey('path.id'), nullable=True)
+
+    # Enforcing that either course_id or path_id must be provided
+    __table_args__ = (
+        CheckConstraint('(course_id IS NOT NULL OR path_id IS NOT NULL)', name='check_course_or_path_in_quiz'),
+    )
+
+    # Relationships
+    # course = db.relationship('Course', backref='quizzes')
+    # path = db.relationship('Path', backref='quizzes')
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'course': self.course.to_dict() if self.course else None,
+            'path': self.path.to_dict() if self.path else None,
+            # other fields...
+        }
+
+    def __repr__(self):
+        return f"Quiz('{self.title}', Course ID: '{self.course_id}', Path ID: '{self.path_id}')"
+
+# class Enrollment_0(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     completed = db.Column(db.Boolean, default=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     completed_topics = db.Column(db.Integer, default=0)
+
+#     # course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+#     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=True)
+#     path_id = db.Column(db.Integer, db.ForeignKey('path.id'), nullable=True)
+
+#     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+#     updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+#     deleted = db.Column(db.Boolean(), default=False)
+#     active =  db.Column(db.Boolean(), default=True)
+    
+#     __table_args__ = (
+#         CheckConstraint('(course_id IS NOT NULL OR path_id IS NOT NULL)', name='check_course_or_path'),
+#     )
+#     # # Relationships
+#     # course = db.relationship('Course', backref='enrollments')
+#     # path = db.relationship('Path', backref='enrollments')
+
 class Enrollment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     completed_topics = db.Column(db.Integer, default=0)
+
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=True)
+    path_id = db.Column(db.Integer, db.ForeignKey('path.id'), nullable=True)
 
     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     deleted = db.Column(db.Boolean(), default=False)
-    active =  db.Column(db.Boolean(), default=True)
+    active = db.Column(db.Boolean(), default=True)
+    
+    __table_args__ = (
+        CheckConstraint('(course_id IS NOT NULL OR path_id IS NOT NULL)', name='check_course_or_path'),
+        UniqueConstraint('user_id', 'course_id', 'path_id', name='uq_user_course_path')  # Uniqueness constraint
+    )
+
+class Path(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    desc = db.Column(db.Text, nullable=False)
+    fee = db.Column(db.Float, nullable=False, default=0.0)
+    rating = db.Column(db.Float, nullable=True)
+    duration = db.Column(db.Integer, nullable=True)  # Duration in days, or other unit
+    slug = db.Column(db.String(130))
+    courses = db.relationship('Course', secondary=path_course_association, back_populates='paths')
+    enrollments = db.relationship('Enrollment', backref='path', lazy=True)
+    quizzes = db.relationship('Quiz', backref='path', lazy=True)
+    payment = db.relationship("Payment", backref="path", lazy=True)  # Payment->path
+
+    created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    deleted = db.Column(db.Boolean(), default=False)
+    active = db.Column(db.Boolean(), default=True)
+
+    def calculate_fee(self):
+        self.fee = sum(int(course.fee) for course in self.courses if course.duration)
+
+    def calculate_duration(self):
+        self.duration = sum(int(course.duration) for course in self.courses)
+
+    # def serialize(self):
+    #     return {
+    #         'path_id': self.id,
+    #         'path_slug': self.slug,
+    #         'path_title': self.title,
+    #         'path_desc': self.desc,
+    #         'path_fee': self.fee or self.calculate_fee(),
+    #         'courses_total': len(self.courses),
+    #         'quizzes_total': len(self.quizzes),
+    #         'courses_time_total': sum(course.duration for course in self.courses if course.duration),
+    #         'trainee': self.trainee
+    #     }
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'slug': self.slug,
+            'desc': self.desc,
+            'rating': self.rating,
+            'duration': self.duration or self.calculate_duration(),
+            'fee': self.fee or sum(int(course.fee) for course in self.courses if course.fee),
+            'courses_total': len(self.courses),
+            'quizzes_total': len(self.quizzes),
+            'courses_time_total': sum(int(course.duration) for course in self.courses if course.duration),
+            'courses': [course.serialize(include_only=['image', 'title', 'rating', 'fee', 'duration', 'slug']) for course in self.courses],
+            'quizzes': [quiz.serialize() for quiz in self.quizzes]
+        }
+
+from sqlalchemy import event
+@event.listens_for(Path, 'after_delete')
+def delete_orphan_courses(mapper, connection, target):
+    session = db.object_session(target)
+    for course in target.courses:
+        if not course.paths:
+            session.delete(course)
+
 
 """
 class Topic(db.Model):
@@ -538,7 +663,6 @@ class Course(db.Model):
     title = db.Column(db.String(255), nullable=False)
     completed = db.Column(db.Boolean, default=False)
  """
-
 class Badge(db.Model):
     __tablename__ = 'badge'
     id = db.Column(db.Integer, unique=True, autoincrement=True, primary_key=True, nullable=False)

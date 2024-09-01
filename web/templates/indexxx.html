@@ -624,7 +624,7 @@
         $(function () {
             var since = 0;
             setInterval(function () {
-                $.ajax('{{ url_for('auth.notify') }}?since=' + since).done(
+                $.ajax('{{ url_for('auth_api.notify') }}?since=' + since).done(
                     function (notifications) {
                         for (var i = 0; i < notifications.length; i++) {
                             if (notifications[i].name == 'unread_message_count')

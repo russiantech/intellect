@@ -1,12 +1,9 @@
-import json
-import traceback
-import jsonschema
+import json, traceback, jsonschema
 from flask import Blueprint, jsonify, request
-from web.utils.uploader import uploader
 from web.models import db, Course, Lesson
 from web.utils.uploader import uploader
 from web.apis.make_slug import make_slug
-
+from web.extensions import csrf
 x_lesson_bp = Blueprint('x_lesson_api', __name__)
 
 def handle_response(message=None, alert=None, data=None):
@@ -38,6 +35,7 @@ _schemas = {
 # Creates a lesson
 @x_lesson_bp.route('/create_lesson', methods=['POST'])
 #@db_session_management
+@csrf.exempt
 def create_lesson():
     try:
 
@@ -90,6 +88,7 @@ def create_lesson():
 
 # Updates a particular lesson
 @x_lesson_bp.route('/update_lesson/<int:lesson_id>', methods=['PUT'])
+@csrf.exempt
 def update_lesson(lesson_id):
     try:
         if not db.session.is_active:
@@ -154,16 +153,15 @@ def delete_lesson(lesson_id):
 @x_lesson_bp.route('/get_lessons', methods=['GET'])
 def get_lessons():
     try:
-
         if not db.session.is_active:
-                db.session.begin()
+            db.session.begin()
 
         lessons = Lesson.query.order_by(Lesson.created.desc()).all()
         lesson_list = [{'id': lesson.id, 'course_id': lesson.course.id, 'title': lesson.title, 'desc': lesson.desc} for lesson in lessons]
         return jsonify(lesson_list)
 
 
-        """ lessons = Lesson.queryorder_by(Lesson.created.desc()).all()
+        """lessons = Lesson.queryorder_by(Lesson.created.desc()).all()
         lesson_list = [{'id': lesson.id, 'course_id': lesson.course.id, 'title': lesson.title, 'desc': lesson.desc} for lesson in lessons]
         return jsonify(lesson_list) """
 

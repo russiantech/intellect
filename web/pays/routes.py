@@ -2,20 +2,98 @@ import secrets
 import traceback, requests
 from flask_login import current_user, login_required
 from flask import current_app, jsonify, redirect, render_template, request, Blueprint, url_for
-from web.models import db, User, Payment, Course, Enrollment
+from web.models import Path, db, User, Payment, Course, Enrollment
 from web.apis.make_slug import generate_random_id
 from web.apis.errors import handle_response
 from web.extensions import csrf
+from requests.exceptions import ConnectionError, Timeout, RequestException
+
 # from dotenv import load_dotenv
 # Load environment variables from .env file
 # load_dotenv()
 
 pay = Blueprint('pay', __name__)
 
-@pay.route('/init-payment/<string:course_slug>', methods=['POST', 'GET'])
+@pay.route('/init-payment/<string:slug>', methods=['POST', 'GET'])
 @csrf.exempt
 @login_required
-def init_payment(course_slug):
+def init_payment(slug):
+    try:
+        # Check if the slug is for a course or a path
+        course = Course.query.filter(Course.slug == slug).first()
+        path = Path.query.filter(Path.slug == slug).first()
+
+        if not course and not path:
+            return handle_response(message="Course or Path Not Found", alert='alert-danger'), 404
+
+        # Determine payment details
+        if course:
+            item_title = course.title
+            amount = course.fee or 100
+        elif path:
+            item_title = path.title
+            amount = path.fee or 100
+
+        # Prepare payment payload
+        url = "https://api.flutterwave.com/v3/payments"
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {current_app.config['RAVE_SECRET_KEY']}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "tx_ref": f"-tx-techa-{generate_random_id(k=5)}",
+            "amount": amount,
+            "currency": "USD",
+            "redirect_url": f"{request.url_root}payment-callback",
+            "customer": {
+                "email": current_user.email if current_user.is_authenticated else request.args.get('email', 'hello@intellect.com'),
+                "phonenumber": current_user.phone if current_user.is_authenticated and current_user.phone else None,
+                "name": current_user.name or current_user.username if current_user.is_authenticated else None
+            },
+            "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
+            "customizations": {
+                "title": f"{item_title} . Intellect",
+                "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
+            }
+        }
+
+        response = requests.post(url, json=payload, headers=headers)
+        response_data = response.json() if response else {}
+        payment_link = response_data.get("data", {}).get("link")
+
+        if not payment_link:
+            return handle_response(message="Failed to retrieve payment link", alert='alert-danger')
+
+        # Save transaction details to the database
+        payment_data = {
+            'currency': payload['currency'],
+            'tx_amount': payload['amount'],
+            'tx_ref': payload['tx_ref'],
+            'tx_status': 'pending',
+            'provider': 'FlutterWave',
+            'tx_id': None,
+            'user_id': current_user.id,
+            'course_id': course.id if course else None,
+            'path_id': path.id if path else None
+        }
+        new_payment = Payment(**payment_data)
+        db.session.add(new_payment)
+        db.session.commit()
+
+        # Redirect the user to the payment link
+        # return redirect(payment_link)
+        return jsonify({"success": True, "message": "Payment secured by flutterwave, continue in a moment.", "redirect_url": payment_link}), 200
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 200
+
+@pay.route('/init-payment/<string:course_slug_1>', methods=['POST', 'GET'])
+@csrf.exempt
+@login_required
+def init_payment_1(course_slug):
     try:
 
         # Retrieve course information from the database
@@ -46,7 +124,7 @@ def init_payment(course_slug):
             },
             "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
             "customizations": {
-                "title": f"{course.title} . Russian Developers Program",
+                "title": f"{course.title} . Intellect",
                 "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
             }
         }
@@ -54,9 +132,9 @@ def init_payment(course_slug):
         response = requests.post(url, json=payload, headers=headers)
         response_data = response.json() if response else { }
         payment_link = response_data.get("data", {}).get("link")
-        print(payment_link, headers.get("Authorization"), response_data)
+        # print(payment_link, headers.get("Authorization"), response_data)
         if not payment_link:
-            print(payment_link, headers.get("Authorization"), response_data)
+            # print(payment_link, headers.get("Authorization"), response_data)
             return handle_response(message="Failed to retrieve payment link", alert='alert-danger')
 
         # Save transaction details to the database
@@ -81,23 +159,365 @@ def init_payment(course_slug):
         traceback.print_exc()
         return handle_response(message=str(e), alert='alert-danger'), 500
 
+def path_enrollment(user, path_id):
+    path = Path.query.get(path_id)
+    if path:
+        for course in path.courses:
+            enrollment = Enrollment(
+                user_id=user.id,
+                course_id=course.id,
+                path_id=path.id
+            )
+            db.session.add(enrollment)
+        db.session.commit()
+        
+        # Redirect to the first course in the path
+        first_course = path.courses[0]
+        return redirect(url_for('main.learn', slug=first_course.slug))
+    
+    return jsonify({"success":False,'error': f'Path {path_id} not available.'})
+
+def init_payment(slug):
+    try:
+        # Check if the slug is for a course or a path
+        course = Course.query.filter(Course.slug == slug).first()
+        path = Path.query.filter(Path.slug == slug).first()
+
+        if not course and not path:
+            return jsonify({"success": False, "error": "Course or Path Not Found"}), 404
+
+        # Determine payment details
+        if course:
+            item_title = course.title
+            amount = course.fee or 100
+        elif path:
+            item_title = path.title
+            amount = path.fee or 100
+
+        # Check if this is a subscription payment
+        subscription = request.args.get('subscription', None)  # Assuming subscription is passed as a query param
+        is_subscription = True if subscription else False
+
+        # Prepare payment payload
+        url = "https://api.flutterwave.com/v3/payments"
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {current_app.config['RAVE_SECRET_KEY']}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "tx_ref": f"-tx-techa-{generate_random_id(k=5)}",
+            "amount": amount,
+            "currency": "USD",
+            "redirect_url": f"{request.url_root}payment-callback",
+            "customer": {
+                "email": current_user.email if current_user.is_authenticated else request.args.get('email', 'hello@intellect.com'),
+                "phonenumber": current_user.phone if current_user.is_authenticated and current_user.phone else None,
+                "name": current_user.name or current_user.username if current_user.is_authenticated else None
+            },
+            "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
+            "customizations": {
+                "title": f"{item_title} . Intellect",
+                "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
+            }
+        }
+
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            response_data = response.json() if response else {}
+
+            payment_link = response_data.get("data", {}).get("link")
+            if not payment_link:
+                return jsonify({"success": False, "error": "Failed to retrieve payment link"}), 500
+
+            # Save transaction details to the database
+            payment_data = {
+                'currency': payload['currency'],
+                'tx_amount': payload['amount'],
+                'tx_ref': payload['tx_ref'],
+                'tx_status': 'pending',
+                'provider': 'FlutterWave',
+                'tx_id': None,
+                'user_id': current_user.id,
+                'course_id': course.id if course else None,
+                'path_id': path.id if path else None,
+                'is_subscription': is_subscription  # Save the subscription status
+            }
+            new_payment = Payment(**payment_data)
+            db.session.add(new_payment)
+            db.session.commit()
+
+            # Return the payment link for redirection
+            return jsonify({"success": True, "message": "Continue to pay securely..", "redirect_url": payment_link}), 200
+
+        except ConnectionError:
+            return jsonify({"success": False, "error": "No internet connection. Please check your network and try again."}), 500
+
+        except Timeout:
+            return jsonify({"success": False, "error": "The request timed out. Please try again later."}), 500
+
+        except RequestException as e:
+            return jsonify({"success": False, "error": f"An error occurred: {str(e)}"}), 500
+        
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)}), 500
+
 @pay.route('/init-support-pay', methods=['POST'])
 @csrf.exempt
 def support_pay():
+    try:
+        if request.method == "POST":
+            amount = request.form.get('amount', 0).strip()
+            email = request.form.get('email', current_user.email if current_user.is_authenticated else None)
+            subscription = request.form.get('subscription', None)
+            currency = "USD"  # Set your default currency here
+
+            if not email:
+                return jsonify({"success": False, "error": "A valid email address is required for receipt of payment"})
+
+            if not amount.isdigit() or int(amount) <= 0:
+                return jsonify({"success": False, "error": "Kindly provide an amount > 0 to continue"})
+
+            headers = {
+                "accept": "application/json",
+                "Authorization": f"Bearer {current_app.config['RAVE_SECRET_KEY']}",
+                "Content-Type": "application/json"
+            }
+
+            payload = {
+                "tx_ref": f"Techa-{generate_random_id(k=5)}",
+                "amount": int(amount),
+                "currency": currency,  # Ensure this matches the currency in the payment plan
+                "redirect_url": f"{request.url_root}payment-callback",
+                "customer": {
+                    "email": email,
+                    "phonenumber": current_user.phone if current_user.is_authenticated and current_user.phone else None,
+                    "name": current_user.name or current_user.username if current_user.is_authenticated else email
+                },
+                "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
+                "customizations": {
+                    "title": "Support . Intellect",
+                    "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
+                }
+            }
+
+            from requests.exceptions import ConnectionError, Timeout, RequestException
+            try:
+                if subscription:
+                    # Step 1: Create the payment plan with the same currency
+                    plan_payload = {
+                        "amount": payload['amount'],
+                        "name": payload['customizations']["title"],
+                        "interval": subscription,
+                        "currency": currency  # Match the currency here as well
+                    }
+                    plan_response = requests.post("https://api.flutterwave.com/v3/payment-plans", json=plan_payload, headers=headers)
+                    plan_data = plan_response.json().get('data', {})
+
+                    if plan_response.status_code != 200 or not plan_data.get('id'):
+                        return jsonify({"success": False, "error": "Failed to create payment plan"})
+
+                    # Step 2: Update the payload with the plan ID and initiate payment
+                    payload['payment_plan'] = plan_data['id']
+                    payment_response = requests.post("https://api.flutterwave.com/v3/payments", json=payload, headers=headers)
+                else:
+                    payment_response = requests.post("https://api.flutterwave.com/v3/payments", json=payload, headers=headers)
+
+                payment_data = payment_response.json() if payment_response else {}
+
+                payment_link = payment_data.get("data", {}).get("link")
+                if not payment_link:
+                    return jsonify({"success": False, "error": "Failed to retrieve payment link"})
+
+                user = User.query.filter_by(email=email).first()
+                if not user:
+                    user_data = {
+                        'username': email,
+                        'email': email,
+                    }
+                    new_user = User(**user_data)
+                    new_user.set_password(secrets.token_urlsafe(5))
+                    db.session.add(new_user)
+
+                    from sqlalchemy.exc import IntegrityError
+                    try:
+                        db.session.commit()
+                        user_id = new_user.id
+                    except IntegrityError:
+                        db.session.rollback()
+                        user = User.query.filter_by(email=email).first()
+                        user_id = user.id
+                else:
+                    user_id = user.id
+
+                payment_data = {
+                    'currency': payload['currency'],
+                    'tx_amount': payload['amount'],
+                    'tx_ref': payload['tx_ref'],
+                    'tx_status': 'pending',
+                    'provider': 'flutterwave',
+                    'tx_id': None,
+                    'user_id': user_id,
+                    'course_id': None
+                }
+                new_payment = Payment(**payment_data)
+                db.session.add(new_payment)
+                db.session.commit()
+
+                return jsonify({"success": True, "message": "Continue to pay securely..", "redirect_url": payment_link}), 200
+
+            except ConnectionError:
+                return jsonify({"success": False, "error": "No internet connection. pls check your network and try again."}), 500
+
+            except Timeout:
+                return jsonify({"success": False, "error": "The request timed out. Please try again later."}), 500
+
+            except RequestException as e:
+                return jsonify({"success": False, "error": f"An error occurred: {str(e)}"}), 500
+
+        return jsonify({"success": False, "error": "Invalid request method"}), 405
+
+    except Exception as e:
+        print(traceback.print_exc())
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@pay.route('/init-support-pay-1', methods=['POST'])
+@csrf.exempt
+def support_pay_1():
+    try:
+        if request.method == "POST":
+            # Get the amount, email, and subscription details from the form
+            amount = request.form.get('amount', 0).strip()
+            email = request.form.get('email', current_user.email if current_user.is_authenticated else None)
+            subscription = request.form.get('subscription', None)
+
+            if not email:
+                return jsonify({"success": False, "error": "A valid email address is required for receipt of payment"})
+
+            if not amount.isdigit() or int(amount) <= 0:
+                return jsonify({"success": False, "error": "Kindly provide an amount > 0 to continue"})
+
+            # Prepare request details
+            url = "https://api.flutterwave.com/v3/payments"
+            headers = {
+                "accept": "application/json",
+                "Authorization": f"Bearer {current_app.config['RAVE_SECRET_KEY']}",
+                "Content-Type": "application/json"
+            }
+
+            # Prepare payment payload
+            payload = {
+                "tx_ref": f"Techa-{generate_random_id(k=5)}",
+                "amount": int(amount),
+                "currency": "USD",
+                "redirect_url": f"{request.url_root}payment-callback",
+                "customer": {
+                    "email": email,
+                    "phonenumber": current_user.phone if current_user.is_authenticated and current_user.phone else None,
+                    "name": current_user.name or current_user.username if current_user.is_authenticated else email
+                },
+                "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
+                "customizations": {
+                    "title": "Support . Intellect",
+                    "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
+                }
+            }
+
+            from requests.exceptions import ConnectionError, Timeout, RequestException
+            try:
+                # Check if it's a subscription payment
+                if subscription:
+                    subscription_payload = {
+                        "amount": payload['amount'],
+                        "name": payload['customizations']["title"],
+                        "interval": subscription,
+                    }
+                    response = requests.post("https://api.flutterwave.com/v3/payment-plans", json=subscription_payload, headers=headers)
+                else:
+                    response = requests.post(url, json=payload, headers=headers)
+
+                response_data = response.json() if response else {}
+                print("response_data", response_data)
+                # Handle payment link or errors
+                payment_link = response_data.get("data", {}).get("link")
+                if not payment_link:
+                    return jsonify({"success": False, "error": "Failed to retrieve payment link"})
+
+                # Check if user exists with the provided email
+                user = User.query.filter_by(email=email).first()
+                if not user:
+                    # Create a new user
+                    user_data = {
+                        'username': email,
+                        'email': email,
+                    }
+                    new_user = User(**user_data)
+                    new_user.set_password(secrets.token_urlsafe(5))
+                    db.session.add(new_user)
+
+                    from sqlalchemy.exc import IntegrityError
+                    try:
+                        db.session.commit()
+                        user_id = new_user.id
+                    except IntegrityError:
+                        db.session.rollback()
+                        user = User.query.filter_by(email=email).first()
+                        user_id = user.id
+                else:
+                    user_id = user.id
+
+                # Save transaction details to the database
+                payment_data = {
+                    'currency': payload['currency'],
+                    'tx_amount': payload['amount'],
+                    'tx_ref': payload['tx_ref'],
+                    'tx_status': 'pending',
+                    'provider': 'flutterwave',
+                    'tx_id': None,
+                    'user_id': user_id,
+                    'course_id': None
+                }
+                new_payment = Payment(**payment_data)
+                db.session.add(new_payment)
+                db.session.commit()
+
+                # Redirect the user to the payment link
+                return jsonify({"success": True, "message": "Continue to pay securely..", "redirect_url": payment_link}), 200
+
+            except ConnectionError:
+                return jsonify({"success": False, "error": "No internet connection. pls check your network and try again."}), 500
+
+            except Timeout:
+                return jsonify({"success": False, "error": "The request timed out. Please try again later."}), 500
+
+            except RequestException as e:
+                return jsonify({"success": False, "error": f"An error occurred: {str(e)}"}), 500
+
+        return jsonify({"success": False, "error": "Invalid request method"}), 405
+
+    except Exception as e:
+        print(traceback.print_exc())
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@pay.route('/init-support-pay-0', methods=['POST'])
+@csrf.exempt
+def support_pay_0():
     try:
         if request.method == "POST":
             # Get the amount, email, and subscription details from the form
             # amount = int(request.form.get('amount', 0))
             amount = request.form.get('amount', 0).strip()
             email = request.form.get('email', current_user.email if current_user.is_authenticated else None)
-            subscription = request.form.get('subscription')
+            subscription = request.form.get('subscription', None)
 
             if not email:
                 return jsonify({"success": False, "error": "A valid email address is required for receipt of payment"})
 
             # if not amount or amount <= 0 :
             if not amount.isdigit() or int(amount) <= 0:
-                return jsonify({"success": False, "error": "Kindly provide an amount to continue"})
+                return jsonify({"success": False, "error": "Kindly provide an amount > 0 to continue"})
     
             # Prepare request details
             url = "https://api.flutterwave.com/v3/payments"
@@ -121,7 +541,7 @@ def support_pay():
                 },
                 "payment_options": "card, ussd, banktransfer, credit, mobilemoneyghana",
                 "customizations": {
-                    "title": "Support . Russian Developers",
+                    "title": "Support . Intellect",
                     "logo": url_for('static', filename='img/favicon/favicon.png', _external=True)
                 }
             }
@@ -129,14 +549,14 @@ def support_pay():
             from requests.exceptions import ConnectionError, Timeout, RequestException
             try:
                 # Check if it's a subscription payment
-                interval = request.form.get('interval', None)
-                if interval:
+                # interval = request.form.get('interval', None)
+                if subscription:
                     url = "https://api.flutterwave.com/v3/payment-plans"
                     payload = {
                         "amount": payload['amount'],
                         "name": payload['customizations']["title"],
-                        "interval": interval,
-                        "duration": request.form.get('duration', 48)
+                        "interval": subscription,
+                        # "duration": request.form.get('duration', 48)
                     }
                     response = requests.post(url, json=payload, headers=headers)
                 else:
@@ -147,7 +567,7 @@ def support_pay():
                 # Handle payment link or errors
                 payment_link = response_data.get("data", {}).get("link")
                 if not payment_link:
-                    print(response_data)
+                    # print(response_data)
                     return jsonify({"success": False, "error": "Failed to retrieve payment link"})
 
                 # Check if user exists with the provided email
@@ -195,7 +615,7 @@ def support_pay():
             
             except ConnectionError:
                 # Handle the case where the user is not connected to the internet
-                return jsonify({"success": False, "error": "No internet connection. Please check your network and try again."}), 500
+                return jsonify({"success": False, "error": "No internet connection. pls check your network and try again."}), 500
 
             except Timeout:
                 # Handle request timeout
@@ -211,11 +631,118 @@ def support_pay():
         print(traceback.print_exc())
         return jsonify({"success": False, "error": str(e)}), 500
 
-
 @pay.route('/payment-callback', methods=['GET'])
 @csrf.exempt
-# @login_required
 def payment_callback():
+    try:
+        status = request.args.get('status')
+        transaction_id = request.args.get('transaction_id')
+        tx_ref = request.args.get('tx_ref')
+
+        payment = Payment.query.filter(Payment.tx_ref == tx_ref).first()
+
+        if not payment:
+            return jsonify({'error': 'Payment record not found'}), 404
+
+        if status == 'successful':
+            headers = {
+                "accept": "application/json",
+                "Authorization": f"Bearer {current_app.config['RAVE_SECRET_KEY']}",
+                "Content-Type": "application/json"
+            }
+
+            verify_endpoint = f"https://api.flutterwave.com/v3/transactions/{transaction_id}/verify"
+            response = requests.get(verify_endpoint, headers=headers)
+
+            if response.status_code == 200:
+                response_data = response.json().get('data', {})
+
+                if (
+                    response_data.get('status') == "successful"
+                    and response_data.get('amount') >= payment.tx_amount
+                    and response_data.get('currency') == payment.currency
+                ):
+                    payment.tx_status = response_data['status']
+                    payment.tx_id = response_data['id']
+                    db.session.commit()
+
+                    if payment.path_id and payment.user:
+                        # Handle enrollment for all courses under the path
+                        for course in payment.path.courses:
+                            # Check if the user is already enrolled in the course
+                            existing_enrollment = Enrollment.query.filter_by(
+                                user_id=payment.user.id,
+                                course_id=course.id,
+                                deleted=False
+                            ).first()
+
+                            if not existing_enrollment:
+                                enrollment = Enrollment(
+                                    user=payment.user, user_id=payment.user.id,
+                                    course=course, course_id=course.id
+                                )
+                                db.session.add(enrollment)
+                                db.session.commit()
+
+                        return redirect(url_for('main.learn', slug=payment.path.courses[0].slug))
+
+                    elif payment.course_id and payment.user:
+                        # Check if the user is already enrolled in the course
+                        existing_enrollment = Enrollment.query.filter_by(
+                                user_id=payment.user.id,
+                                course_id=course.id,
+                                deleted=False
+                            ).first()
+                        
+                        if not existing_enrollment:
+                            enrollment = Enrollment(
+                                user=payment.user, user_id=payment.user.id,
+                                course=payment.course, course_id=payment.course.id
+                            )
+                            db.session.add(enrollment)
+                            db.session.commit()
+                            return redirect(url_for('main.learn', slug=payment.course.slug))
+                        return redirect(url_for('main.learn', slug=payment.course.slug))
+                    else:
+                        return render_template('incs/payment_successful.html', data=response_data), 200
+                else:
+                    return jsonify({'success':False, 'error': 'Transaction verification failed', 'data': response_data}), 400
+            else:
+                return jsonify({'success':False, 'error': 'Failed to verify transaction'}), 400
+
+        elif status == 'cancelled':
+            payment.tx_status = status
+            db.session.commit()
+            if payment.course_id:
+                return redirect(url_for('main.prev', slug=payment.course.slug))
+            else:
+                return jsonify({'success':False, 'error': 'Transaction was cancelled'})
+
+        else:
+            return jsonify({'success':False, 'error': 'Invalid transaction status'}), 400
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'success':False, 'error': str(e)}), 500
+
+
+@pay.route("/payment-successful")
+def success():
+    support_amount = "30, 40, 50, 70, 80, 90, 100, 200, 300, 400, 500"
+    support_interval = "daily, weekly, monthly, quarterly, yearly"
+    context = {
+        "title" :'Us . Intellect',
+        "support_amount" : support_amount, 
+        "support_interval" : support_interval, 
+    }
+    return render_template('incs/payment_successful.html', **context)
+
+
+""" ============Backups==================== """
+@pay.route('/payment-callback-0', methods=['GET'])
+@csrf.exempt
+# @login_required
+def payment_callback_0():
     try:
         # Extract data from query parameters
         status = request.args.get('status')
@@ -252,15 +779,28 @@ def payment_callback():
                     payment.tx_id = response_data['id']
                     db.session.commit()
 
-                    if payment.course_id:
+                    if payment.course_id and payment.user:
                         # If the payment is related to a course, enroll the user
                         enrollment = Enrollment(
-                            user=current_user, user_id=current_user.id, 
+                            user=payment.user, user_id=payment.user.id, 
                             course=payment.course, course_id=payment.course.id
                         )
                         db.session.add(enrollment)
                         db.session.commit()
                         return redirect(url_for('main.learn', slug=payment.course.slug))
+
+                    elif payment.path_id and payment.user:
+                        # print(x.title for x in payment.path.courses)
+                        for course in payment.path.courses:
+                            enrollment = Enrollment(
+                            user=payment.user, user_id=payment.user.id, 
+                            course=course, course_id=course.id
+                            )
+                            db.session.add(enrollment)
+                            db.session.commit()
+                        # path_enrollment(current_user, payment.path_id)
+                        # return f"{[x.title for x in payment.path.courses]}"
+                        return redirect(url_for('main.learn', slug=payment.path.courses[0].slug))
 
                     else:
                         # Handle non-course related transactions
@@ -285,20 +825,6 @@ def payment_callback():
     except Exception as e:
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
-
-@pay.route("/payment-successful")
-def success():
-    support_amount = "30, 40, 50, 70, 80, 90, 100, 200, 300, 400, 500"
-    support_interval = "daily, weekly, monthly, quarterly, yearly"
-    context = {
-        "title" :'Us . Intellect',
-        "support_amount" : support_amount, 
-        "support_interval" : support_interval, 
-    }
-    return render_template('incs/payment_successful.html', **context)
-
-
-""" ============Backups==================== """
 
 @pay.route('/init-support-pay2', methods=['POST'])
 @csrf.exempt

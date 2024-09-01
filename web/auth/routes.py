@@ -6,16 +6,16 @@ from web.models import db, User, Notification
 
 from web.utils import save_image, email, time_ago, ip_adrs
 from web.auth.forms import (SignupForm, SigninForm, UpdateMeForm, ForgotForm, ResetForm)
+from web.extensions import csrf, bcrypt
 
-auth = Blueprint('auth', __name__)
-
+auth_bp = Blueprint('auth_api', __name__)
 
 #oauth implimentations
 import secrets, requests
 from urllib.parse import urlencode
 from web.utils.providers import oauth2providers
 # This route initializes authentication
-@auth.route('/authorize/<provider>')
+@auth_bp.route('/authorize/<provider>')
 def oauth2_authorize(provider):
 
     if not current_user.is_anonymous:
@@ -32,7 +32,7 @@ def oauth2_authorize(provider):
     # Create a query string with all the required OAuth2 parameters
     qs = urlencode({
         'client_id': provider_data['client_id'],
-        'redirect_uri': url_for('auth.oauth2_callback', provider=provider, _external=True),
+        'redirect_uri': url_for('auth_api.oauth2_callback', provider=provider, _external=True),
         'response_type': 'code',
         'scope': ' '.join(provider_data['scopes']),  # Scope: info or data you want, e.g., email, photo, etc.
         'state': session['oauth2_state'],
@@ -42,7 +42,7 @@ def oauth2_authorize(provider):
     return redirect(provider_data['authorize_url'] + '?' + qs)
 
 
-@auth.route('/callback/<provider>')
+@auth_bp.route('/callback/<provider>')
 # @db_session_management
 def oauth2_callback(provider):
     if not current_user.is_anonymous:
@@ -74,7 +74,7 @@ def oauth2_callback(provider):
         'client_secret': provider_data['client_secret'],
         'code': request.args['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': url_for('auth.oauth2_callback', provider=provider, _external=True),
+        'redirect_uri': url_for('auth_api.oauth2_callback', provider=provider, _external=True),
         }, 
     
     headers={'Accept': 'application/json'})
@@ -114,7 +114,7 @@ def oauth2_callback(provider):
 
     return redirect(url_for('main.index'))
 
-@auth.route("/signup", methods=['GET', 'POST'])
+@auth_bp.route("/signup", methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -126,11 +126,196 @@ def signup():
         db.session.commit()
         email.confirm_email(user) if user else flash('Undefined User.', 'info')
         flash('Your Account Has Been Created! You Are Now Able To Log In', 'success')
-        return redirect(url_for('auth.signin'))
+        return redirect(url_for('auth_api.signin'))
     return render_template('auth/signup.html', title='Sign-up', form=form)
 
+""" ======================================================================================== """
+import sqlalchemy as sa, traceback
+from jsonschema import validate, ValidationError
 
-@auth.route("/signin", methods=['GET', 'POST'])
+#oauth implimentations
+auth_schema = {
+    "type": "object",
+    "properties": {
+        "username": {"type": "string"},
+        "password": {"type": "string"},
+        "remember": {"type": "boolean"}
+    },
+    "required": ["username", "password"]
+}
+
+signup_schema = {
+    "type": "object",
+    "properties": {
+        "username": {"type": "string"},
+        "email": {"type": "string", "format": "email"},
+        "phone": {"type": "string"},
+        "password": {"type": "string"}
+    },
+    "required": ["username", "email", "password"]
+}
+
+update_user_schema = {
+    "type": "object",
+    "properties": {
+        "user_id": {"type": "number"},
+        "username": {"type": "string"},
+        "email": {"type": "string", "format": "email"},
+        "password": {"type": "string"},
+        "withdrawal_password": {"type": "string"},
+        "phone": {"type": "string"},
+        "name": {"type": "string"},
+        "gender": {"type": "string"},
+        "membership": {"type": "string"},
+        "balance": {"type": "number"},
+        "about": {"type": "string"},
+        "verified": {"type": "boolean"},
+        "ip": {"type": "string"},
+        "image": {"type": ["string", "null"]}
+    },
+    "required": ["username", "email", "password"]
+}
+
+import re
+
+# Define regular expressions for validation
+USERNAME_REGEX = r'^[A-Za-z0-9_]+$'  # Alphanumeric characters and underscores only
+PHONE_REGEX = r'^\+?1?\d{9,15}$'  # International format, e.g., +1234567890 or 10-15 digits
+EMAIL_REGEX = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'  # Basic email format
+
+@auth_bp.route("/user", methods=['POST'])
+@csrf.exempt
+def create_user():
+    
+    if current_user.is_authenticated:
+        return jsonify({"success": False, "message": "Already authenticated", "redirect": url_for('main.index')})
+
+    if request.content_type != 'application/json':
+        return jsonify({"success": False, "message": "Content-Type must be application/json"})
+
+    data = request.get_json()
+
+    # Validate the data against the schema
+    try:
+        validate(instance=data, schema=signup_schema)
+    except ValidationError as e:
+        return jsonify({"success": False, "error": e.message})
+
+    # Ensure that no fields are empty
+    if not all(data.get(key) for key in ('username', 'email', 'password', 'phone')):
+        return jsonify({"success": False, "error": "Required field is empty"})
+
+    # Perform additional validations
+
+    # Validate username (no spaces or special characters)
+    if not re.match(USERNAME_REGEX, data['username']):
+        return jsonify({"success": False, "error": "Invalid username. Only alphanumeric characters and underscores are allowed."})
+
+    # Validate email
+    if not re.match(EMAIL_REGEX, data['email']):
+        return jsonify({"success": False, "error": "Invalid email format."})
+
+    # Validate phone number
+    if not re.match(PHONE_REGEX, data['phone']):
+        return jsonify({"success": False, "error": "Invalid phone number format. Please provide a valid phone number."})
+
+    # Check for existing user with the same username, email, or phone number
+    if db.session.scalar(sa.select(User).where(User.username == data['username'])):
+        return jsonify({"success": False, "error": "That username is taken. Please use a different username."})
+
+    if db.session.scalar(sa.select(User).where(User.email == data['email'])):
+        return jsonify({"success": False, "error": "That email is used. Please use a different email address."})
+
+    if db.session.scalar(sa.select(User).where(User.phone == data['phone'])):
+        return jsonify({"success": False, "error": "That phone number is used. Please use a different phone number."})
+
+    try:
+        # Create and save the new user
+        user = User(
+            username=data['username'],
+            email=data['email'],
+            phone=data['phone'],
+            ip=ip_adrs.user_ip()
+        )
+        user.set_password(data['password'])
+        db.session.add(user)
+        db.session.commit()
+
+        # Send confirmation email
+        # Generate confirmation token
+        # token = user.make_token(token_type="verify_email")
+        # Send confirmation email with both token and email
+        # confirm_url = url_for('auth_api.confirm', token=token, email=user.email, _external=True)
+        # email.verify_email(user, confirm_url)
+        email.verify_email(user)
+
+        return jsonify({"success": True, "message": "Registration Successful", "redirect": url_for('auth_api.signin')})
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"success": False, "error": str(e)})
+
+@auth_bp.route("/auth", methods=['POST'])
+@csrf.exempt
+def auth():
+    try:
+
+        if  current_user.is_authenticated:
+            return jsonify({"success": False, "error": "Already authenticated", "redirect": url_for('main.index')})
+
+        # Check if the request content type is application/json
+        if request.content_type != 'application/json':
+            return jsonify({"success": False, "error": "Content-Type must be application/json"})
+
+        # Parse JSON data from the request
+        data = request.get_json()
+        
+        # Ensure that no fields are empty
+        if not all(data.get(key) for key in ('username', 'password')):
+            # print(data)
+            return jsonify({"success": False, "error": f"All fields are required and must not be empty."})
+
+        # Validate the data against the schema
+        try:
+            validate(instance=data, schema=auth_schema)
+        except ValidationError as e:
+            return jsonify({"success": False, "error": e})
+
+        # Authentication logic
+        user = User.query.filter(
+            sa.or_(
+                User.email == data['username'],
+                User.phone == data['username'],
+                User.username == data['username']
+            )
+        ).first()
+
+        if user and bcrypt.check_password_hash(user.password, data['password']):
+            if user.password.startswith("$2b$"):  # bcrypt hash prefix
+                user.set_password(data['password'])
+                db.session.commit()
+
+            user.online = True
+            user.last_seen = datetime.utcnow()
+            user.ip = ip_adrs.user_ip()
+            db.session.commit()
+            login_user(user, remember=data.get('remember', False))
+            return jsonify({"success": True, "message": "Authentication Successful", "redirect": url_for('main.index')})
+        else:
+            return jsonify({"success": False, "error": "Invalid Authentication"})
+
+    except Exception as e:
+        print(traceback.print_exc())
+        return jsonify({'success': False, 'error': str(e)})
+
+@auth_bp.route("/signin_0", methods=['GET', 'POST'])
+def signin_0():
+    # form = SigninForm()
+    return render_template('auth/signin_0.html')
+
+""" ==================================================================== """
+
+@auth_bp.route("/signin", methods=['GET', 'POST'])
 def signin():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -155,7 +340,7 @@ def signin():
             flash('Invalid Login Details. Try Again', 'danger')
     return render_template('auth/signin.html', title='Sign In', form=form)
 
-@auth.route("/signout")
+@auth_bp.route("/signout")
 @login_required
 def signout():
     current_user.online = False
@@ -163,7 +348,7 @@ def signout():
     db.session.commit()
     return redirect(url_for('main.index'))
 
-@auth.route("/<string:username>/update", methods=['GET', 'POST'])
+@auth_bp.route("/<string:username>/update", methods=['GET', 'POST'])
 @login_required
 def update(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -199,9 +384,9 @@ def update(username):
             form.time.data = user.duration or 0 #default
             #form.socials.data = user.socials
         return render_template('auth/update.html', photo=user.image, form=form)
-    return redirect(url_for('auth.update', username=current_user.username))
+    return redirect(url_for('auth_api.update', username=current_user.username))
 
-@auth.route("/forgot", methods=['GET', 'POST'])
+@auth_bp.route("/forgot", methods=['GET', 'POST'])
 def forgot():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -210,13 +395,13 @@ def forgot():
         user = User.query.filter_by(email=form.email.data).first()
         email.reset_email(user) if user else  None
         flash('An email has been sent with instructions to reset your password.', 'info')
-        return redirect(url_for('auth.signin'))
+        return redirect(url_for('auth_api.signin'))
     elif request.method == 'GET':
         form.email.data = request.args.get('e')
     return render_template('auth/forgot.html', form=form)
 
 #->for unverified-users, notice use of 'POST' instead of 'post' before it works
-@auth.route("/unverified", methods=['post', 'get'])     
+@auth_bp.route("/unverified", methods=['post', 'get'])     
 @login_required
 def unverified():
     if request.method == 'POST':
@@ -225,7 +410,70 @@ def unverified():
     return render_template('auth/unverified.html')
 
 #->for both verify/reset/forgot etc tokens
-@auth.route("/confirm/<token>/<email>", methods=['GET', 'POST'])
+@auth_bp.route("/verify-email/<token>/<email>", methods=['GET', 'POST'])
+def verify_email(token: str, email: str):
+
+    if current_user.is_authenticated:
+        # return redirect(url_for('main.index'))
+        pass
+    
+    # Ensure token_type is present
+    if not token or not email:
+        print('<token & email> not found', 'warning')
+        return redirect(url_for('main.index'))
+    
+    user = User.query.filter_by(email=email).first()
+    # print(user)
+    
+    if not user:
+        flash('User not found', 'warning')
+        return redirect(url_for('main.index'))
+    
+    user = User.check_token(user, token)
+    # print(user)
+    # print(f"user.token_type2 = ", user.token_type)
+    if not user:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('main.index'))
+
+    # Ensure token_type is present
+    if not hasattr(user, 'token_type'):
+        flash('Token type not found', 'warning')
+        print('Token type not found', 'warning')
+        # return redirect(url_for('main.index'))
+        return f"{user}"
+    print(f"user.token_type = ", user.token_type)
+    if user.token_type == 'verify_email':
+        if user.verified:
+            flash(f'You have already verified your email address, {user.username}.', 'success')
+        else:
+            user.verified = True
+            db.session.commit()
+            flash(f'Email address confirmed for {user.username}.', 'success')
+        return redirect(url_for('auth_api.signin'))
+    
+    elif user.token_type == 'reset_password':
+        form = ResetForm()
+        print(f"form.password.data=", form.password.data)
+        if form.validate_on_submit():
+            try:
+                new_password = form.password.data
+                user.set_password(new_password)
+                db.session.commit()
+                flash('Your password has been updated!', 'success')
+                return redirect(url_for('auth_api.signin'))
+            except ValueError as e:
+                flash(str(e), 'danger')
+
+            print(f"user.password =", user.password)
+            return redirect(url_for('auth_api.signin'))
+        
+        return render_template('auth/reset_password.html', form=form, user=user)
+    
+    return redirect(url_for('main.index'))
+
+#->for both verify/reset/forgot etc tokens
+@auth_bp.route("/confirm/<token>/<email>", methods=['GET', 'POST'])
 def confirm(token: str, email: str):
 
     if current_user.is_authenticated:
@@ -264,7 +512,7 @@ def confirm(token: str, email: str):
             user.verified = True
             db.session.commit()
             flash(f'Email address confirmed for {user.username}.', 'success')
-        return redirect(url_for('auth.signin'))
+        return redirect(url_for('auth_api.signin'))
     
     elif user.token_type == 'reset_password':
         form = ResetForm()
@@ -275,18 +523,18 @@ def confirm(token: str, email: str):
                 user.set_password(new_password)
                 db.session.commit()
                 flash('Your password has been updated!', 'success')
-                return redirect(url_for('auth.signin'))
+                return redirect(url_for('auth_api.signin'))
             except ValueError as e:
                 flash(str(e), 'danger')
 
             print(f"user.password =", user.password)
-            return redirect(url_for('auth.signin'))
+            return redirect(url_for('auth_api.signin'))
         
         return render_template('auth/reset_password.html', form=form, user=user)
     
     return redirect(url_for('main.index'))
 
-@auth.route('/notify')
+@auth_bp.route('/notify')
 @login_required
 def notify():
     since = request.args.get('since', 0.0, type=float)

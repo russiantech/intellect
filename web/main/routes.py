@@ -147,14 +147,16 @@ def prev_(slug):
 @main.route('/learn_/<string:slug>')
 def learn_(slug):
     course = Course.query.filter_by(slug=slug).first_or_404()
-    _chapt = [c for c in course.lesson]
-    _topiq = [ t for t in course.topic]
+    _chapt = [c for c in course.lessons]
+    _topiq = [ t for t in course.topics]
     context = {
         '_chapt': _chapt, '_topic':_topiq,
         'data': course,
     }
 
-    return render_template("courses/learn3.html", **context)
+    # return render_template("courses/learn3.html", **context)
+    return render_template("courses/material.html", course=course, **context)
+    # return render_template("courses/prevv.html", course=course, **context)
 
 @main.route("/blog")
 def blog():
@@ -239,7 +241,7 @@ def search():
     r = [
     {
         "title": "settings",
-        "url": f"/{current_user.username}/update" if current_user.is_authenticated else url_for('auth.signin')
+        "url": f"/{current_user.username}/update" if current_user.is_authenticated else url_for('auth_api.signin')
     },
     {
         "title": "dashboards > elearning",
@@ -268,7 +270,7 @@ def prev(slug):
 
 @main.route('/learn/<string:slug>')
 @login_required
-@enrollment_required
+# @enrollment_required
 def learn(slug):
     return render_template("xcourse/learn.html")
 
@@ -302,5 +304,12 @@ def x_insert_topic():
 def x_update_topic():
     return render_template("xcourse/x_update_topic.html")
 
+# Path insert interface
+@main.route('/x-insert/path')
+def x_insert_path():
+    return render_template("xcourse/x_insert_path.html")
 
-
+# Topic update interface
+@main.route('/x-update/path')
+def x_update_path():
+    return render_template("xcourse/x_update_path.html")

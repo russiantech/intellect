@@ -2,9 +2,9 @@
 {% block title %}Path Info . Russian{% endblock title %}
 {% block content %}
 <main>
-    <div class="container">
+    <div id="path-container-path-of-page" class="container">
         <div class="page-title-container">
-            <div class="row">
+            <div class="row"> 
                 <div class="col-12 col-sm-6">
                     <h1 class="mb-0 pb-0 display-4" id="title">Path Detail</h1>
                     <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
@@ -14,19 +14,26 @@
                         </ul>
                     </nav>
                 </div>
+                
                 <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
-                    <button type="button" class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                            class="acorn-icons acorn-icons-chevron-right undefined">
-                            <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
-                        </svg>
-                        <span>Start</span>
-                    </button>
+                    <div class="m2" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="" 
+                    data-bs-content="Select this if you need an instructor to work along with you. | Click to Select/Deselect" 
+                    data-bs-original-title="Dedicated Instructor">
+                        <input type="checkbox" class="btn-check" disabled id="instructorled">
+                        <label class="btn btn-outline-primary" for="instructorled">Instructor Led</label>
+                    </div>
+                    <div class="m-1">.</div>
+                    <a id="start_now" href="./" class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                        <i data-acorn-icon="chevron-right"></i>
+                        <span>Start Now . $<em id="pathfee">0</em> </span>
+                    </a>
+
                 </div>
+
             </div>
         </div>
-        <div class="row g-5">
+
+        <div id="path-info-template" class="row g-5">
             <div class="col-xl-4 col-xxl-3">
                 <h2 class="small-title">Summary</h2>
                 <div class="card">
@@ -34,11 +41,10 @@
                         <div class="text-center">
                             <img src="{{ url_for('static', filename='img/illustration/icon-performance.webp ')}}" class="theme-filter" alt="performance">
                             <div class="d-flex flex-column sh-5">
-                                <a href="#" class="heading stretched-link">Becoming a Head Chef</a>
+                                <a href="#" id="path-heading" class="heading stretched-link">Russian Developers</a>
                             </div>
                         </div>
-                        <div class="text-muted mb-4">Sweet roll apple pie tiramisu bonbon sugar plum muffin sesame snaps
-                            chocolate. Lollipop halvah powder.</div>
+                        <div id="path-desc" class="text-muted mb-4">Techa powers business(es) & empowers people.</div>
                         <div class="row g-0 align-items-center mb-1">
                             <div class="col-auto">
                                 <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
@@ -62,7 +68,7 @@
                                         <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Courses</div>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="sh-4 d-flex align-items-center text-alternate">8</div>
+                                        <div id="courses_total" class="sh-4 d-flex align-items-center text-alternate">8</div>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +91,7 @@
                                         <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Quizes</div>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="sh-4 d-flex align-items-center text-alternate">5</div>
+                                        <div id="quizzes_total" class="sh-4 d-flex align-items-center text-alternate">5</div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +113,7 @@
                                         <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time</div>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="sh-4 d-flex align-items-center text-alternate">32h</div>
+                                        <div id="courses_time_total" class="sh-4 d-flex align-items-center text-alternate">32h</div>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +178,7 @@
                                         <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level</div>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="sh-4 d-flex align-items-center text-alternate">Novice</div>
+                                        <div id="path_level" class="sh-4 d-flex align-items-center text-alternate">Novice</div>
                                     </div>
                                 </div>
                             </div>
@@ -182,8 +188,8 @@
             </div>
             <div class="col-xl-8 col-xxl-9">
                 <h2 class="small-title">Courses</h2>
-                <div class="row g-3 mb-5">
-                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                <div id="path-of-page-courses-container" class="row g-3 mb-5">
+                    <div id="path-page-course-template" class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
                         <div class="card">
                             <div class="row g-0 h-auto sh-sm-19">
                                 <div class="col-12 col-sm-auto h-100">
@@ -198,7 +204,8 @@
                                             Advanced React Web Developer Course
                                         </a>
                                         <div class="br-wrapper br-theme-cs-icon d-inline-block">
-                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                            <div class="br-wrapper">
+                                                <!-- <select class="rating" name="rating"
                                                     autocomplete="off" data-readonly="true" data-initial-rating="5"
                                                     style="display: none;">
                                                     <option value="1">1</option>
@@ -206,27 +213,26 @@
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
                                                     <option value="5">5</option>
-                                                </select>
-                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
-                                                        data-rating-text="1" class="br-selected"></a><a href="#"
-                                                        data-rating-value="2" data-rating-text="2"
-                                                        class="br-selected"></a><a href="#" data-rating-value="3"
-                                                        data-rating-text="3" class="br-selected"></a><a href="#"
-                                                        data-rating-value="4" data-rating-text="4"
-                                                        class="br-selected"></a><a href="#" data-rating-value="5"
-                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                </select> -->
+                                                <div class="br-widget br-readonly">
+                                                    <a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a>
                                                     <div class="br-current-rating">5</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-text mb-0">
-                                            <div>$ 27.50</div>
+                                        <div class="card-text mb-0 d-flex">
+                                           <span>$ </span> <div id="course_fee">27.50</div> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
                         <div class="card">
                             <div class="row g-0 h-auto sh-sm-19">
@@ -628,7 +634,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-auto">
-                                                <div class="sh-4 d-flex align-items-center text-alternate">Beginner
+                                                <div id="path_level" class="sh-4 d-flex align-items-center text-alternate">Beginner
                                                 </div>
                                             </div>
                                         </div>
@@ -949,9 +955,290 @@
                 </div>
             </div>
         </div>
+
     </div>
 </main>
-{% block  page_js %} 
-<script src="{{ url_for('static', filename='js/pages/path.detail.js')}}"></script>
-{% endblock page_js %}
+
 {% endblock content %}
+
+{% block  page_js %} 
+
+<script src="{{ url_for('static', filename='js/pages/path.detail.js')}}"></script>
+
+<script>
+/*     // ================================ 
+    // for path fetch & display.
+     // Extract slug from the URL path
+    var pathName = window.location.pathname;
+    var slug = pathName.split('/').pop(); // Get the last segment of the path
+
+    $.ajax({
+        url: '/get_path/' + slug, // Using the extracted slug in the URL
+        type: 'GET',
+        success: function (response) {
+            var container_path_of_page = $('#path-of-page-courses-container');
+            var template = container_path_of_page.find('#path-page-course-template');
+
+            if (response && Array.isArray(response.courses) && response.courses.length > 0) {
+
+                //let payUrl = `${baseUrl}/init-payment/${parseInt(response.slug) || 100 }`;
+                let payUrl = `${baseUrl}/init-payment/${response.slug || '-' }`;
+                let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+                if(response.is_enrolled === true && response.slug ){
+
+                $("#start_now").attr("href", learnUrl).text(`Continue Learning`);
+
+                }else{
+                    $("#start_now").attr("href", payUrl);
+                }
+
+                if(response.title){
+                    // Set the page title dynamically
+                    document.title = `${response.title} . Russian Developers`;
+                }
+
+                $("#path-heading").text(response.title);
+                $("#path-desc").text(response.desc);
+                $("#pathfee").text(response.fee);
+                $("#courses_total").text(response.courses_total);
+                $("#quizzes_total").text(response.quizzes_total);
+                $("#courses_time_total").text(`${response.courses_time_total} hrs`);
+                // alert(JSON.stringify(response.courses))
+                var pathElements = response.courses.map(function (course) {
+                    // console.log("course:", course);
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', `${baseUrl}/prev/` + course.slug);
+                    clone.find('img').attr('src', `${baseUrl}/static/img/course/` + (course.image || "graduate.png") );
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    clone.find('#course_fee').text(course.fee);
+                    // clone.find('.text-muted').text(course.progress + '%');
+                    // clone.find('.progress-bar').css('width', course.progress + '%');
+                    return clone;
+
+                });
+
+                container_path_of_page.empty().append(pathElements);
+
+            } else {
+                // If no learning progress, show the placeholder experience.
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "welcome",
+                        // image: "welcome.webp",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        // image: "track.webp",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Your tech carreer begins with intellect. Get professional with us today.."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function (course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching learning progress:', error);
+        }
+    });
+    
+    // Handle form submission
+document.getElementById('start_now').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // add spinner
+    const submitButton = this;
+    submitButton.disabled = true; // Disable the button
+    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+    // const form = document.getElementById('payment-form');
+    // const formData = new FormData(form);
+    // // Log form data entries
+    // /* for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    // }
+    // console.log(form.action); 
+
+    fetch( $("#start_now").attr("href"), {
+        method: 'POST',
+        // body: formData
+    })
+    .then( response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-success"> ${data.message}</div>`;
+            window.location.href = data.redirect_url; // Redirect on success
+        } else {
+            // alert(data.error || 'Something went wrong. Please try again.');
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-danger"> -> ${data.error}</div>`;
+        }
+    })
+
+    .catch(error => console.error('Error:', error))
+
+    .finally(() => {
+        submitButton.disabled = false; // Re-enable the button
+        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+    });
+});
+ */
+/* ================================ */
+// Fetch and display path details
+$(document).ready(function() {
+    // Extract slug from the URL path
+    var pathName = window.location.pathname;
+    var slug = pathName.split('/').pop(); // Get the last segment of the path
+
+    $.ajax({
+        url: '/get_path/' + slug, // Using the extracted slug in the URL
+        type: 'GET',
+        success: function(response) {
+            var container_path_of_page = $('#path-of-page-courses-container');
+            var template = container_path_of_page.find('#path-page-course-template');
+
+            if (response && Array.isArray(response.courses) && response.courses.length > 0) {
+
+                let payUrl = `${baseUrl}/init-payment/${response.slug || '-' }`;
+                let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+                if(response.is_enrolled === true && response.slug) {
+                    $("#start_now").attr("href", learnUrl).text(`Continue Learning`);
+                } else {
+                    // $("#start_now").attr("href", payUrl);
+
+                    // Handle form submission within this block
+                    document.getElementById('start_now').addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent default action
+
+                        const submitButton = this;
+                        submitButton.disabled = true; // Disable the button
+                        submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                        fetch(payUrl, {
+                            method: 'POST',
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // console.log(JSON.stringify(data));
+                            if (data.success) {
+                                response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                                // window.location.href = data.redirect_url; // Redirect on success
+                            } else {
+                                response_modal(data.error || 'Unsuccessful');
+                             }
+
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }   
+                        })
+                        .catch(error => console.error('Error:', error))
+                        .finally(() => {
+                            submitButton.disabled = false; // Re-enable the button
+                            submitButton.innerHTML = `Start Now . $${response.fee}`; // Reset button text
+                        });
+                    });
+                }
+
+                if(response.title) {
+                    // Set the page title dynamically
+                    document.title = `${response.title} . Russian Developers`;
+                }
+
+                $("#path-heading").text(response.title);
+                $("#path-desc").text(response.desc);
+                $("#pathfee").text(response.fee);
+                $("#path_level").text(`intermediate`);
+                $("#courses_total").text(response.courses_total);
+                $("#quizzes_total").text(response.quizzes_total);
+                $("#courses_time_total").text(`${response.courses_time_total} hrs`);
+
+                var pathElements = response.courses.map(function(course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', `${baseUrl}/prev/` + course.slug);
+                    clone.find('img').attr('src', `${baseUrl}/static/img/course/` + (course.image || "graduate.png"));
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    clone.find('#course_fee').text(course.fee);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+
+            } else {
+                // If no courses available, show the placeholder content
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "welcome",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "explore-courses",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "explore-courses",
+                        image: "graduate.png",
+                        desc: "Your tech career begins with intellect. Get professional with us today."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function(course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching path details:', error);
+        }
+    });
+});
+
+</script>
+{% endblock page_js %}

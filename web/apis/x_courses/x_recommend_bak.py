@@ -28,7 +28,7 @@ def get_openai_recommendations(interactions):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=messages,
-        max_tokens=150
+        max_tokens=200
     )
     
     recommendations = response.choices[0].message
@@ -57,7 +57,7 @@ def get_recommendations():
     print("interaction", interaction)
     
     # Step 1: Get recommendations from OpenAI
-    openai_recommendations = get_openai_recommendations(interaction)
+    openai_recommendations = get_openai_recommendations("what is coding")
 
     # Step 2: Fetch matching courses from the database
     recommended_courses = []

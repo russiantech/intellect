@@ -1,14 +1,11 @@
 import traceback
-import jsonschema, json
-from flask import Blueprint, jsonify, request, url_for, abort
+import jsonschema
+from flask import Blueprint, jsonify, request, abort
 from web.models import db, User, Enrollment, Course
 from web.apis.auth import token_auth
 from web.apis.errors import bad_request
-from web.utils.save_image import uploader
-from web.utils import notifyer, ip_adrs
+from web.utils import notifyer
 from web.extensions import db  # Import necessary extensions
-from web.main.forms import EnrollmentForm
-from web.utils.decorators import db_session_management
 
 xenrol_bp = Blueprint('xenrol_api', __name__)
 mandatory_dt = ['name', 'email', 'phone', 'course'] #optional-> comment

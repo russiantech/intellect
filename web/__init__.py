@@ -11,21 +11,21 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
 
     # Debugging statements
-    print(f"Configuring app for: {config_name}")
+    # print(f"Configuring app for: {config_name}")
 
     confiq_app(app, config_name) #configure app, it needs the Flask instance to work
 
     init_ext(app) #initialize extensions. imported from extensions.py, also needs a configured Flask instance 
     
     # Debugging statements
-    print("App configured and extensions initialized")
+    # print("App configured and extensions initialized")
     
     app.context_processor(make_available) #make some-data available through-out
     
     #//blue-prints
     
-    from web.auth.routes import auth
-    app.register_blueprint(auth)
+    from web.auth.routes import auth_bp
+    app.register_blueprint(auth_bp)
     
     from web.main.routes import main
     app.register_blueprint(main)
@@ -58,9 +58,12 @@ def create_app(config_name):
 
     from web.apis.x_courses.x_topic import x_topic_bp
     app.register_blueprint(x_topic_bp)
+
+    from web.apis.x_courses.x_path import x_path_bp
+    app.register_blueprint(x_path_bp)
     
     from slugify import slugify
-    from web.utils import time_ago, user_role, entry
+    from web.utils import time_ago, user_role
     from nltk.tokenize import sent_tokenize
 
     app.jinja_env.filters['time_ago'] = time_ago.timeAgo

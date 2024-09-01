@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} {{course.title}} Preview {% endblock title %}
+{% block title %} {{course.title}} . Intellect {% endblock title %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}" />
@@ -585,5 +585,40 @@
 
 <script>
     trackView()
+
+    // Handle form submission within this block
+    document.getElementById('start_now').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action
+
+        const submitButton = this;
+        submitButton.disabled = true; // Disable the button
+        submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+        fetch(payUrl, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            // console.log(response)
+            console.log(JSON.stringify(data));
+            
+            if (data.success) {
+                response_modal(data.message || 'Successful');
+                window.location.href = data.redirect_url; // Redirect on success
+            } else {
+                response_modal(response.error || 'Unsuccessful');
+                }
+
+            if (data.redirect) {
+                window.location.href = response.redirect;
+            }   
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            submitButton.disabled = false; // Re-enable the button
+            submitButton.innerHTML = 'Submit Payment'; // Reset button text
+        });
+    });
+
 </script>
 {% endblock page_js %}

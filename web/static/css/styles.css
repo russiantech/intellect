@@ -16021,6 +16021,7 @@ html[data-footer=true] body {
 html[data-footer=true] #root>footer {
     border-top: 1px solid var(--separator);
     position: absolute;
+    /* background: var(--background-theme); */
     bottom: 0;
     width: 100%;
     height: var(--footer-size);

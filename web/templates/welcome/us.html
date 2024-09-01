@@ -253,9 +253,7 @@
                                 </div>
                                 <div class="text-alternate">
                                     Experts are here. Remember #Russian developers!
-                                    We innovate to meet our clients needs & demands.
-                                    $6 thousand raised from quality courses & contents in such a short time
-                                    frame. We're Trusted.
+                                    We innovate to meet our clients needs & demands, from quality courses and software products. We're Trusted.
                                 </div>
                             </div>
                         </div>
@@ -504,25 +502,30 @@
                                     <label class="form-label d-block">Select subscription</label>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" name="subscription" type="radio"
-                                            id="subscription" value="once">
-                                        <label class="form-check-label" for="subscription">one time</label>
+                                            id="subscription" value="hourly">
+                                        <label class="form-check-label" for="subscription">hourly</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="daily">
+                                        <label class="form-check-label" for="subscription">daily</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" name="subscription" type="radio"
-                                            id="subscription" value="week">
+                                            id="subscription" value="weekly">
                                         <label class="form-check-label" for="subscription">weekly</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" name="subscription" type="radio"
-                                            id="subscription" value="month">
+                                            id="subscription" value="monthly">
                                         <label class="form-check-label" for="subscription">monthly</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" name="subscription" type="radio"
-                                            id="subscription" value="year" disabled="disabled">
+                                            id="subscription" value="yearly">
                                         <label class="form-check-label" for="subscription">annual</label>
                                     </div>
                                 </div>
@@ -587,6 +590,7 @@
     </div>
 </main>
 
+{% endblock content %}
 {% block page_js %}
 
 <script>
@@ -652,11 +656,12 @@ document.getElementById('submit-payment').addEventListener('click', function(eve
 
     const form = document.getElementById('payment-form');
     const formData = new FormData(form);
-  // Log form data entries
-  for (let [key, value] of formData.entries()) {
+    // Log form data entries
+    /* for (let [key, value] of formData.entries()) {
         console.log(key, value);
     }
-    console.log(form.action)
+    console.log(form.action); */
+
     fetch(form.action, {
         method: 'POST',
         body: formData
@@ -682,5 +687,3 @@ document.getElementById('submit-payment').addEventListener('click', function(eve
 
     </script>
 {% endblock page_js %}
-
-{% endblock content %}

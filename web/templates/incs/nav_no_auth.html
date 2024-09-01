@@ -12,13 +12,13 @@
         </div> #}
         <div class="user-container d-flex">
             <!----
-        <a href="{{ url_for('auth.signin') }}" 
+        <a href="{{ url_for('auth_api.signin') }}" 
             class="d-flex user position-relative"  aria-haspopup="false" aria-expanded="false"> 
             <img class="profile" alt="profile" src="{{ url_for('static', filename='img/profile/default.webp') }}">
             <div class="name">Russiantechnologies </div>
         </a> ---->
 
-        <a href="{{ url_for('auth.signin') if not current_user.is_authenticated else url_for('main.user') }}" 
+        <a href="{{ url_for('auth_api.signin') if not current_user.is_authenticated else url_for('main.user') }}" 
         class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
         
         <img class="profile" alt="profile" src="{{ url_for('static', 
@@ -36,7 +36,7 @@
                     <div class="col-6 ps-1 pe-1">
                         <ul class="list-unstyled">
                             <li>
-                                <a href="{{url_for('auth.update', username=current_user.username)}}">profile</a>
+                                <a href="{{url_for('auth_api.update', username=current_user.username)}}">profile</a>
                             </li>
                         </ul>
                     </div>
@@ -86,13 +86,13 @@
                     <div class="col-6 pe-1 ps-1">
                         <ul class="list-unstyled">
                             <li>
-                                <a href="{{url_for('auth.update', username=current_user.username)}}">
+                                <a href="{{url_for('auth_api.update', username=current_user.username)}}">
                                     <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
                                     <span class="align-middle">Settings</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{url_for('auth.signout')}}">
+                                <a href="{{url_for('auth_api.signout')}}">
                                     <i data-acorn-icon="logout" class="me-2" data-acorn-size="17"></i>
                                     <span class="align-middle">Logout</span>
                                 </a>

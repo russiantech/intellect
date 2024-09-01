@@ -26,16 +26,16 @@
                     </nav>
                 </div>
                 <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
-
                     <div class="mr-2" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="" 
                     data-bs-content="Select this if you need an instructor to work along with you. | Click to Select/Deselect" 
                     data-bs-original-title="Dedicated Instructor">
                         <input type="checkbox" class="btn-check" id="instructorled">
                         <label class="btn btn-outline-primary" for="instructorled">Instructor Led</label>
                     </div>
+                    <div class="m-1">.</div>
                     <a id="startNowButton" href="/learn/tech" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
                         <i data-acorn-icon="chevron-right"></i>
-                        <span>Start Now($<em id="course-fee">0</em>)</span>
+                        <span>Start Now . $<em id="course-fee">0</em></span>
                     </a>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="d-inline-block">
                                         <a href="#">Intellect</a>
-                                        <div class="text-muted text-small">Russian Developers Program</div>
+                                        <div class="text-muted text-small">Russian Developers</div>
                                     </div>
                                 </div>
                             </div>
@@ -113,9 +113,9 @@
                                 <div class="h-100">
                                     <div class="d-flex flex-column justify-content-start">
                                         <div class="d-flex flex-column">
-                                            <p class="heading">0.0 loading lessons...</p>
+                                            <p class="heading"><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>lessons...</p>
                                             <ul class="list-unstyled">
-                                                <li>- loading topics...</li>
+                                                <li> topics <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -320,7 +320,7 @@ $.ajax({
 }
  */
 
-function fetchCourseBySlug(courseSlug) {
+/* function fetchCourseBySlug(courseSlug) {
     $.ajax({
         url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
         type: 'GET',
@@ -337,7 +337,40 @@ function fetchCourseBySlug(courseSlug) {
             $("#startNowButton").attr("href", learnUrl).text(`Continue Learning`);
 
             }else{
-                $("#startNowButton").attr("href", payUrl);
+                // $("#startNowButton").attr("href", payUrl);
+                // Handle form submission within this block
+                document.getElementById('startNowButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default action
+
+                    const submitButton = this;
+                    submitButton.disabled = true; // Disable the button
+                    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                    fetch(payUrl, {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log(response)
+                        console.log(JSON.stringify(data));
+                        
+                        if (data.success) {
+                            response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                            window.location.href = data.redirect_url; // Redirect on success
+                        } else {
+                            response_modal(data.error || 'Unsuccessful');
+                            }
+
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }   
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        submitButton.disabled = false; // Re-enable the button
+                        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+                    });
+                });
             }
             
             if(response.title){
@@ -451,6 +484,209 @@ function fetchCourseBySlug(courseSlug) {
 
     });
 }
+ */
+
+ function fetchCourseBySlug(courseSlug) {
+    $.ajax({
+        url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
+        type: 'GET',
+
+        success: function(response) {
+
+            // Construct URLs for payment and learning
+            let payUrl = `${baseUrl}/init-payment/${response.slug || '-'}`;
+            let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+            if (response && response.is_enrolled === true && response.slug) {
+                $("#startNowButton").attr("href", learnUrl).text(`Continue Learning`);
+            } else {
+                document.getElementById('startNowButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default action
+
+                    const submitButton = this;
+                    submitButton.disabled = true; // Disable the button
+                    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                    fetch(payUrl, {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                            window.location.href = data.redirect_url; // Redirect on success
+                        } else {
+                            response_modal(data.error || 'Unsuccessful');
+                        }
+
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        submitButton.disabled = false; // Re-enable the button
+                        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+                    });
+                });
+            }
+
+            if (response.title) {
+                // Set the page title dynamically
+                document.title = `${response.title} . Russian Developers`;
+            }
+
+            if (response.id) {
+                // Store interactions in local storage (for non-logged-in users)
+                trackInteraction(response.title, response.desc, 'click');
+            }
+
+            // Define an array of IDs to update
+            var idsToUpdate = [
+                'course-fee',
+                'course-title',
+                'course-views',
+                'course-comments',
+                'course-duration',
+                'course-lessons_count',
+                'course-level',
+                'course-created',
+                'course-rating',
+                'course-completedby'
+            ];
+
+            // Loop through the array and update elements dynamically
+            idsToUpdate.forEach(function(id) {
+                var element = $("#" + id);
+                if (element.length) {
+                    var key = id.replace('course-', ''); // Extract key from ID
+                    var value = response[key];
+                    if (value !== undefined) {
+                        // If the value is defined in the response, set the text content
+                        element.text(value);
+                    } else {
+                        // If the value is undefined in the response, set the text content to 'Pending'
+                        element.text('Pending');
+                    }
+                }
+            });
+
+            // Update course poster image
+            if (response.image) {
+                let poster_url = `../static/img/course/${response.image}`;
+                $(".player").attr("poster", poster_url);
+            }
+
+            if (response.video) {
+                // Update intro video source
+                let intro_video_url = `../static/videos/course/${response.video}`;
+                $("#videoPlayer source").attr("src", intro_video_url);
+                $("#videoPlayer")[0].load(); // Reload the video player
+
+                // Reload the video player to apply the changes
+                var videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.load();
+            }
+
+            if (response.desc && typeof response.desc == 'object' || typeof response.desc == 'string') {
+                try {
+                    let descriptions = JSON.parse(response.desc);
+
+                    descriptions.forEach(function(desc) {
+                        const descTemplate = document.getElementById('course-desc').cloneNode(true);
+                        descTemplate.querySelector('h3').textContent = desc.title;
+                        const descList = descTemplate.querySelector('p');
+                        // descList.innerHTML = ''; // Remove/empty previous/initial ones if it's there.
+
+                        desc.desc.forEach(function(data) {
+                            const descItem = document.createElement('p');
+                            descItem.textContent = `- ${data}`;
+                            descList.appendChild(descItem);
+                        });
+
+                        descTemplate.classList.remove('d-none');
+                        document.getElementById('description-div').appendChild(descTemplate);
+                    });
+                } catch (e) {
+                    // Handle the case where the description is not fully curated
+                    // response_modal("The course description is currently being curated. Please check back later.");
+                    response_modal("We're currently curating best content for you. Kindly check back, it's a professional training from experienced developers.");
+                }
+            }
+
+            if (response.lessons && Array.isArray(response.lessons)) {
+                response.lessons.forEach(function(lesson) {
+                    const lessonTemplate = document.getElementById('lesson-template').cloneNode(true);
+                    lessonTemplate.querySelector('.heading').textContent = lesson.title;
+                    const topicsList = lessonTemplate.querySelector('.list-unstyled');
+                    topicsList.innerHTML = ''; // Remove/empty previous/initial ones if it's there.
+
+                    lesson.topics.forEach(function(topic) {
+                        const topicItem = document.createElement('li');
+                        topicItem.textContent = `- ${topic.title}`;
+                        topicsList.appendChild(topicItem);
+                    });
+
+                    document.getElementById('lessons-div').appendChild(lessonTemplate);
+                });
+
+                $('#lesson-template').remove(); // Remove the template after appending lessons
+            } else {
+                // Handle the case where lessons are not fully curated
+                response_modal("The lessons for this course are currently being curated. Please check back later.");
+            }
+
+        },
+
+        error: function(xhr, status, error) {
+            console.error('Error fetching course:', error);
+            response_modal("An error occurred while fetching the course details. Please try again later.");
+        }
+    });
+}
+
+// function response_modal(message) {
+//     document.getElementById('response_text').innerHTML = message;
+//     $('#response_modal').modal('show');
+// }
+
+
+/* // */
+    trackView()
+
+    /* // Handle form submission within this block
+    document.getElementById('start_now').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action
+
+        const submitButton = this;
+        submitButton.disabled = true; // Disable the button
+        submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+        fetch(payUrl, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            // console.log(response)
+            console.log(JSON.stringify(data));
+            
+            if (data.success) {
+                response_modal(data.message || 'Successful');
+                window.location.href = data.redirect_url; // Redirect on success
+            } else {
+                response_modal(response.error || 'Unsuccessful');
+                }
+
+            if (data.redirect) {
+                window.location.href = response.redirect;
+            }   
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            submitButton.disabled = false; // Re-enable the button
+            submitButton.innerHTML = 'Submit Payment'; // Reset button text
+        });
+    }); */
 
 </script>
 {% endblock page_js %}

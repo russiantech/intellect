@@ -58,49 +58,6 @@
         <div class="row g-0">
             <div class="col-auto d-none d-lg-flex"><div class="nav flex-column sw-30 pe-7" id="menuColumn"></div> </div>
             <div class="col" id="content_wrapper" style="height: 1600px; overflow-y: auto; padding: 10px; ">
-
-                <!-- for the cards content  -->
-                 <!-- <div id="content_container"></div> -->
-
-                    <!-- Hidden template -->
-                    <template id="card-template">
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="/static/img/course/default.png" class="card-img-top sh-22" alt="card image">
-                                <div class="card-body h-100">
-                                    <h5 class="heading mb-0">
-                                        <a href="/prev/default" class="body-link stretched-link">Default Title</a>
-                                    </h5>
-                                </div>
-                                <div class="card-footer border-0 pt-0">
-                                    <div class="mb-2">
-                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
-                                            <select class="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5" style="display: none;">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                        <!-- <div class="text-muted d-inline-block text-small align-text-top">(0)</div> -->
-                                    </div>
-                                    <div class="card-text mb-0">
-                                        <div class="text-muted text-overline text-small"><del>$ 0</del></div>
-                                        <div>$ 0</div>
-                                    </div>
-                                </div>
-                                {% if current_user.is_authenticated and current_user.is_admin() %}
-                                <a href="/x-insert/0" class="position-relative stretched-link d-inline-block mt-3" data-bs-toggle="tooltip" data-bs-placement="top" title="edit Default Title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-edit icon">
-                                        <path d="M14.6264 2.54528C15.0872 2.08442 15.6782 1.79143 16.2693 1.73077C16.8604 1.67011 17.4032 1.84674 17.7783 2.22181C18.1533 2.59689 18.33 3.13967 18.2693 3.73077C18.2087 4.32186 17.9157 4.91284 17.4548 5.3737L6.53226 16.2962L2.22192 17.7782L3.70384 13.4678L14.6264 2.54528Z"></path>
-                                    </svg>
-                                </a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </template>
-
                 <div id="content_container" class="row g-3 row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 mb-5">
                     {% for c in course %}
                     <div id="content_" class="col content_">
@@ -147,6 +104,46 @@
                         </div>
                     </div>
                     {% endfor %}
+                    <!-- <div id="content_container"></div> -->
+
+                    <!-- Hidden template -->
+                    <template id="card-template">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="/static/img/course/default.png" class="card-img-top sh-22" alt="card image">
+                                <div class="card-body h-100">
+                                    <h5 class="heading mb-0">
+                                        <a href="/prev/default" class="body-link stretched-link">Default Title</a>
+                                    </h5>
+                                </div>
+                                <div class="card-footer border-0 pt-0">
+                                    <div class="mb-2">
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <select class="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5" style="display: none;">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="text-muted d-inline-block text-small align-text-top">(0)</div> -->
+                                    </div>
+                                    <div class="card-text mb-0">
+                                        <div class="text-muted text-overline text-small"><del>$ 0</del></div>
+                                        <div>$ 0</div>
+                                    </div>
+                                </div>
+                                {% if current_user.is_authenticated and current_user.is_admin() %}
+                                <a href="/x-insert/0" class="position-relative stretched-link d-inline-block mt-3" data-bs-toggle="tooltip" data-bs-placement="top" title="edit Default Title">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-edit icon">
+                                        <path d="M14.6264 2.54528C15.0872 2.08442 15.6782 1.79143 16.2693 1.73077C16.8604 1.67011 17.4032 1.84674 17.7783 2.22181C18.1533 2.59689 18.33 3.13967 18.2693 3.73077C18.2087 4.32186 17.9157 4.91284 17.4548 5.3737L6.53226 16.2962L2.22192 17.7782L3.70384 13.4678L14.6264 2.54528Z"></path>
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </template>
                     
                 </div>
 
@@ -555,292 +552,71 @@
         });
     });
 
-    /* document.addEventListener("DOMContentLoaded", function () {
-    // Function to handle loading categories and setting up checkboxes
-    function loadCategories() {
-        const categoriesDiv = document.getElementById("categories_div");
+    document.addEventListener("DOMContentLoaded", function () {
+        // console.log("DOM fully loaded and parsed");
+
+        var categoriesDiv = document.getElementById("categories_div");
         categoriesDiv.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...';
 
-        const xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
         xhr.open("GET", "/get_categories", true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
                 try {
+                    var response = JSON.parse(xhr.responseText);
+                    // console.log('Categories fetched:', response);
 
-                    const response = JSON.parse(xhr.responseText);
+                    // categoriesDiv.innerHTML = ""; // Clear the spinner
 
                     if (Array.isArray(response)) {
-                        categoriesDiv.innerHTML = ""; // Clear the spinner
-
+                        document.getElementById("categories_div").innerHTML = ""; // Clear the spinner here works
                         response.forEach(function (category) {
-                            // Create checkbox element
-                            const checkbox = document.createElement("input");
+                            var checkbox = document.createElement("input");
                             checkbox.type = "checkbox";
                             checkbox.classList.add("form-check-input");
-                            checkbox.id = `category_${category.id}`;
+                            checkbox.id = category.id;
 
-                            // Attach change event listener
-                            checkbox.addEventListener('change', handleFilterChange);
-
-                            // Create label element
-                            const label = document.createElement("label");
+                            var label = document.createElement("label");
                             label.classList.add("form-check-label");
-                            label.setAttribute("for", checkbox.id);
+                            label.setAttribute("for", category.id);
                             label.textContent = category.title;
 
-                            // Create wrapper div
-                            const div = document.createElement("div");
+                            var div = document.createElement("div");
                             div.classList.add("form-check");
                             div.appendChild(checkbox);
                             div.appendChild(label);
 
-                            // Append to categoriesDiv
-                            // categoriesDiv.appendChild(div);
-                            // categoriesDiv = document.getElementById("categories_div").innerHTML= "";
-                             document.getElementById("categories_div").appendChild(div);;
-                            // categoriesDiv.appendChild(div);
+                            // Query the DOM again to ensure you're appending to the current state of the element.
+                            categoriesDiv = document.getElementById("categories_div").innerHTML= "";
+                            categoriesDiv.appendChild(div);
+                            // console.log('Appended category:', category.title, 'HTML:', document.getElementById("categories_div").innerHTML);
                         });
                     } else {
-                        handleError("Error processing categories");
+                        console.error('Categories response is not an array:', response);
+                        categoriesDiv.innerHTML = "Error processing categories";
+                        categoriesDiv.classList.add("alert-danger");
                     }
                 } catch (e) {
-                    handleError("Error parsing categories");
+                    console.error('Error parsing categories:', e);
+                    categoriesDiv.innerHTML = "Error processing categories";
+                    categoriesDiv.classList.add("alert-danger");
                 }
             } else {
-                handleError(`Error fetching categories: ${xhr.statusText}`);
+                console.error('Error fetching categories:', xhr.status, xhr.statusText);
+                categoriesDiv.innerHTML = "Error fetching categories";
+                categoriesDiv.classList.add("alert-danger");
             }
         };
 
         xhr.onerror = function () {
-            handleError("Network error occurred while fetching categories");
+            console.error('Network error occurred while fetching categories');
+            categoriesDiv.innerHTML = "Network error occurred while fetching categories";
+            categoriesDiv.classList.add("alert-danger");
         };
 
         xhr.send();
-    }
-
-    // Utility function to display error messages
-    function handleError(message) {
-        const categoriesDiv = document.getElementById("categories_div");
-        categoriesDiv.innerHTML = message;
-        categoriesDiv.classList.add("alert-danger");
-        console.error(message);
-    }
-
-    // Debounce function to limit function execution rate
-    function debounce(func, delay) {
-        let debounceTimeout;
-        return function (...args) {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
-
-    // Function to handle filter change and load content
-    const handleFilterChange = debounce(async function () {
-        const categoriesDiv = document.getElementById("categories_div");
-        const selectedCategories = Array.from(categoriesDiv.querySelectorAll('input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.id.replace('category_', ''));
-
-        console.log("Selected Categories:", selectedCategories);
-
-        if (selectedCategories.length === 0) {
-            console.log("No categories selected, exiting");
-            return;
-        }
-
-        try {
-            const categoryParams = selectedCategories.join(',');
-            const response = await fetch(`/x_course_api.loadmore?categories=${categoryParams}`);
-            if (response.ok) {
-                const data = await response.json();
-                updateContent(data);
-            } else {
-                console.error('Failed to load content:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Network error occurred while loading content', error);
-        }
-    }, 300);
-
-    // Function to update content container with new data
-    function updateContent(data) {
-        console.log(data)
-        const contentContainer = document.getElementById('content_container');
-        const template = document.getElementById('card-template');
-
-        // Check if the template exists
-        if (!template) {
-            console.error('Template element not found');
-            return;
-        }
-
-        // Clear current content
-        contentContainer.innerHTML = '';
-
-        data.forEach(course => {
-            // Clone the template content
-            const newCard = template.content.cloneNode(true);
-            newCard.querySelector('img').src = `/static/img/course/${course.image}`;
-            newCard.querySelector('a').href = `/prev/${course.slug}`;
-            newCard.querySelector('a').textContent = course.title;
-            newCard.querySelector('.card-footer .text-muted.text-overline.text-small').innerHTML = `<del>$ ${course.id} </del>`;
-            newCard.querySelector('.card-footer .card-text div:nth-child(2)').textContent = `$ ${course.fee}`;
-            contentContainer.appendChild(newCard);
-        });
-    }
-
-    // Load categories on page load
-    loadCategories();
-});
- */
-
- document.addEventListener("DOMContentLoaded", function () {
-    // Function to handle loading categories and setting up checkboxes
-    function loadCategories() {
-        const categoriesDiv = document.getElementById("categories_div");
-        categoriesDiv.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...';
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/get_categories", true);
-
-        xhr.onload = function () {
-            categoriesDiv.innerHTML = ""; // Clear the spinner immediately after loading response
-            if (xhr.status === 200) {
-                try {
-                    const response = JSON.parse(xhr.responseText);
-
-                    if (Array.isArray(response)) {
-                        if (response.length === 0) {
-                            categoriesDiv.innerHTML = "No categories available."; // Handle no categories case
-                        } else {
-                            document.getElementById("categories_div").innerHTML = "";
-                            response.forEach(function (category) {
-                                // Create checkbox element
-                                const checkbox = document.createElement("input");
-                                checkbox.type = "checkbox";
-                                checkbox.classList.add("form-check-input");
-                                checkbox.id = `category_${category.id}`;
-
-                                // Attach change event listener
-                                checkbox.addEventListener('change', handleFilterChange);
-
-                                // Create label element
-                                const label = document.createElement("label");
-                                label.classList.add("form-check-label");
-                                label.setAttribute("for", checkbox.id);
-                                label.textContent = category.title;
-
-                                // Create wrapper div
-                                const div = document.createElement("div");
-                                div.classList.add("form-check");
-                                div.appendChild(checkbox);
-                                div.appendChild(label);
-
-                                // Append to categoriesDiv
-                                document.getElementById("categories_div").appendChild(div);
-                            });
-                        }
-                    } else {
-                        handleError("Error processing categories");
-                    }
-                } catch (e) {
-                    handleError("Error parsing categories");
-                }
-            } else {
-                handleError(`Error fetching categories: ${xhr.statusText}`);
-            }
-        };
-
-        xhr.onerror = function () {
-            handleError("Network error occurred while fetching categories");
-        };
-
-        xhr.send();
-    }
-
-    // Utility function to display error messages
-    function handleError(message) {
-        const categoriesDiv = document.getElementById("categories_div");
-        categoriesDiv.innerHTML = message;
-        categoriesDiv.classList.add("alert-danger");
-        console.error(message);
-    }
-
-    // Debounce function to limit function execution rate
-    function debounce(func, delay) {
-        let debounceTimeout;
-        return function (...args) {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
-
-    // Function to handle filter change and load content
-    const handleFilterChange = debounce(async function () {
-        const categoriesDiv = document.getElementById("categories_div");
-        const selectedCategories = Array.from(categoriesDiv.querySelectorAll('input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.id.replace('category_', ''));
-
-        console.log("Selected Categories:", selectedCategories);
-
-        if (selectedCategories.length === 0) {
-            console.log("No categories selected, exiting");
-            updateContent([]);  // Clear the content when no categories are selected
-            return;
-        }
-
-        try {
-            const categoryParams = selectedCategories.join(',');
-            const response = await fetch(`/x_course_api.loadmore?categories=${categoryParams}`);
-            if (response.ok) {
-                const data = await response.json();
-                updateContent(data);
-            } else {
-                console.error('Failed to load content:', response.statusText);
-                updateContent([]);  // Clear the content on failed response
-            }
-        } catch (error) {
-            console.error('Network error occurred while loading content', error);
-            updateContent([]);  // Clear the content on error
-        }
-    }, 300);
-
-    // Function to update content container with new data
-    function updateContent(data) {
-        const contentContainer = document.getElementById('content_container');
-        const template = document.getElementById('card-template');
-
-        // Check if the template exists
-        if (!template) {
-            console.error('Template element not found');
-            return;
-        }
-
-        // Clear current content
-        contentContainer.innerHTML = '';
-
-        if (data.length === 0) {
-            // Show a message when no courses are available
-            contentContainer.innerHTML = "<p>No courses available for the selected categories.</p>";
-            return;
-        }
-
-        data.forEach(course => {
-            // Clone the template content
-            const newCard = template.content.cloneNode(true);
-            newCard.querySelector('img').src = `/static/img/course/${course.image}`;
-            newCard.querySelector('a').href = `/prev/${course.slug}`;
-            newCard.querySelector('a').textContent = course.title;
-            newCard.querySelector('.card-footer .text-muted.text-overline.text-small').innerHTML = `<del>$ ${course.id} </del>`;
-            newCard.querySelector('.card-footer .card-text div:nth-child(2)').textContent = `$ ${course.fee}`;
-            contentContainer.appendChild(newCard);
-        });
-    }
-
-    // Load categories on page load
-    loadCategories();
-});
+    });
 
 </script>
 

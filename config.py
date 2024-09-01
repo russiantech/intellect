@@ -30,8 +30,18 @@ class Config:
     SQLALCHEMY_ECHO = False
 
     #SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://root:@localhost:3306/empty" #mysql(no-password set, it's supposed to come after //root:)
-    OAUTHLIB_INSECURE_TRANSPORT = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    """ SQLALCHEMY_POOL_SIZE = 50   # Increase the pool size if necessary
+    SQLALCHEMY_POOL_TIMEOUT = 30  # Increase the pool timeout if necessary
+    SQLALCHEMY_MAX_OVERFLOW = 20  # Allow up to 20 additional connections beyond the pool size """
+    OAUTHLIB_INSECURE_TRANSPORT = True
+
+    SQLALCHEMY_ENGINE_OPTIONS = {
+    'pool_size': 10,
+    'max_overflow': 20, # Allow up to 20 additional connections beyond the pool size
+    'pool_timeout': 30,
+    }
+
     SQLALCHEMY_DATABASE_ENGINE = {
     'rollback_on_exception': True,
     'autoflush': True,
@@ -93,7 +103,6 @@ class DevelopmentConfig(Config):
     
     SQLALCHEMY_DATABASE_URI = getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///')
     RAVE_SECRET_KEY = getenv('RAVE_TEST_SECRET_KEY')
-    RAVE_SECRET_KEY = getenv('RAVE_LIVE_SECRET_KEY')
     #SQLALCHEMY_ECHO = True
     #//SESSION_TYPE = 'filesystem'
 

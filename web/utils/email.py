@@ -110,6 +110,16 @@ def reset_email(user):
         html_body=render_template('email/forgot.html', user=user, token=token)
     )
 
+def verify_email(user):
+    token = user.make_token(token_type="verify_email")
+    send_mail(
+        '[Techa] . Verifications',
+        sender="hackers@techa.tech",
+        recipients=[user.email],
+        text_body=render_template('email/verify.txt', user=user, token=token),
+        html_body=render_template('email/verify.html', user=user, token=token)
+    )
+
 def confirm_email(user):
     token = user.make_token(token_type="confirm_email")
     send_mail(

@@ -66,12 +66,7 @@
                                             <!-- <div class="logo-default"></div> -->
                                         </div>
                                     </div>
-                                    <div class="col pe-3">
-                                        <style>
-                                            .h2 {
-                                                font-size: 2.65 !important;
-                                            }
-                                        </style>
+                                    <div class="col pe-3"> <style>.h2{font-size: 2.65 !important;}</style>
                                         <div class="mb-0 lh-sm h2">Intellect</div>
                                     </div>
                                 </div>
@@ -104,49 +99,39 @@
                                     </div>
 
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                        <label class="form-check-label" for="remember">Remember Me </label>
+                                        <input type="checkbox" class="form-check-input" id="tnc" name="tnc">
+                                        <label class="form-check-label" for="remember">Terms & Conditions Accepted</label>
                                     </div>
 
-                                    <div
-                                        class="card-footer border-0 pt-0 d-flex justify-content-end align-items-center">
-                                        <div>
-                                            <button id="submit" class="btn btn-icon btn-icon-end btn-primary w-50"
-                                                type="submit">
-                                                <span>Click to sign-in</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
-                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="acorn-icons acorn-icons-chevron-right undefined">
-                                                    <path
-                                                        d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16">
-                                                    </path>
-                                                </svg>
-                                                or use:</button>
-                                        </div>
-                                    </div>
+                                    <div class="card-footer border-0 pt-0 d-flex justify-content-end align-items-center">
+                                            <div>
+                                            <button id="submit" class="btn btn-icon btn-icon-end btn-primary w-50" type="submit">
+                                            <span>Click to sign-in</span> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-chevron-right undefined"><path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path></svg>
+                                            or use:</button>
+                                            </div>
+                                            </div> 
 
                                     <!--  -->
                                     <div role="group" class="btn-group mb-3 w-100">
-                                        <!-- Google Button -->
-                                        <a href="{{ url_for('auth_api.oauth2_authorize', provider='google') }}"
-                                            class="btn btn-outline-primary" role="button">
-                                            Google
-                                        </a>
+    <!-- Google Button -->
+    <a href="{{ url_for('auth_api.oauth2_authorize', provider='google') }}"
+       class="btn btn-outline-primary" role="button">
+        Google
+    </a>
 
-                                        <!-- Facebook Button -->
-                                        <a href="{{ url_for('auth_api.oauth2_authorize', provider='facebook') }}"
-                                            class="btn btn-primary disabled" role="button">
-                                            Facebook
-                                        </a>
+    <!-- Facebook Button -->
+    <a href="{{ url_for('auth_api.oauth2_authorize', provider='facebook') }}"
+       class="btn btn-primary" role="button">
+        Facebook
+    </a>
 
-                                        <!-- LinkedIn Button -->
-                                        <a href="{{ url_for('auth_api.oauth2_authorize', provider='linkedin') }}"
-                                            class="btn btn-outline-primary disabled {{ 'disabled' if disabled_condition else '' }}"
-                                            role="button">
-                                            LinkedIn
-                                        </a>
-                                    </div>
+    <!-- LinkedIn Button -->
+    <a href="{{ url_for('auth_api.oauth2_authorize', provider='linkedin') }}"
+       class="btn btn-outline-primary btn-primary-darker bg-primary-darker {{ 'disabled' if disabled_condition else '' }}" role="button">
+        LinkedIn
+    </a>
+</div>
                                     <div class="mb-3 filled form-group tooltip-end-top">
                                         <label class="form-check-label" for="create-account">
                                             No account yet?
@@ -212,6 +197,40 @@
                         } else {
                             // response_modal(JSON.stringify(response));
                             response_modal(response.error || 'An error occurred.');
+                        }
+
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        response_modal(errorThrown || 'An unexpected error occurred.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#signup_form').on('submit', function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    contentType: 'application/json',  // Set the content type to application/json
+                    data: JSON.stringify({
+                        username: $('#username').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        password: $('#password').val()
+                    }),
+                    success: function (response) {
+                        if (response.success) {
+                            response_modal(response.message || 'Success');
+                        } else {
+                            response_modal(response.error || JSON.stringify(response) || 'An error occurred.');
                         }
 
                         if (response.redirect) {

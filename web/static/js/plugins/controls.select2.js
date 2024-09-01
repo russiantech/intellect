@@ -38,6 +38,7 @@ class Select2Controls {
 
 
     _initSelect2Basic() { 
+        jQuery("#course_id").select2({ placeholder: "" }); //initialize for lesson select drop-down
         jQuery("#lesson_id").select2({ placeholder: "" }); //initialize for lesson select drop-down
         jQuery("#topic_id").select2({ placeholder: "" }); //initialize for topic select drop-down
     } //initialize for lesson select drop-down

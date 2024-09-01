@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify, request
 from web.models import db, Course, Category
 from web.utils.uploader import uploader
 from web.apis.make_slug import make_slug
+from web.extensions import csrf
 
 x_course_bp = Blueprint('x_course_api', __name__)
 
@@ -47,6 +48,7 @@ def loadmore():
     
 @x_course_bp.route('/create_course', methods=['POST'])
 #@db_session_management
+@csrf.exempt
 def create_course():
     try:
         if not db.session.is_active:
@@ -96,6 +98,7 @@ def create_course():
         return handle_response(message=str(e), alert='alert-danger')
 
 @x_course_bp.route('/update_course/<int:course_id>', methods=['PUT'])
+@csrf.exempt
 def update_course(course_id):
     try:
         if not db.session.is_active:
@@ -234,3 +237,22 @@ def get_course(course_slug):
         )
     
     return jsonify(course_data)
+
+@x_course_bp.route('/x_course_api.loadmore', methods=['GET'])
+def load_more_courses():
+    offset = int(request.args.get('offset', 0))
+    selected_categories = request.args.getlist('categories')  # Update this line
+
+    print("selected_categories:", selected_categories)
+    
+    query = Course.query
+    if selected_categories:
+        query = query.filter(Course.category_id.in_(selected_categories))
+    
+    courses = query.offset(offset).limit(10).all()
+    # print([{x.title, x.category_id} for x in courses])
+    # print("Total is:", len(courses))
+    include_only = ['id', 'fee', 'category_id', 'image', 'title', 'rating', 'slug']
+    return jsonify([course.serialize(include_only=include_only) for course in courses])
+
+

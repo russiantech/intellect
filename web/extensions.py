@@ -1,8 +1,5 @@
 # from flask import Flask
 
-from slugify import slugify
-from web.utils import time_ago, user_role, entry
-from nltk.tokenize import sent_tokenize
 from os import getenv
 
 # from flask_sqlalchemy import SQLAlchemy

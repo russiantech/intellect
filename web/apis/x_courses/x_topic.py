@@ -7,6 +7,7 @@ from flask import Blueprint, jsonify, request
 from web.models import db, User, Lesson, Topic, Enrollment
 from web.utils.uploader import uploader
 from web.apis.make_slug import make_slug
+from web.extensions import csrf
 
 x_topic_bp = Blueprint('x_topic_api', __name__)
 
@@ -38,8 +39,10 @@ _schemas = {
 
 # Creates a topic under a given lesson (Auth & Admin)
 @x_topic_bp.route('/create_topic', methods=['POST'])
+@csrf.exempt
 @login_required
 #@db_session_management
+@csrf.exempt
 def create_topic():
     try:
         if not db.session.is_active:
@@ -80,6 +83,7 @@ def create_topic():
 
 # Updates a topic (Auth & Admin)
 @x_topic_bp.route('/update_topic/<int:topic_id>', methods=['PUT'])
+@csrf.exempt
 @login_required
 def update_topic(topic_id):
     try:
@@ -116,7 +120,7 @@ def update_topic(topic_id):
         
         db.session.commit()
         
-        return jsonify({'message': 'Topic updated successfully'})
+        return jsonify({'message': f'Topic {topic.title} of {topic.lessons.title} updated successfully.'})
     
     except Exception as e:
         db.session.rollback()
@@ -144,6 +148,7 @@ def delete_topic(topic_slug):
 
 # Returns topics for all different courses (Auth)
 @x_topic_bp.route('/get_topics', methods=['GET'])
+@csrf.exempt
 @login_required
 def get_topics():
     try:
@@ -170,6 +175,7 @@ def get_topics():
 
 # Returns topics for a given lesson (Auth & Enrollment)
 @x_topic_bp.route('/get_topics_for_lesson/<int:lesson_id>', methods=['GET'])
+@csrf.exempt
 @login_required
 def get_topics_for_lesson(lesson_id):
     try:
@@ -207,6 +213,7 @@ def get_topics_for_lesson(lesson_id):
 
 # Returns a single topic details(Auth)
 @x_topic_bp.route('/get_topic_/<int:topic_id>', methods=['GET'])
+@csrf.exempt
 @login_required
 def get_topic_(topic_id):
     try:
@@ -233,8 +240,9 @@ def get_topic_(topic_id):
         traceback.print_exc()
         return handle_response(message=str(e), alert='alert-danger')
 
-# Route to get a specific course by slug
+# Route to get a specific topic by slug
 @x_topic_bp.route('/get_topic/<string:topic_slug>', methods=['GET'])
+@csrf.exempt
 @login_required
 def get_topic(topic_slug):
     # Retrieve course information based on the slug
@@ -249,6 +257,7 @@ def get_topic(topic_slug):
 
 # Route to mark a topic as completed for a specific user
 @x_topic_bp.route('/mark_completed', methods=['POST'])
+@csrf.exempt
 @login_required
 def mark_completed():
     try:
@@ -328,6 +337,7 @@ def learning_progress_():
  """
 
 @x_topic_bp.route('/learning_progress')
+@csrf.exempt
 @login_required
 def learning_progress():
     # Get the current user

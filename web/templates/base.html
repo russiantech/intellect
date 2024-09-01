@@ -9,7 +9,6 @@
 
 <body>
     <div id="root">
-
         {% include('incs/nav.html') %}
 
         {% block content %}
@@ -21,11 +20,18 @@
 
     {% include('incs/settings.html') %}
     {% include('incs/search.html') %}
-    
-    {% block page_js %} {% endblock page_js %}
-    {% include('incs/bottom.html') %}
+    {% include "incs/response_modal.html" %}
 
-    <script>
+    {% include('incs/bottom.html') %}
+    {% block page_js %} {% endblock page_js %}
+
+<script>
+function response_modal(message) {
+    document.getElementById('response_text').innerHTML= message;
+    // console.log(message)
+    $('#response_modal').modal('show');
+}
+
 // Function to clear irrelevant items from localStorage
 function clearInitialLocalStorage() {
     // Clear specific keys or completely clear localStorage based on your needs
@@ -99,7 +105,7 @@ $(document).ready(function () {
                 console.log('recommendations', response);
 
                 if (Array.isArray(response)) {
-                    var courseElements = response.map(function (course) {
+                    var pathElements = response.map(function (course) {
                         var clone = template.clone().show();
                         clone.find('a').attr('href', './learn/' + course.slug);
                         clone.find('img').attr('src', './static/img/course/' + course.image);
@@ -108,7 +114,7 @@ $(document).ready(function () {
                         return clone;
                     });
 
-                    container.empty().append(courseElements);
+                    container.empty().append(pathElements);
                 } else {
                     console.error('Expected an array but got:', response);
                 }
@@ -135,7 +141,7 @@ $(document).ready(function () {
         $(function () {
             var since = 0;
             setInterval(function () {
-                $.ajax('{{ url_for('auth.notify') }}?since=' + since).done(
+                $.ajax('{{ url_for('auth_api.notify') }}?since=' + since).done(
                     function (notifications) {
                         for (var i = 0; i < notifications.length; i++) {
                             if (notifications[i].name == 'unread_message_count')
@@ -170,7 +176,7 @@ $(document).ready(function () {
                     container.attr('data-count', courseCount); // Update the data-count attribute with the course count
 
                     // Use map() to generate an array of cloned elements for each course
-                    var courseElements = userCourses.map(function (course) {
+                    var pathElements = userCourses.map(function (course) {
                         var clone = container.find('.card').first().clone(); // Ensure to clone the first card element
                         clone.find('a').attr('href', './learn/' + course.slug);
                         clone.find('img').attr('src', './static/img/course/' + course.image);
@@ -180,9 +186,9 @@ $(document).ready(function () {
                         return clone;
                     });
 
-                    // console.log(courseElements);
+                    // console.log(pathElements);
                     // Append the array of cloned elements to the container
-                    container.empty().append(courseElements);
+                    container.empty().append(pathElements);
                 } else {
                     console.error('Expected an array but got:', response);
                 }
@@ -195,7 +201,83 @@ $(document).ready(function () {
     });
     */
     {% endif %}
+    
+    /* ================================ */
+    // for path fetch & display.
+    $.ajax({
+        url: '/get_paths',
+        type: 'GET',
+        success: function (response) {
+            var container_welcome_page = $('.path-container-welcome-page');
+            var template = container_welcome_page.find('.template');
 
+            if (Array.isArray(response) && response.length > 0) {
+
+                var pathElements = response.map(function (path) {
+                    // console.log(path)
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './path-of/' + path.slug);
+                    clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+                    clone.find('.heading').text(path.title);
+                    clone.find('.text-muted').text(path.desc);
+                    // clone.find('.text-muted').text(path.progress + '%');
+                    // clone.find('.progress-bar').css('width', path.progress + '%');
+                    return clone;
+                });
+
+                container_welcome_page.empty().append(pathElements);
+
+            } else {
+                // If no learning progress, show the placeholder experience.
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "welcome",
+                        // image: "welcome.webp",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        // image: "track.webp",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Your tech carreer begins with intellect. Get professional with us today.."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function (course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_welcome_page.empty().append(pathElements);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching learning progress:', error);
+        }
+    });
+    /* ================================== */
+    
 </script>
 
 </body>
