@@ -196,10 +196,8 @@ def path():
     return render_template("path/path.html")
 
 @main.route('/path', defaults={'one':'one'})
-@main.route('/path-of/<string:one>', defaults={'one':'one'})
-@login_required
-#@confirm_email
-def path_of(one):
+@main.route('/path-of/<string:coding>', defaults={'coding':'coding'})
+def path_of():
     return render_template("path/path-of.html")
 
 
