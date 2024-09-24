@@ -12,7 +12,7 @@ def index():
     courses = Course.query.all()
     context = { 
         "courses": courses,
-        "first_16_courses": courses[0:16],
+        "first_10_courses": courses[0:10],
         "total_courses": len(courses)
     }
 
