@@ -101,6 +101,7 @@ def create_path():
 
 # Updates a Path
 @x_path_bp.route('/update_path/<int:path_id>', methods=['PUT'])
+@csrf.exempt
 @login_required
 def update_path(path_id):
     try:
@@ -141,6 +142,7 @@ def update_path(path_id):
 
 # Deletes a Path
 @x_path_bp.route('/delete_path/<int:path_id>', methods=['DELETE'])
+@csrf.exempt
 @login_required
 def delete_path(path_id):
     try:
@@ -161,6 +163,7 @@ def delete_path(path_id):
 # Fetches all Paths
 @x_path_bp.route('/get_paths', methods=['GET'])
 # @login_required
+@csrf.exempt
 def get_paths():
     try:
         paths = Path.query.all()
@@ -173,6 +176,7 @@ def get_paths():
 # Fetches a single Path by slug
 @x_path_bp.route('/get_path/<slug>', methods=['GET'])
 @login_required
+@csrf.exempt
 def get_path(slug):
     try:
         path = Path.query.filter_by(slug=slug).first_or_404()
@@ -184,6 +188,7 @@ def get_path(slug):
 # by id
 @x_path_bp.route('/get_path/<int:path_id>', methods=['GET'])
 @login_required
+@csrf.exempt
 def get_path_by_id(path_id):
     try:
         path = Path.query.get_or_404(path_id)
