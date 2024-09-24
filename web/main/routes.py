@@ -6,13 +6,12 @@ from web.models import db, Brand, User, Course, Topic, Enrollment
 main = Blueprint('main', __name__)
 
 @main.route('/welcome')
-@main.route('/', methods=['post', 'get'])
+@main.route('/', methods=['GET'])
 def index():
-
     courses = Course.query.all()
     context = { 
         "courses": courses,
-        "first_10_courses": courses[0:10],
+        "few_courses": courses[0:16],
         "total_courses": len(courses)
     }
 
