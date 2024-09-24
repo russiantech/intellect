@@ -31,22 +31,23 @@ class Config:
 
     #SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://root:@localhost:3306/empty" #mysql(no-password set, it's supposed to come after //root:)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    """ SQLALCHEMY_POOL_SIZE = 50   # Increase the pool size if necessary
+    SQLALCHEMY_POOL_SIZE = 50   # Increase the pool size if necessary
     SQLALCHEMY_POOL_TIMEOUT = 30  # Increase the pool timeout if necessary
     SQLALCHEMY_MAX_OVERFLOW = 20  # Allow up to 20 additional connections beyond the pool size """
     OAUTHLIB_INSECURE_TRANSPORT = True
-
+    
     SQLALCHEMY_ENGINE_OPTIONS = {
     'pool_size': 10,
     'max_overflow': 20, # Allow up to 20 additional connections beyond the pool size
     'pool_timeout': 30,
+    'pool_pre_ping': True  # This is an engine-level configuration
     }
 
     SQLALCHEMY_DATABASE_ENGINE = {
     'rollback_on_exception': True,
     'autoflush': True,
     'expire_on_commit': False,
-    'pool_pre_ping': True  # Enable pre-ping to check for stale connections
+    # 'pool_pre_ping': True  # Enable pre-ping to check for stale connections
     }
 
     #prevents Shared Session Cookies
