@@ -46,6 +46,7 @@ class Config:
     'rollback_on_exception': True,
     'autoflush': True,
     'expire_on_commit': False,
+    'pool_pre_ping': True  # Enable pre-ping to check for stale connections
     }
 
     #prevents Shared Session Cookies
