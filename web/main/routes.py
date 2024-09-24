@@ -1,59 +1,20 @@
-from flask import jsonify, render_template, Blueprint, request, url_for
+from flask import jsonify, render_template, Blueprint, url_for
 from flask_login import current_user, login_required
-
-from web.utils.decorators import enrollment_required
 
 from web.models import db, Brand, User, Course, Topic, Enrollment
 
 main = Blueprint('main', __name__)
 
-@main.route('/explore')
-@main.route('/welcome/<int:offset>', methods=['post', 'get'])
-@main.route('/welcome', methods=['post', 'get'])
-def index(v=None):
+@main.route('/welcome')
+@main.route('/', methods=['post', 'get'])
+def index():
 
-    page = request.args.get('page', 1, type=int)
-
-    match v:
-        case 'latest':
-            course = Course.query.order_by(Course.created.desc()).paginate(page=page, per_page=8)
-        case 'oldest':
-            course = Course.query.order_by(Course.created.asc()).paginate(page=page, per_page=8)
-        case 'asc':
-            course = Course.query.order_by(Course.title.asc()).paginate(page=page, per_page=8)
-        case 'desc':
-            course = Course.query.order_by(Course.title.desc()).paginate(page=page, per_page=8)
-        case 'cat':
-            cat = v.cat
-            course = Course.query.filter(Course.cat.in_([c for c in cat]) ).all()
-        case 'time':
-            time = v.time
-            course = Course.query.filter(Course.duration.in_([ t for t in time]) ).all()
-        case 'price':
-            min = v.min
-            max = v.max
-            course = Course.query.filter(Course.price >= min).filter(Course.price <= max) or \
-                Course.query.filter(Course.price.in_(range(min, max)) ).all()
-        case 'kword':
-            kword = v.kword
-            course = Course.query.msearch(kword, fields=['title','desc'] , limit=8)
-        case 'rate':
-            rate = v.rate
-            course = Course.query.filter(Course.rating >= rate).all()
-        case 'more':
-            course = Course.query.order_by(Course.id.asc()).offset(5).all()
-        case _:
-            all = Course.query.all()
-            course = all[0 : 16 ]
-            total = len(all)
-        
-    brand = Brand.query.filter_by(id=2).first()
-
+    courses = Course.query.all()
     context = { 
-        'brand': brand, 
-        'course': course, 
-        'total' : total,
-        'time' : "duration_choice" }
+        "courses": courses,
+        "first_16_courses": courses[0:16],
+        "total_courses": len(courses)
+    }
 
     return render_template("welcome/welcome.html", **context)
 
@@ -84,7 +45,7 @@ def us_x():
     return render_template('welcome/us_x.html', **context)
 
  
-@main.route("/")
+@main.route("/user")
 @login_required
 #@confirm_email
 def user():
@@ -195,7 +156,6 @@ def qresult():
 def path():
     return render_template("path/path.html")
 
-@main.route('/path', defaults={'one':'one'})
 @main.route('/path-of/<string:coding>', defaults={'coding':'coding'})
 def path_of():
     return render_template("path/path-of.html")
@@ -251,8 +211,8 @@ def search():
     },
     ]
   
-    c = Course.query.all() 
-    return jsonify([ { 'label': c.title, 'url': url_for('main.prev', slug=str(c.slug) ) } for c in c] ) 
+    courses = Course.query.all() 
+    return jsonify([ { 'label': course.title, 'url': url_for('main.prev', slug=str(course.slug) ) } for course in courses] ) 
 
 """ ========================================================================== """
 

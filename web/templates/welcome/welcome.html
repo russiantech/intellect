@@ -19,7 +19,7 @@
                         <h1 class="mb-0 pb-0 display-4" id="title">Explore Courses</h1>
                         <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
                             <ul class="breadcrumb pt-0">
-                                <li class="breadcrumb-item"><a href="">{{brand.name|capitalize}}</a></li>
+                                <li class="breadcrumb-item"><a href="/">Intellect.</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -50,7 +50,7 @@
             <div class="mt-n1">
                 <button id="view_all" type="button" class="btn btn-outline-primary btn-icon btn-icon-start ms-1 cursor-pointer">
                     <i data-acorn-icon="chevron-right" class="icon" data-acorn-size="20"></i>
-                    <span id="total">{{total}}</span>
+                    <span id="total">{{total_courses}}</span>
                 </button>
             </div>
         </div>
@@ -102,17 +102,17 @@
                     </template>
 
                 <div id="content_container" class="row g-3 row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 mb-5">
-                    {% for c in course %}
+                    {% for course in courses %}
                     <div id="content_" class="col content_">
                         <!-- class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px 15px; height: 100%; width: 100%;" -->
                         <div class="card h-100">
-                            <img src="{{url_for('static', filename='img/course/'+ c.image|string or 'course-1.webp')}}"
+                            <img src="{{url_for('static', filename='img/course/'+ course.image|string or 'course-1.webp')}}"
                                 class="card-img-top sh-22" alt="card image">
                             
                             <div class="card-body">
 
                                 <h5 class="heading mb-0">
-                                    <a href="{{url_for('main.prev', slug=c.slug|string)}}" class="body-link stretched-link">{{c.title}}</a>
+                                    <a href="{{url_for('main.prev', slug=course.slug|string)}}" class="body-link stretched-link">{{course.title}}</a>
                                 </h5>
                             </div>
                             <div class="card-footer border-0 pt-0">
@@ -129,19 +129,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="text-muted d-inline-block text-small align-text-top">({{c.rating or 0}})</div>
+                                    <div class="text-muted d-inline-block text-small align-text-top">({{course.rating or 0}})</div>
                                 </div> -->
                                 <div class="card-text mb-0">
                                     <div class="text-muted text-overline text-small">
-                                        <del>$ {{c.fee}} </del>
+                                        <del>$ {{course.fee}} </del>
                                     </div>
-                                    <div>$ {{c.fee or '0'}}</div>
+                                    <div>$ {{course.fee or '0'}}</div>
                                 </div>
                             </div>
                         {% if current_user.is_authenticated and current_user.is_admin() %}
-                            <a href="{{url_for('editor.update', cid=c.id)}}" class="position-relative stretched-link d-inline-block mt-3"
+                            <a href="{{url_for('x_course_bp.update_course', course_id=course.id)}}" class="position-relative stretched-link d-inline-block mt-3"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="" data-delay="{'show':'100', 'hide':'0'}"
-                        data-bs-original-title="edit {{c.title}}" class="text-primary"> <i data-acorn-icon="edit" data-acorn-size="20" class="icon"></i>
+                        data-bs-original-title="edit {{course.title}}" class="text-primary"> <i data-acorn-icon="edit" data-acorn-size="20" class="icon"></i>
                         </a>
                         {% endif %}
                         </div>
