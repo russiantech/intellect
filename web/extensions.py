@@ -62,7 +62,7 @@ migrate = Migrate()
 
 import openai
 openai.api_key = getenv('OPENAI_API_KEY') # Set your API key here
-client = openai.OpenAI() # Then create the client
+openai_client = openai.OpenAI() # Then create the openai_client
 
 def make_available():
 
@@ -96,7 +96,7 @@ def make_available():
 
 def init_ext(app):
 
-    # client.init_app(app)
+    # openai_client.init_app(app)
 
     from web.models import s_manager
     s_manager.init_app(app)
@@ -131,7 +131,7 @@ def confiq_app(app, config_name):
     
     from elasticsearch import Elasticsearch
     # print(app.config['ELASTICSEARCH_URL'])
-    # app.elasticsearch = Elasticsearch([getenv('ELASTICSEARCH_URL', None)]) # Create an Elasticsearch client instance
+    # app.elasticsearch = Elasticsearch([getenv('ELASTICSEARCH_URL', None)]) # Create an Elasticsearch openai_client instance
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']])
 
 

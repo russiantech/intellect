@@ -53,7 +53,7 @@ hashed_user_id = user_auth.hash_it(user_id)
 
 # Transmit hashed_user_id over WebSocket
 
-# When received on the client-side, unhash it
+# When received on the openai_client-side, unhash it
 unhashed_user_id = user_auth.unhash_it(hashed_user_id)
 
 # print(f"Original User ID: {unhashed_user_id}")

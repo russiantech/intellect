@@ -157,7 +157,7 @@ def path():
     return render_template("path/path.html")
 
 @main.route('/path-of/<string:coding>', defaults={'coding':'coding'})
-def path_of():
+def path_of(coding):
     return render_template("path/path-of.html")
 
 

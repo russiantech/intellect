@@ -65,11 +65,45 @@ from web.extensions import csrf
 @x_recommend_bp.route('/recommendations', methods=['POST'])
 @csrf.exempt
 def get_recommendations():
-    interactions = request.json.get('interactions', [])
-    print('interactions:', interactions)
-    if not interactions:
-        # Fallback to top courses if no interactions provided
-        top_courses = fetch_top_courses()
+
+    try:
+        interactions = request.json.get('interactions', [])
+        # print('interactions:', interactions)
+        if not interactions:
+            # Fallback to top courses if no interactions provided
+            top_courses = fetch_top_courses()
+            return jsonify([{
+                "title": course.title,
+                "slug": course.id,  # or use any unique identifier
+                "image": course.image,
+                "fee": course.fee,
+                "rating": course.rating,
+                "desc": course.desc  # Assuming `desc` is the correct attribute
+            } for course in top_courses])
+
+        # Step 1: Analyze interactions to extract relevant keywords or course IDs
+        keywords = set()
+        for interaction in interactions:
+            course = Course.query.get(interaction['course_id'])
+            if course:
+                keywords.add(course.title)
+                keywords.add(course.category)
+                keywords.add(course.desc)  # Assuming `desc` is the correct attribute
+
+        # Step 2: Fetch matching courses from the database
+        recommended_courses = []
+        for keyword in keywords:
+            similar_courses = fetch_similar_courses_from_db(keyword)
+            recommended_courses.extend(similar_courses)
+
+        # Remove duplicates
+        recommended_courses = list({course.id: course for course in recommended_courses}.values())
+
+        # Step 3: If no recommendations, fallback to top courses
+        if not recommended_courses:
+            recommended_courses = fetch_top_courses()
+
+        # Return the list of recommended courses
         return jsonify([{
             "title": course.title,
             "slug": course.id,  # or use any unique identifier
@@ -77,36 +111,9 @@ def get_recommendations():
             "fee": course.fee,
             "rating": course.rating,
             "desc": course.desc  # Assuming `desc` is the correct attribute
-        } for course in top_courses])
-
-    # Step 1: Analyze interactions to extract relevant keywords or course IDs
-    keywords = set()
-    for interaction in interactions:
-        course = Course.query.get(interaction['course_id'])
-        if course:
-            keywords.add(course.title)
-            keywords.add(course.category)
-            keywords.add(course.desc)  # Assuming `desc` is the correct attribute
-
-    # Step 2: Fetch matching courses from the database
-    recommended_courses = []
-    for keyword in keywords:
-        similar_courses = fetch_similar_courses_from_db(keyword)
-        recommended_courses.extend(similar_courses)
-
-    # Remove duplicates
-    recommended_courses = list({course.id: course for course in recommended_courses}.values())
-
-    # Step 3: If no recommendations, fallback to top courses
-    if not recommended_courses:
-        recommended_courses = fetch_top_courses()
-
-    # Return the list of recommended courses
-    return jsonify([{
-        "title": course.title,
-        "slug": course.id,  # or use any unique identifier
-        "image": course.image,
-        "fee": course.fee,
-        "rating": course.rating,
-        "desc": course.desc  # Assuming `desc` is the correct attribute
-    } for course in recommended_courses])
+        } for course in recommended_courses])
+    
+    except Exception as e:
+        # Silencing the error by catching it and returning None
+        print("openai exceptions sienced, here at web/apis/x_courses/x_recommend_bak.py:81")
+        return jsonify({"success":False, "error":f"{e}"})

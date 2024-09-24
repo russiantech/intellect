@@ -8,9 +8,9 @@ x_recommend_bp = Blueprint('x_recommend_api', __name__)
 
 
 from openai import OpenAI
-client = OpenAI()
+openai_client = OpenAI()
 
-completion = client.chat.completions.create(
+completion = openai_client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
@@ -50,7 +50,7 @@ def get_openai_recommendations0(interactions):
     return recommendations
 
 def get_openai_recommendations(interactions):
-    # completion = await client.chat.completions.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Hello world"}])
+    # completion = await openai_client.chat.completions.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Hello world"}])
     # Construct a message list for ChatGPT
     messages = [
         {"role": "system", "content": "You are a helpful assistant who recommends courses based on user interactions."},

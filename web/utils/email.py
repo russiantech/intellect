@@ -52,7 +52,7 @@ def send_mail_0(subject, sender, recipients, text_body, html_body):
     ).start()
 
 
-""" mailtrap using mailtrap client """
+""" mailtrap using mailtrap openai_client """
 import mailtrap as mt
 def send_mail_1(subject, sender, recipients, text_body, html_body):
     def send_async_email(app, subject, sender, recipients, text_body, html_body):
@@ -70,8 +70,8 @@ def send_mail_1(subject, sender, recipients, text_body, html_body):
                 )
 
                 # Create MailtrapClient and send email
-                client = mt.MailtrapClient(token=token)
-                client.send(mail)
+                openai_client = mt.MailtrapClient(token=token)
+                openai_client.send(mail)
 
                 print('Success, email sent!')
         except Exception as e:
