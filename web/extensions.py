@@ -71,8 +71,9 @@ def make_available():
 
     app_data = {
         'app_name': 'Intellect . Techa',
+        'hype': 'Your Digitl Learning Companion.',
         'app_desc': 'Building a future where learning fits seamlessly into your everyday life.',
-        'app_location': 'adesanya, lekki, lagos, nigeria.',
+        'app_location': 'Graceland Estate, Lekki, Lagos, Nigeria.',
         'app_email': 'chrisjsmez@gmail.com',
         'app_logo': getenv('logo_url'),
         'fb_link': 'https://www.facebook.com/Chrisjsmes.fb.co',

@@ -16,9 +16,10 @@ pay = Blueprint('pay', __name__)
 
 @pay.route('/init-payment/<string:slug>', methods=['POST', 'GET'])
 @csrf.exempt
-@login_required
+# @login_required
 def init_payment(slug):
     try:
+
         # Check if the slug is for a course or a path
         course = Course.query.filter(Course.slug == slug).first()
         path = Path.query.filter(Path.slug == slug).first()
@@ -33,6 +34,10 @@ def init_payment(slug):
         elif path:
             item_title = path.title
             amount = path.fee or 100
+        
+        if not current_user.is_authenticated:
+            return jsonify({"success": False, "error": f"Kindly sign-in to get enrolled into this {item_title or item_title}.", "redirect_url": url_for("auth_api.signin")}), 200
+
 
         # Prepare payment payload
         url = "https://api.flutterwave.com/v3/payments"

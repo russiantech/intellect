@@ -78,7 +78,7 @@ def get_recommendations():
     
     except Exception as e:
         # Silencing the error by catching it and returning None
-        print("openai exceptions sienced, here at web/apis/x_courses/x_recommend_bak.py:81")
+        print("openai exceptions silenced, here at web/apis/x_courses/x_recommend_bak.py:81")
         return jsonify({"success":False, "error": f"{e}"})
 
 

@@ -2,7 +2,7 @@
 <html lang="en" data-footer="true">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %} Russian Developers {% endblock title %}</title>
+    <title>{% block title %} Intellect . Russian Developers {% endblock title %}</title>
     {% include('incs/metas.html') %}
     {% block page_css %} {% endblock page_css %}
 </head>
@@ -116,7 +116,8 @@ $(document).ready(function () {
 
                     container.empty().append(pathElements);
                 } else {
-                    console.error('Expected an array but got:', response);
+                    // console.error('Expected an array but got:', response); // this will log it as error to the console
+                    console.log("Non-array-response-from-open-ai", response);
                 }
             },
             error: function (xhr, status, error) {
