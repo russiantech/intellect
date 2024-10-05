@@ -1,11 +1,13 @@
 
 def type(user):
     
-    for r in user.roles:
-        return r.type.capitalize() or 'student'
+    for role in user.roles:
+        # return r.type.capitalize() or 'student'
+        # return role.type.capitalize() or 'student'
+        return role.type.capitalize() or 'student'
 
     """    
-    r = 0
+    r = 0s
     r =   r in [ r.type for r in user.role] if r in user.role else 'student'
     return  r
 """

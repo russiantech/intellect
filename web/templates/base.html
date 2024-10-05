@@ -2,7 +2,7 @@
 <html lang="en" data-footer="true">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %} Intellect . Russian Developers {% endblock title %}</title>
+    {#<title>{% block title %} Intellect . Russian Developers {% endblock title %}</title>#}
     {% include('incs/metas.html') %}
     {% block page_css %} {% endblock page_css %}
 </head>
@@ -233,7 +233,7 @@ $(document).ready(function () {
                 var placeholderCourses = [
                     {
                         title: "Welcome, Intellect!",
-                        slug: "welcome",
+                        slug: "./welcome",
                         // image: "welcome.webp",
                         image: "graduate.png",
                         desc: "Select a course to start learning. Click Start Now to access content."
@@ -247,14 +247,14 @@ $(document).ready(function () {
                     },
                     {
                         title: "Explore Courses",
-                        slug: "explore-courses",
+                        slug: "./",
                         // image: "explore.webp",
                         image: "graduate.png",
                         desc: "Browse our courses and discover your next learning journey."
                     },
                     {
                         title: "What is path",
-                        slug: "explore-courses",
+                        slug: "./paths",
                         // image: "explore.webp",
                         image: "graduate.png",
                         desc: "Your tech carreer begins with intellect. Get professional with us today.."
@@ -263,7 +263,8 @@ $(document).ready(function () {
 
                 var pathElements = placeholderCourses.map(function (course) {
                     var clone = template.clone().show();
-                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('a').attr('href', course.slug);
+                    // clone.find('a').attr('href', './learn/' + course.slug);
                     clone.find('img').attr('src', './static/img/course/' + course.image);
                     clone.find('.heading').text(course.title);
                     clone.find('.text-muted').text(course.desc);

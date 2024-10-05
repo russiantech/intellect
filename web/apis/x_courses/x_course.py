@@ -1,5 +1,3 @@
-
-
 import json, traceback, jsonschema
 from flask_login import current_user, login_required
 from flask import Blueprint, jsonify, request
@@ -23,7 +21,7 @@ def handle_response(message=None, alert=None, data=None):
 
     return response_data
 
-_schemas = {
+""" _schemas = {
     'save-data': {
         "type": "object",
         "properties": {
@@ -34,6 +32,24 @@ _schemas = {
         },
 
         },
+} """
+_schemas = {
+    'save-data': {
+        "type": "object",
+        "properties": {
+            "title": { "type": "string" },
+            "desc": { "type": "string" },
+            "course_id": { "type": "integer" },
+            "image": { "type": "string" },
+            "category_ids": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            }
+        },
+        "required": ["title", "desc", "course_id", "category_ids"],  # Required fields
+    },
 }
 
 @x_course_bp.route('/more')
@@ -97,7 +113,7 @@ def create_course():
         traceback.print_exc()
         return handle_response(message=str(e), alert='alert-danger')
 
-@x_course_bp.route('/update_course/<int:course_id>', methods=['PUT'])
+""" @x_course_bp.route('/update_course/<int:course_id>', methods=['PUT'])
 @csrf.exempt
 def update_course(course_id):
     try:
@@ -131,7 +147,7 @@ def update_course(course_id):
             #update the uploaded course image name
             data['image'] = course_image_name
 
-        #data['slug'] = make_slug(data['title']) """ DO NOT UPDATE SLUG-URL EVERYTIME """
+        #data['slug'] = make_slug(data['title']) // DO NOT UPDATE SLUG-URL EVERYTIME 
 
         data['desc'] = json.dumps(data['desc'])
 
@@ -146,7 +162,65 @@ def update_course(course_id):
     except Exception as e:
         db.session.rollback()
         #traceback.print_exc()
-        return handle_response(message=str(e), alert='alert-danger')
+        return handle_response(message=str(e), alert='alert-danger') """
+    
+
+@x_course_bp.route('/update_course/<int:course_id>', methods=['PUT'])
+@csrf.exempt
+def update_course(course_id):
+    try:
+        if not db.session.is_active:
+            db.session.begin()
+
+        # Get data from the request
+        data = request.get_json()
+
+        # Validate data (assuming a schema is used)
+        valid_schema = _schemas.get('save-data')
+        jsonschema.validate(instance=data, schema=valid_schema)
+
+        # Check if the course exists
+        course = Course.query.get_or_404(course_id)
+        if not course:
+            return jsonify({'error': 'Invalid Course'}), 400
+
+        # Check for multiple category IDs
+        category_ids = data.get('category_ids', [])  # Expecting a list of category IDs
+
+        # Validate that the provided category IDs exist in the database
+        valid_categories = Category.query.filter(Category.id.in_(category_ids)).all()
+
+        if not valid_categories:
+            return jsonify({'error': 'Invalid categories'}), 400
+
+        # Update course image if provided
+        course_image = request.files.get('image')
+        if course_image:
+            course_image_name = uploader(course_image)
+        else:
+            course_image_name = 'default.webp'
+        data['image'] = course_image_name
+
+        # Do not update slug every time
+        # data['slug'] = make_slug(data['title']) 
+
+        # Update the course description and other attributes
+        data['desc'] = json.dumps(data['desc'])
+        for key, value in data.items():
+            setattr(course, key, value)
+
+        # Update the categories (many-to-many)
+        course.categories = valid_categories
+
+        # Commit changes to the database
+        db.session.commit()
+
+        return jsonify({'message': 'Course updated successfully'})
+    
+    except Exception as e:
+        db.session.rollback()
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
 
 @x_course_bp.route('/delete_course/<int:course_id>', methods=['DELETE'])
 def delete_course(course_id):
@@ -222,7 +296,7 @@ def get_courses():
     return jsonify(course_list)
 
 # Route to get a specific course by slug
-@x_course_bp.route('/get_course/<string:course_slug>', methods=['GET'])
+""" @x_course_bp.route('/get_course/<string:course_slug>', methods=['GET'])
 #@login_required
 def get_course(course_slug):
     # Retrieve course information based on the slug
@@ -236,7 +310,39 @@ def get_course(course_slug):
         current_user=current_user or None
         )
     
+    return jsonify(course_data) """
+
+@x_course_bp.route('/get_course/<string:course_slug>', methods=['GET'])
+def get_course(course_slug):
+    # Retrieve course information based on the slug
+    course = Course.query.filter_by(slug=course_slug).first_or_404()
+    
+    # Optionally include lessons and topics
+    include_lessons = request.args.get('include_lessons') == 'true'
+    include_topics = request.args.get('include_topics') == 'true'
+    
+    # Check if category dict should be returned
+    return_category_dict = request.args.get('return_category_dict') == 'true'
+    
+    course_data = course.serialize(
+        include_lessons=include_lessons, include_topics=include_topics, 
+        current_user=current_user or None, return_category_dict=return_category_dict
+    )
+    
     return jsonify(course_data)
+
+@x_course_bp.route('/fetch-by-categories', methods=['GET'])
+def fetch_by_categories():
+    category_ids = request.args.get('categories')  # Example: '1,2,3'
+    if category_ids:
+        category_ids = [int(cid) for cid in category_ids.split(',')]  # Convert to list of integers
+        courses = Course.query.filter(Course.categories.any(Category.id.in_(category_ids))).all()
+    else:
+        courses = Course.query.all()  # Return all courses if no category is selected
+    
+    # Serialize and return the courses as JSON
+    courses_data = [course.serialize() for course in courses]
+    return jsonify(courses_data)
 
 @x_course_bp.route('/x_course_api.loadmore', methods=['GET'])
 def load_more_courses():

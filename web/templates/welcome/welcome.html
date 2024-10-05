@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                         {% if current_user.is_authenticated and current_user.is_admin() %}
-                            <a href="{{url_for('x_course_bp.update_course', course_id=course.id)}}" class="position-relative stretched-link d-inline-block mt-3"
+                            <a href="{{url_for('main.x_update')}}" class="position-relative stretched-link d-inline-block mt-3"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="" data-delay="{'show':'100', 'hide':'0'}"
                         data-bs-original-title="edit {{course.title}}" class="text-primary"> <i data-acorn-icon="edit" data-acorn-size="20" class="icon"></i>
                         </a>
@@ -694,8 +694,156 @@
     loadCategories();
 });
  */
-
+/*
  document.addEventListener("DOMContentLoaded", function () {
+    // Function to handle loading categories and setting up checkboxes
+    function loadCategories() {
+        const categoriesDiv = document.getElementById("categories_div");
+        categoriesDiv.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...';
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/get_categories", true);
+
+        xhr.onload = function () {
+            categoriesDiv.innerHTML = ""; // Clear the spinner immediately after loading response
+            if (xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+
+                    if (Array.isArray(response)) {
+                        if (response.length === 0) {
+                            categoriesDiv.innerHTML = "No categories available."; // Handle no categories case
+                        } else {
+                            document.getElementById("categories_div").innerHTML = "";
+                            response.forEach(function (category) {
+                                // Create checkbox element
+                                const checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";
+                                checkbox.classList.add("form-check-input");
+                                checkbox.id = `category_${category.id}`;
+
+                                // Attach change event listener
+                                checkbox.addEventListener('change', handleFilterChange);
+
+                                // Create label element
+                                const label = document.createElement("label");
+                                label.classList.add("form-check-label");
+                                label.setAttribute("for", checkbox.id);
+                                label.textContent = category.title;
+
+                                // Create wrapper div
+                                const div = document.createElement("div");
+                                div.classList.add("form-check");
+                                div.appendChild(checkbox);
+                                div.appendChild(label);
+
+                                // Append to categoriesDiv
+                                document.getElementById("categories_div").appendChild(div);
+                            });
+                        }
+                    } else {
+                        handleError("Error processing categories");
+                    }
+                } catch (e) {
+                    handleError("Error parsing categories");
+                }
+            } else {
+                handleError(`Error fetching categories: ${xhr.statusText}`);
+            }
+        };
+
+        xhr.onerror = function () {
+            handleError("Network error occurred while fetching categories");
+        };
+
+        xhr.send();
+    }
+
+    // Utility function to display error messages
+    function handleError(message) {
+        const categoriesDiv = document.getElementById("categories_div");
+        categoriesDiv.innerHTML = message;
+        categoriesDiv.classList.add("alert-danger");
+        console.error(message);
+    }
+
+    // Debounce function to limit function execution rate
+    function debounce(func, delay) {
+        let debounceTimeout;
+        return function (...args) {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+     };
+    }
+
+    // Function to handle filter change and load content
+    const handleFilterChange = debounce(async function () {
+        const categoriesDiv = document.getElementById("categories_div");
+        const selectedCategories = Array.from(categoriesDiv.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.id.replace('category_', ''));
+
+        console.log("Selected Categories:", selectedCategories);
+
+        if (selectedCategories.length === 0) {
+            console.log("No categories selected, exiting");
+            updateContent([]);  // Clear the content when no categories are selected
+            return;
+        }
+
+        try {
+            const categoryParams = selectedCategories.join(',');
+            const response = await fetch(`/fetch-by-categories?categories=${categoryParams}`);
+            if (response.ok) {
+                const data = await response.json();
+                updateContent(data);
+            } else {
+                console.error('Failed to load content:', response.statusText);
+                updateContent([]);  // Clear the content on failed response
+            }
+        } catch (error) {
+            console.error('Network error occurred while loading content', error);
+            updateContent([]);  // Clear the content on error
+        }
+    }, 300);
+
+    // Function to update content container with new data
+    function updateContent(data) {
+        const contentContainer = document.getElementById('content_container');
+        const template = document.getElementById('card-template');
+
+        // Check if the template exists
+        if (!template) {
+            console.error('Template element not found');
+            return;
+        }
+
+        // Clear current content
+        contentContainer.innerHTML = '';
+
+        if (data.length === 0) {
+            // Show a message when no courses are available
+            contentContainer.innerHTML = "<p>No courses available for the selected categories.</p>";
+            return;
+        }
+
+        data.forEach(course => {
+            // Clone the template content
+            const newCard = template.content.cloneNode(true);
+            newCard.querySelector('img').src = `/static/img/course/${course.image}`;
+            newCard.querySelector('a').href = `/prev/${course.slug}`;
+            newCard.querySelector('a').textContent = course.title;
+            newCard.querySelector('.card-footer .text-muted.text-overline.text-small').innerHTML = `<del>$ ${course.id} </del>`;
+            newCard.querySelector('.card-footer .card-text div:nth-child(2)').textContent = `$ ${course.fee}`;
+            contentContainer.appendChild(newCard);
+        });
+    }
+
+    // Load categories on page load
+    loadCategories();
+});
+*/
+
+document.addEventListener("DOMContentLoaded", function () {
     // Function to handle loading categories and setting up checkboxes
     function loadCategories() {
         const categoriesDiv = document.getElementById("categories_div");
@@ -777,12 +925,16 @@
     }
 
     // Function to handle filter change and load content
-    const handleFilterChange = debounce(async function () {
+    const handleFilterChange = debounce( async function () {
         const categoriesDiv = document.getElementById("categories_div");
+        const contentContainer = document.getElementById('content_container');
         const selectedCategories = Array.from(categoriesDiv.querySelectorAll('input[type="checkbox"]:checked'))
             .map(checkbox => checkbox.id.replace('category_', ''));
 
         console.log("Selected Categories:", selectedCategories);
+
+        // Show a spinner while loading content
+        contentContainer.innerHTML = '<span class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true"></span> Loading...';
 
         if (selectedCategories.length === 0) {
             console.log("No categories selected, exiting");
@@ -792,7 +944,7 @@
 
         try {
             const categoryParams = selectedCategories.join(',');
-            const response = await fetch(`/x_course_api.loadmore?categories=${categoryParams}`);
+            const response = await fetch(`/fetch-by-categories?categories=${categoryParams}`);
             if (response.ok) {
                 const data = await response.json();
                 updateContent(data);
@@ -804,6 +956,7 @@
             console.error('Network error occurred while loading content', error);
             updateContent([]);  // Clear the content on error
         }
+        
     }, 300);
 
     // Function to update content container with new data
@@ -829,13 +982,21 @@
         data.forEach(course => {
             // Clone the template content
             const newCard = template.content.cloneNode(true);
-            newCard.querySelector('img').src = `/static/img/course/${course.image}`;
+            
+            // Check if course image exists, if not use a default image
+            const courseImage = course.image ? `/static/img/course/${course.image}` : `/static/img/course/default.png`;
+            newCard.querySelector('img').src = courseImage;
+            newCard.querySelector('img').alt = course.title;
+
             newCard.querySelector('a').href = `/prev/${course.slug}`;
             newCard.querySelector('a').textContent = course.title;
             newCard.querySelector('.card-footer .text-muted.text-overline.text-small').innerHTML = `<del>$ ${course.id} </del>`;
             newCard.querySelector('.card-footer .card-text div:nth-child(2)').textContent = `$ ${course.fee}`;
+
+            // Append the new card to the content container
             contentContainer.appendChild(newCard);
         });
+
     }
 
     // Load categories on page load

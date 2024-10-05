@@ -38,9 +38,11 @@ class Select2Controls {
 
 
     _initSelect2Basic() { 
-        jQuery("#course_id").select2({ placeholder: "" }); //initialize for lesson select drop-down
-        jQuery("#lesson_id").select2({ placeholder: "" }); //initialize for lesson select drop-down
-        jQuery("#topic_id").select2({ placeholder: "" }); //initialize for topic select drop-down
+        jQuery("#category_id").select2({ placeholder: "" }); //initialize for category_id select drop-down
+        jQuery("#course_id").select2({ placeholder: "" }); //initialize for course_id select drop-down
+        jQuery("#lesson_id").select2({ placeholder: "" }); //initialize for lesson_id select drop-down
+        jQuery("#topic_id").select2({ placeholder: "" }); //initialize for topic_id select drop-down
+        jQuery("#path_id").select2({ placeholder: "" }); //initialize for path_id select drop-down
     } //initialize for lesson select drop-down
 
     /* _initSelect2Basic() { jQuery("#select2Basic").select2({ placeholder: "" }) } */

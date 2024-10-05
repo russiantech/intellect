@@ -2,6 +2,7 @@ from flask import jsonify, render_template, Blueprint, url_for
 from flask_login import current_user, login_required
 
 from web.models import db, Brand, User, Course, Topic, Enrollment
+from web.utils.decorators import enrollment_required
 
 main = Blueprint('main', __name__)
 
@@ -227,7 +228,7 @@ def prev(slug):
 
 @main.route('/learn/<string:slug>')
 @login_required
-# @enrollment_required
+@enrollment_required
 def learn(slug):
     return render_template("xcourse/learn.html")
 
@@ -261,12 +262,18 @@ def x_insert_topic():
 def x_update_topic():
     return render_template("xcourse/x_update_topic.html")
 
+""" =============================PATH======================== """
 # Path insert interface
 @main.route('/x-insert/path')
 def x_insert_path():
     return render_template("xcourse/x_insert_path.html")
 
-# Topic update interface
+# Path update interface
 @main.route('/x-update/path')
 def x_update_path():
     return render_template("xcourse/x_update_path.html")
+
+# Path delete interface
+@main.route('/x-delete/path')
+def x_delete_path():
+    return render_template("xcourse/x_delete_path.html")

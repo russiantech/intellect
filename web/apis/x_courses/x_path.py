@@ -1,6 +1,6 @@
 import json
 import traceback
-from flask_login import login_required
+from flask_login import current_user, login_required
 import jsonschema
 from flask import Blueprint, jsonify, request
 from web.apis.make_slug import make_slug
@@ -99,7 +99,7 @@ def create_path():
         traceback.print_exc()
         return jsonify({'success':False, 'error': f'{e}'})
 
-# Updates a Path
+""" # Updates a Path
 @x_path_bp.route('/update_path/<int:path_id>', methods=['PUT'])
 @csrf.exempt
 @login_required
@@ -138,27 +138,100 @@ def update_path(path_id):
     except Exception as e:
         db.session.rollback()
         traceback.print_exc()
-        return jsonify(handle_response(message=str(e), alert='alert-danger')), 400
+        return jsonify({'success':False, 'error': f'{e}'})
+        # return jsonify(handle_response(message=str(e), alert='alert-danger'))
+        # return jsonify(handle_response(message=str(e), alert='alert-danger')), 400 """
 
-# Deletes a Path
-@x_path_bp.route('/delete_path/<int:path_id>', methods=['DELETE'])
+# Updates a Path
+@x_path_bp.route('/update_path/<int:path_id>', methods=['PUT'])
 @csrf.exempt
-@login_required
-def delete_path(path_id):
+# @login_required
+def update_path(path_id):
     try:
+
+        if not current_user.is_authenticated:
+            return jsonify({'success':False, 'error': f'Kindly authenticate your-self to continue'})
+        
         if not db.session.is_active:
             db.session.begin()
 
-        path = Path.query.get_or_404(path_id)
-        db.session.delete(path)
-        db.session.commit()
+        data = request.get_json()
+        # print(f"Incoming data: {data}")  # Debugging log
 
-        return jsonify({'message': f'Path({path.title}) deleted successfully'})
+        # Validate data
+        valid_schema = _schemas.get('save-data')
+        jsonschema.validate(instance=data, schema=valid_schema)
+
+        # Fetch the existing Path
+        path = Path.query.get_or_404(path_id)
+
+        # Only update fields if they are provided in the request data, leave others unchanged
+        if 'title' in data and data['title']:
+            path.title = data['title']
+        
+        if 'desc' in data and data['desc']:
+            path.desc = data['desc']
+
+        if 'fee' in data:
+            path.fee = data['fee'] if data['fee'] is not None else path.fee
+
+        if 'rating' in data:
+            path.rating = data['rating'] if data['rating'] is not None else path.rating
+
+        if 'duration' in data:
+            path.duration = data['duration'] if data['duration'] is not None else path.duration
+
+        # Update course associations if provided
+        if 'course_ids' in data:
+            path.courses.clear()  # Remove current courses
+            course_ids = data.get('course_ids', [])
+            for course_id in course_ids:
+                course = Course.query.get_or_404(course_id)
+                path.courses.append(course)
+
+        # Commit the changes to the database
+        db.session.commit()
+        db.session.refresh(path)
+        
+        print(f"Updated path title: {path.title}")  # Debugging log
+        
+        return jsonify({'success':True, 'message': f'{path.title} path updated successfully'})
 
     except Exception as e:
         db.session.rollback()
         traceback.print_exc()
-        return jsonify(handle_response(message=str(e), alert='alert-danger')), 400
+        return jsonify({'success': False, 'error': f'{e}'})
+
+
+# Deletes a Path
+@x_path_bp.route('/delete_path/<int:path_id>', methods=['DELETE'])
+@csrf.exempt
+# @login_required
+def delete_path(path_id):
+    try:
+        if not current_user.is_authenticated:
+            return jsonify({'success': False, 'error': 'Kindly authenticate yourself to continue'})
+
+        if not db.session.is_active:
+            db.session.begin()
+
+        # Fetch the path to delete
+        path = Path.query.get_or_404(path_id)
+
+        # Clear the path-course associations (without affecting the actual courses or lessons)
+        path.courses.clear()  # This will clear the association in the junction/association table
+
+        # Delete the path itself
+        db.session.delete(path)
+        db.session.commit()
+
+        return jsonify({'success': True, 'message': f"{request.get_json()['title']} deleted successfully"})
+
+    except Exception as e:
+        db.session.rollback()
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': f'{e}'})
+
 
 # Fetches all Paths
 @x_path_bp.route('/get_paths', methods=['GET'])
@@ -166,19 +239,27 @@ def delete_path(path_id):
 @csrf.exempt
 def get_paths():
     try:
+
+        # if not current_user.is_authenticated:
+        #     return jsonify({'success':False, 'error': f'Kindly authenticate your-self to continue'})
+        
         paths = Path.query.all()
         path_list = [path.serialize() for path in paths]
         return jsonify(path_list)
+    
     except Exception as e:
         traceback.print_exc()
         return jsonify(handle_response(message=str(e), alert='alert-danger')), 400
 
 # Fetches a single Path by slug
 @x_path_bp.route('/get_path/<slug>', methods=['GET'])
-@login_required
+# @login_required
 @csrf.exempt
 def get_path(slug):
     try:
+        if not current_user.is_authenticated:
+            return jsonify({'success':False, 'error': f'Kindly authenticate your-self to continue'})
+        
         path = Path.query.filter_by(slug=slug).first_or_404()
         return jsonify(path.serialize())
     except Exception as e:
@@ -187,10 +268,14 @@ def get_path(slug):
 
 # by id
 @x_path_bp.route('/get_path/<int:path_id>', methods=['GET'])
-@login_required
+# @login_required
 @csrf.exempt
 def get_path_by_id(path_id):
     try:
+
+        if not current_user.is_authenticated:
+            return jsonify({'success':False, 'error': f'Kindly authenticate your-self to continue'})
+        
         path = Path.query.get_or_404(path_id)
         return jsonify(path.to_dict())
     except Exception as e:

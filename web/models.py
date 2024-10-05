@@ -51,10 +51,15 @@ user_role_association = db.Table(
     keep_existing=True
 )
 
+# category_course_association = db.Table('category_course_association',
+#     db.Column('course_id', db.Integer, db.ForeignKey('course.id')),
+#     db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+# )
 category_course_association = db.Table('category_course_association',
-    db.Column('course_id', db.Integer, db.ForeignKey('course.id')),
-    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+    db.Column('course_id', db.Integer, db.ForeignKey('course.id'), primary_key=True),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'), primary_key=True)
 )
+
 
 # Association table to track completion status of topics for each user
 user_topic_progress = db.Table('user_topic_progress',
@@ -144,19 +149,21 @@ class User(db.Model, UserMixin):
 
     last_message_read_time = db.Column(db.DateTime)
 
-
     created = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     updated = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     deleted = db.Column(db.Boolean(), default=False)
     active =  db.Column(db.Boolean(), default=True)
     
+    def is_admin_dev(self):
+        roles = [role.type for role in self.roles]  # Get all roles
+        return 'admin' in roles and 'developer' in roles  # Check for both roles
+
     def is_admin(self):
         return 'admin' in [ r.type for r in self.roles ]
     
     def not_admin(self):
         return not self.is_admin()
     
-    # ...
     def new_messages(self):
         last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
         return Message.query.filter_by(recipient=self).filter(Message.timestamp > last_read_time).count()
@@ -323,7 +330,8 @@ class Course(db.Model):
     quizzes = db.relationship('Quiz', backref='courses')
     
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    category = db.relationship('Category', secondary=category_course_association, backref=db.backref('course', lazy='dynamic'), lazy='dynamic')
+    # Many-to-many relationship with Category
+    categories = db.relationship('Category', secondary=category_course_association, backref=db.backref('courses', lazy='dynamic'))
     
     payment = db.relationship("Payment", backref="course", lazy=True)  # Payment->course
     lessons = db.relationship("Lesson", back_populates="course", lazy=True)  # lesson->course
@@ -369,9 +377,57 @@ class Course(db.Model):
         return 0
 
     def serialize(
+        self, include_only=None, include_lessons=False, include_topics=False, 
+        include_topic_desc=False, current_user=None, return_category_dict=False
+    ):
+        """Serialize the Course object with conditional inclusion of related data."""
+        try:
+            if include_only is None:
+                include_only = ['id', 'category_id', 'image', 'title', 'desc', 'comment', 'rating', 'fee', 'level', 'views', 'duration', 'created', 'slug']
+
+            data = {x: getattr(self, x) for x in include_only}
+
+            data['desc'] = json.loads(self.desc) if self.desc and 'desc' in include_only else None
+
+            # Conditionally include categories
+            if return_category_dict:
+                data['categories'] = [
+                    {'id': category.id, 'name': category.name} for category in self.categories
+                ]
+            else:
+                data['categories'] = [category.id for category in self.categories]
+
+            # Check if lessons should be included
+            if include_lessons:
+                lessons = [lesson.serialize() for lesson in self.lessons]
+                data['lessons'] = lessons
+                data['lessons_count'] = len(lessons)
+
+                # Check if topics should be included
+                if include_topics:
+                    for lesson in lessons:
+                        if 'topics' in lesson and isinstance(lesson['topics'], list) and lesson['topics'] is not None:
+                            topics = [topic.serialize() for topic in lesson['topics'] if topic.lesson_id == lesson['id']]
+                            lesson['topics'] = topics
+
+            # Check if current_user is provided and add is_enrolled field
+            if current_user and current_user.is_authenticated:
+                enrollment = Enrollment.query.filter_by(user_id=current_user.id, course_id=self.id).first()
+                payment = Payment.query.filter_by(user_id=current_user.id, course_id=self.id, tx_status='successful').first()
+                data['is_enrolled'] = enrollment is not None and payment is not None
+            else:
+                data['is_enrolled'] = False
+
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            data['desc'] = None
+
+        return data
+
+    """ def serialize(
         self, include_only=None, include_lessons=False, include_topics=False, include_topic_desc=False, current_user=None
         ):
-        """Serialize the Course object by dynamically accessing the specified attributes."""
+        # Serialize the Course object by dynamically accessing the specified attributes.
         try:
             if include_only is None:
                 include_only = ['id', 'category_id', 'image', 'title', 'desc', 'comment', 'rating', 'fee', 'level', 'views', 'duration', 'created', 'slug']
@@ -396,10 +452,10 @@ class Course(db.Model):
                             lesson['topics'] = topics
 
             # Check if current_user is provided and add is_enrolled field
-            """ if current_user:
-                enrollment = Enrollment.query.filter_by(user_id=current_user.id, course_id=self.id).first()
-                payment = Payment.query.filter_by(user_id=current_user.id, course_id=self.id, tx_status='successful').first()
-                data['is_enrolled'] = enrollment is not None and payment is not None """
+            # if current_user:
+            #     enrollment = Enrollment.query.filter_by(user_id=current_user.id, course_id=self.id).first()
+            #     payment = Payment.query.filter_by(user_id=current_user.id, course_id=self.id, tx_status='successful').first()
+            #     data['is_enrolled'] = enrollment is not None and payment is not None 
             
             # Check if current_user is provided and add is_enrolled field
             if current_user and current_user.is_authenticated:
@@ -415,7 +471,7 @@ class Course(db.Model):
             print(f"Error decoding JSON: {e}")
             data['desc'] = None
 
-        return data
+        return data """
 
 class Lesson(db.Model):
     __tablename__ = 'lesson'
@@ -626,7 +682,7 @@ class Path(db.Model):
             'courses_total': len(self.courses),
             'quizzes_total': len(self.quizzes),
             'courses_time_total': sum(int(course.duration) for course in self.courses if course.duration),
-            'courses': [course.serialize(include_only=['image', 'title', 'rating', 'fee', 'duration', 'slug']) for course in self.courses],
+            'courses': [course.serialize(include_only=['id', 'image', 'title', 'rating', 'fee', 'duration', 'slug']) for course in self.courses],
             'quizzes': [quiz.serialize() for quiz in self.quizzes]
         }
 

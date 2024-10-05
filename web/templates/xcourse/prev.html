@@ -33,10 +33,44 @@
                         <label class="btn btn-outline-primary" for="instructorled">Instructor Led</label>
                     </div>
                     <div class="m-1">.</div>
-                    <a id="startNowButton" href="/learn/tech" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                    <a id="startNowButton" href="./" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
                         <i data-acorn-icon="chevron-right"></i>
-                        <span>Start Now . $<em id="course-fee">0</em></span>
+                        <span>Start . $<em id="course-fee">0</em></span>
                     </a>
+                    <div class="m-1">.</div>
+
+                    <div class="btn-group mb-0">
+                        <button class="btn btn-outline-primary btn-sm rounded-xl dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+                            <i data-acorn-icon="share"></i>  Share
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-sm">
+                            <li>
+                                <a class="dropdown-item social-share whatsapp" target="_blank" href="#">Whatsapp</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share facebook" target="_blank" href="#">Facebook</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share instagram" target="_blank" href="#">Instagram</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share twitter" target="_blank" href="#">Twitter</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share linkedin" target="_blank" href="#">Linkedin</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share email" target="_blank" href="#">Email</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+
+                    <!-- <a id="startNowButton" href="./" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                        <i data-acorn-icon="share"></i>
+                        <span>Share</em></span>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -55,9 +89,7 @@
                     <div id="description-div">
                         <div id="course-desc" class="card-body d-none">
                             <h3>title</h3>
-                            <p class="mb-2">
-                                info
-                            </p>
+                            <p class="mb-2"> </p>
                         </div>
                     </div>
 
@@ -496,17 +528,6 @@ $.ajax({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*  function fetchCourseBySlug(courseSlug) {
     $.ajax({
         url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
@@ -701,7 +722,7 @@ $.ajax({
                                 response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
                                 window.location.href = data.redirect_url;
                             } else {
-                                response_modal(data.error || 'Unsuccessful');
+                                response_modal(`${data.error}` || 'Unsuccessful');
                                 // Use shorthand for redirection
                                 data.redirect_url ? window.location.href = data.redirect_url : null;
                             }
@@ -810,9 +831,63 @@ $.ajax({
     });
 }
 
+</script>
 
+<script>
+    $(document).ready(function () {
 
+// Function to open a new window for social sharing
+function socialWindow(url) {
+    var left = (screen.width - 570) / 2;
+    var top = (screen.height - 570) / 2;
+    var params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
+    window.open(url, "NewWindow", params);
+}
 
+// Function to set up share links
+function setShareLinks() {
+    var pageUrl = encodeURIComponent(window.location.href); // Get the current page URL
+    var pageTitle = encodeURIComponent(document.title); // Get the page title or a meta description
+
+    // WhatsApp sharing
+    $(".social-share.whatsapp").on("click", function () {
+        var url = "https://api.whatsapp.com/send?text=" + pageTitle + "%20" + pageUrl;
+        window.open(url, "_blank"); // WhatsApp doesn't allow popups, use "_blank"
+    });
+
+    // Facebook sharing
+    $(".social-share.facebook").on("click", function () {
+        var url = "https://www.facebook.com/sharer/sharer.php?u=" + pageUrl;
+        socialWindow(url);
+    });
+
+    // Twitter sharing
+    $(".social-share.twitter").on("click", function () {
+        var url = "https://twitter.com/intent/tweet?text=" + pageTitle + "&url=" + pageUrl;
+        socialWindow(url);
+    });
+
+    // LinkedIn sharing
+    $(".social-share.linkedin").on("click", function () {
+        var url = "https://www.linkedin.com/shareArticle?mini=true&url=" + pageUrl + "&title=" + pageTitle;
+        socialWindow(url);
+    });
+
+    // Email sharing
+    $(".social-share.email").on("click", function () {
+        var url = "mailto:?subject=" + pageTitle + "&body=Check this out: " + pageUrl;
+        window.location.href = url; // Opens default email client
+    });
+
+    // Instagram sharing (Note: Instagram does not provide direct share links)
+    $(".social-share.instagram").on("click", function () {
+        alert("Instagram sharing is not available through a URL link. You can manually share on Instagram.");
+    });
+}
+
+// Initialize the sharing links
+setShareLinks();
+});
 
 </script>
 {% endblock page_js %}
