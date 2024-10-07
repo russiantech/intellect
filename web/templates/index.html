@@ -302,14 +302,91 @@
                 </div>
 
                 <h2 class="small-title">Trending Courses</h2>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5 g-2 mb-5">
+                
+                <!-- Hidden template -->
+                <template id="card-template">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/static/img/course/default.png" class="card-img-top sh-22" alt="card image">
+                            <div class="card-body h-100">
+                                <h5 class="heading mb-0">
+                                    <a href="/prev/default" class="body-link stretched-link">Default Title</a>
+                                </h5>
+                            </div>
+                            <div class="card-footer border-0 pt-0">
+                                <div class="mb-2">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                        <select class="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5" style="display: none;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <!-- <div class="text-muted d-inline-block text-small align-text-top">(0)</div> -->
+                                </div>
+                                <div class="card-text mb-0">
+                                    <div class="text-muted text-overline text-small"><del>$ 0</del></div>
+                                    <div>$ 0</div>
+                                </div>
+                            </div>
+                            {% if current_user.is_authenticated and current_user.is_admin() %}
+                            <a href="/x-insert/0" class="position-relative stretched-link d-inline-block mt-3" data-bs-toggle="tooltip" data-bs-placement="top" title="edit Default Title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-edit icon">
+                                    <path d="M14.6264 2.54528C15.0872 2.08442 15.6782 1.79143 16.2693 1.73077C16.8604 1.67011 17.4032 1.84674 17.7783 2.22181C18.1533 2.59689 18.33 3.13967 18.2693 3.73077C18.2087 4.32186 17.9157 4.91284 17.4548 5.3737L6.53226 16.2962L2.22192 17.7782L3.70384 13.4678L14.6264 2.54528Z"></path>
+                                </svg>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </template>
+
+                <div id="content_container" class="row row-cols-1 row-cols-md-2 row-cols-xl-5 g-2 mb-5">
+                     
+                    <!-- --<div id="card-template" class="col">
+                        <div class="card h-100">
+                            <img src="{{url_for('static', filename='img/course/small/course-4.webp')}}"
+                                class="card-img-top sh-22" alt="card image">
+                            <div class="card-body">
+                                <h5 class="heading mb-0"><a href="/course/cid"
+                                        class="body-link stretched-link">Introduction to Coding</a></h5>
+                            </div>
+                            <div class="card-footer border-0 pt-0">
+                                <div class="mb-2">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                        <select class="rating" name="rating" autocomplete="off" data-readonly="true"
+                                            data-initial-rating="5">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="text-muted d-inline-block text-small align-text-top">(39)</div>
+                                </div>
+                                <div class="card-text mb-0">
+                                    <div class="text-muted text-overline text-small">
+                                        <del>$ 42.25</del>
+                                    </div>
+                                    <div>$ 27.50</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                
+                </div>
+
+                {#<!-- <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5 g-2 mb-5">
+                    
                     <div class="col">
                         <div class="card h-100">
                             <img src="{{url_for('static', filename='img/course/small/course-4.webp')}}"
                                 class="card-img-top sh-22" alt="card image">
                             <div class="card-body">
                                 <h5 class="heading mb-0"><a href="/course/cid"
-                                        class="body-link stretched-link">Introduction to Bread Making</a></h5>
+                                        class="body-link stretched-link">Introduction to Coding</a></h5>
                             </div>
                             <div class="card-footer border-0 pt-0">
                                 <div class="mb-2">
@@ -460,7 +537,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </div> -->#}
+
                 <div class="row">
                     <div class="col-xl-4 mb-5">
                         <h2 class="small-title">Related Fields</h2>
@@ -516,7 +595,7 @@
                                             <span class="icon"></span>
                                         </div>
                                         <span
-                                            class="text d-flex align-middle text-alternate align-items-center text-small">Bread</span>
+                                            class="text d-flex align-middle text-alternate align-items-center text-small">Coding</span>
                                         <span
                                             class="value d-flex align-middle text-body align-items-center cta-4">300</span>
                                     </div>
@@ -579,7 +658,6 @@
     {% if (current_user.is_authenticated) %}
 
     <script>
-        // for course progress fetch & display.
         // Fetch and display course progress for logged-in users.
         $.ajax({
             url: '/learning_progress',
@@ -644,7 +722,6 @@
             }
         });
 
-
         // for fetching/displaying notifications
         $(function () {
             var since = 0;
@@ -661,7 +738,105 @@
             }, 10000);
         });
 
-    </script>
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+
+    // Utility function to display error messages
+    function handleError(message) {
+        const categoriesDiv = document.getElementById("categories_div");
+        categoriesDiv.innerHTML = message;
+        categoriesDiv.classList.add("alert-danger");
+        console.error(message);
+    }
+
+    // Debounce function to limit function execution rate
+    function debounce(func, delay) {
+        let debounceTimeout;
+        return function (...args) {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    // Function to handle filter change and load content
+    const handleFilterChange = debounce( async function () {
+        const contentContainer = document.getElementById('content_container');
+        const selectedCategories = [19, 14, 22, 21, 23];
+
+        console.log("Selected Categories:", selectedCategories);
+
+        // Show a spinner while loading content
+        contentContainer.innerHTML = '<span class="spinner-grow spinner-grow-lg" role="status" aria-hidden="true"></span> Loading...';
+
+        if (selectedCategories.length === 0) {
+            console.log("No categories selected, exiting");
+            updateContent([]);  // Clear the content when no categories are selected
+            return;
+        }
+
+        try {
+            const categoryParams = selectedCategories.join(',');
+            const response = await fetch(`/fetch-by-categories?categories=${categoryParams}&limit=5`);
+            if (response.ok) {
+                const data = await response.json();
+                updateContent(data);
+            } else {
+                console.error('Failed to load content:', response.statusText);
+                updateContent([]);  // Clear the content on failed response
+            }
+        } catch (error) {
+            console.error('Network error occurred while loading content', error);
+            updateContent([]);  // Clear the content on error
+        }
+        
+    }, 300);
+
+    // Function to update content container with new data
+    function updateContent(data) {
+        const contentContainer = document.getElementById('content_container');
+        const template = document.getElementById('card-template');
+
+        // Check if the template exists
+        if (!template) {
+            console.error('Template element not found');
+            return;
+        }
+
+        // Clear current content
+        contentContainer.innerHTML = '';
+
+        if (data.length === 0) {
+            // Show a message when no courses are available
+            contentContainer.innerHTML = "<p>No courses available for the selected categories.</p>";
+            return;
+        }
+
+        data.forEach(course => {
+            // Clone the template content
+            const newCard = template.content.cloneNode(true);
+            
+            // Check if course image exists, if not use a default image
+            const courseImage = course.image ? `/static/img/course/${course.image}` : `/static/img/course/default.png`;
+            newCard.querySelector('img').src = courseImage;
+            newCard.querySelector('img').alt = course.title;
+
+            newCard.querySelector('a').href = `/prev/${course.slug}`;
+            newCard.querySelector('a').textContent = course.title;
+            newCard.querySelector('.card-footer .text-muted.text-overline.text-small').innerHTML = `<del>$ ${course.id} </del>`;
+            newCard.querySelector('.card-footer .card-text div:nth-child(2)').textContent = `$ ${course.fee}`;
+
+            // Append the new card to the content container
+            contentContainer.appendChild(newCard);
+        });
+
+    }
+
+    handleFilterChange();
+
+});
+
+</script>
     {% endif %}
 
     {% endblock page_js %}

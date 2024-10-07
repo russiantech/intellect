@@ -63,7 +63,7 @@ class Config:
     'CACHE_KEY_PREFIX': 'server_1',
     'CACHE_REDIS_HOST': 'redis://localhost',
     'CACHE_REDIS_PORT': 6379,
-    'CACHE_REDIS_URL': getenv('redis_url', 'redis://'),
+    'CACHE_REDIS_URL': getenv('redis_url', 'redis://localhost:6379/0'),
     }
 
     #//MAIL

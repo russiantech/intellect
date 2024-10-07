@@ -99,7 +99,7 @@ def update_topic(topic_id):
 
         topic = Topic.query.get_or_404(topic_id)
         if not topic:
-            return jsonify({'error': 'Invalid Topic'}), 400
+            return jsonify({'success':False, 'error': 'Invalid Topic'}), 400
         
         topic_image = request.files.get('image')
         # Save the uploaded photo

@@ -2,10 +2,11 @@ import json
 import traceback
 from flask_login import current_user, login_required
 import jsonschema
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, current_app, jsonify, request
 from web.apis.make_slug import make_slug
 from web.models import db, Path, Course
 from web.extensions import csrf
+from web.utils.uploader import uploader
 
 x_path_bp = Blueprint('x_path_api', __name__)
 
@@ -21,12 +22,13 @@ def handle_response(message=None, alert=None, data=None):
 
     return response_data
 
-_schemas = {
+""" _schemas = {
     'save-data': {
         "type": "object",
         "properties": {
             "title": {"type": "string"},
             "desc": {"type": "string"},
+            "image": {"type": "string", "format": "uri"},
             "fee": {"type": "number"},
             "rating": {"type": "number"},
             "duration": {"type": "integer"},
@@ -34,24 +36,33 @@ _schemas = {
         },
         "required": ["title", "desc"]
     },
+} """
+
+schemas = {
+    'save-data':{
+    "type": "object",
+    "properties": {
+        "fee": {
+            "type": ["string", "null"],
+            "description": "The fee for the path."
+        },
+        #"fee": {"type": "number"},
+        "title": { "type": "string" },
+        "desc": { "type": "string" },
+        "image": {"type": "string", "format": "uri"},
+        "course_ids": {
+            "type": "array",
+            "items": { "type": "integer" }
+        },
+        "duration": { "type": "string" },
+        "level": { "type": "string" },
+        "rating": { "type": ["string", "null"] },
+        "path_id": { "string": "integer" }
+    },
+    "required": ["title", "desc"]
 }
 
-@x_path_bp.route('/submit_path', methods=['POST'])
-def submit_path():
-    title = request.form.get('title')
-    desc = request.form.get('desc')
-    image = request.files.get('image')
-    
-    # Get course_ids and parse the JSON string
-    course_ids = request.form.get('course_ids')
-    if course_ids:
-        course_ids = json.loads(course_ids)
-    
-    # Process the data as needed
-    # Save image, insert data into the database, etc.
-    
-    return jsonify({"message": "Path successfully submitted!"})
-
+}
 
 # Creates a Path
 @x_path_bp.route('/create_path', methods=['POST'])
@@ -63,9 +74,10 @@ def create_path():
             db.session.begin()
 
         data = request.get_json()
-
+        image = request.files.get('image')  # Get the uploaded image file
+        
         # Validate data
-        valid_schema = _schemas.get('save-data')
+        valid_schema = schemas.get('save-data')
         jsonschema.validate(instance=data, schema=valid_schema)
         print(data)
 
@@ -111,7 +123,7 @@ def update_path(path_id):
         data = request.get_json()
 
         # Validate data
-        valid_schema = _schemas.get('save-data')
+        valid_schema = schemas.get('save-data')
         jsonschema.validate(instance=data, schema=valid_schema)
 
         # Fetch the existing Path
@@ -155,15 +167,51 @@ def update_path(path_id):
         if not db.session.is_active:
             db.session.begin()
 
-        data = request.get_json()
-        # print(f"Incoming data: {data}")  # Debugging log
-
-        # Validate data
-        valid_schema = _schemas.get('save-data')
-        jsonschema.validate(instance=data, schema=valid_schema)
-
         # Fetch the existing Path
         path = Path.query.get_or_404(path_id)
+        if not path:
+            return jsonify({'success':False, 'error': 'requested path does not exist.'}), 400
+        
+        # Check if request is multipart (FormData)
+        if request.content_type.startswith('multipart/form-data'):
+            # Handling FormData submissions
+            data = request.form.to_dict()  # Parse form fields
+            path_image = request.files.get('image')  # Get the image file
+            
+            # Convert course_ids from JSON string to a Python list if it's included
+            if 'course_ids' in data:
+                data['course_ids'] = json.loads(data['course_ids'])
+
+        elif request.content_type == 'application/json':
+            # Handling JSON submissions
+            data = request.get_json()  # Get the JSON data
+            
+        else:
+            return jsonify({'success': False, 'error': 'Unsupported Media Type.'}), 415
+
+        print(f"Incoming data: {data}")  # Debugging log
+
+        # Validate data
+        valid_schema = schemas.get('save-data')
+        jsonschema.validate(instance=data, schema=valid_schema)
+
+        path_image = request.files.get('image')
+        # Save the uploaded photo
+        if path_image:
+            # path.image = uploader(path_image)
+            # from os import path
+            # path_image = uploader(path_image, custom_upload_path=path.join(current_app.root_path, 'static/img/course/path') )
+            # path.image = path_image
+            
+            from os import path as os_path  # Rename the module reference to avoid conflicting with path object.
+            path_image = uploader(path_image, custom_upload_path=os_path.join(current_app.root_path, 'static/img/course/path'))
+            path.image = path_image
+
+        else:
+            # path_image_name = 'default.webp'
+            #update the uploaded course image name
+            # data['image'] = path_image_name
+            path.image = None
 
         # Only update fields if they are provided in the request data, leave others unchanged
         if 'title' in data and data['title']:
@@ -173,13 +221,13 @@ def update_path(path_id):
             path.desc = data['desc']
 
         if 'fee' in data:
-            path.fee = data['fee'] if data['fee'] is not None else path.fee
+            path.fee = int(data['fee']) if data['fee'] is not None else path.fee
 
         if 'rating' in data:
-            path.rating = data['rating'] if data['rating'] is not None else path.rating
+            path.rating = int(data['rating']) if data['rating'] is not None else path.rating
 
         if 'duration' in data:
-            path.duration = data['duration'] if data['duration'] is not None else path.duration
+            path.duration = int(data['duration']) if data['duration'] is not None else path.duration
 
         # Update course associations if provided
         if 'course_ids' in data:
@@ -193,14 +241,14 @@ def update_path(path_id):
         db.session.commit()
         db.session.refresh(path)
         
-        print(f"Updated path title: {path.title}")  # Debugging log
+        # print(f"Updated path title: {path.title}")  # Debugging log
         
         return jsonify({'success':True, 'message': f'{path.title} path updated successfully'})
 
     except Exception as e:
         db.session.rollback()
         traceback.print_exc()
-        return jsonify({'success': False, 'error': f'{e}'})
+        return jsonify({'success': False, 'error': f'{e}, {path_image, data }'})
 
 
 # Deletes a Path
@@ -258,10 +306,13 @@ def get_paths():
 def get_path(slug):
     try:
         if not current_user.is_authenticated:
+            
             return jsonify({'success':False, 'error': f'Kindly authenticate your-self to continue'})
         
         path = Path.query.filter_by(slug=slug).first_or_404()
+        
         return jsonify(path.serialize())
+    
     except Exception as e:
         traceback.print_exc()
         return jsonify({"success":False, "error":str(e), "alert":'alert-danger'}), 400

@@ -49,7 +49,16 @@ limiter = Limiter(
     key_func=lambda: request.remote_addr,
 )
  """
- 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+# Initialize Flask-Limiter with IP-based rate limiting
+# Initialize Limiter with default settings (using the IP address as the key)
+limiter = Limiter(
+    key_func=get_remote_address,
+    # default_limits=["200 per day", "50 per hour"]
+    default_limits=["1 per second", "5 per minute"]  # Allow up to 1 request per second or a burst of 5 in a minute
+)
+
 from flask_caching import Cache
 from config import Config 
 #cache = Cache()
@@ -119,7 +128,7 @@ def init_ext(app):
     mail.init_app(app)
     moment.init_app(app)
     oauth.init_app(app)
-    # limiter.init_app(app)
+    limiter.init_app(app)
     socketio.init_app(app, manage_session=False, async_mode='threading', cors_allowed_origins="*")
     # socketio.init_app(app)
     #cache.init_app(app, config=app.config['REDIS_CONFIG'])

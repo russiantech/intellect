@@ -637,6 +637,7 @@ class Path(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     desc = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=True)
     fee = db.Column(db.Float, nullable=False, default=0.0)
     rating = db.Column(db.Float, nullable=True)
     duration = db.Column(db.Integer, nullable=True)  # Duration in days, or other unit
@@ -676,6 +677,7 @@ class Path(db.Model):
             'title': self.title,
             'slug': self.slug,
             'desc': self.desc,
+            'image': self.image,
             'rating': self.rating,
             'duration': self.duration or self.calculate_duration(),
             'fee': self.fee or sum(int(course.fee) for course in self.courses if course.fee),

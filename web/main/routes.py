@@ -1,13 +1,14 @@
 from flask import jsonify, render_template, Blueprint, url_for
 from flask_login import current_user, login_required
-
 from web.models import db, Brand, User, Course, Topic, Enrollment
 from web.utils.decorators import enrollment_required
+from web.extensions import limiter
 
 main = Blueprint('main', __name__)
 
 @main.route('/welcome')
 @main.route('/', methods=['GET'])
+@limiter.limit("30 per minute")  # Limit to 10 requests per minute for this route
 def index():
     courses = Course.query.all()
     context = { 
@@ -219,6 +220,7 @@ def search():
 # Actual learning interface
 #-> Preview Here
 @main.route('/prev/<string:slug>')
+@limiter.limit("10 per minute")  # Limit to 10 requests per minute for this route
 def prev(slug):
     course = Course.query.filter_by(slug=slug).first_or_404()
     course.views += 1

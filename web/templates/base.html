@@ -216,9 +216,18 @@ $(document).ready(function () {
 
                 var pathElements = response.map(function (path) {
                     // console.log(path)
-                    var clone = template.clone().show();
+                    var clone = template.clone().show(); 
                     clone.find('a').attr('href', './path-of/' + path.slug);
-                    clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+
+                    // clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+                    // Update image source if image URL is returned
+                    if (path.image) {
+                        // $('#pathThumbImage').attr('src', `${window.location.origin}/static/img/course/path/${response.image}`);
+                        clone.find('img').attr('src', `${window.location.origin}/static/img/course/path/${path.image}`);
+                    }else{
+                        clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+                    }
+                    
                     clone.find('.heading').text(path.title);
                     clone.find('.text-muted').text(path.desc);
                     // clone.find('.text-muted').text(path.progress + '%');

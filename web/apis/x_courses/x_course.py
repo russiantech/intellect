@@ -331,7 +331,7 @@ def get_course(course_slug):
     
     return jsonify(course_data)
 
-@x_course_bp.route('/fetch-by-categories', methods=['GET'])
+""" @x_course_bp.route('/fetch-by-categories', methods=['GET'])
 def fetch_by_categories():
     category_ids = request.args.get('categories')  # Example: '1,2,3'
     if category_ids:
@@ -342,7 +342,61 @@ def fetch_by_categories():
     
     # Serialize and return the courses as JSON
     courses_data = [course.serialize() for course in courses]
-    return jsonify(courses_data)
+    return jsonify(courses_data) """
+
+@x_course_bp.route('/fetch-by-categories', methods=['GET'])
+def fetch_by_categories():
+    """
+        Explanations:
+        Limit and Offset:
+        limit = request.args.get('limit', type=int): This allows you to specify how many courses to return. 
+        If the limit is provided in the query parameters, it will apply to the query. Otherwise, no limit will be applied.
+        offset = request.args.get('offset', type=int, default=0): The offset parameter is used to skip a specific number of records, 
+        allowing for pagination. By default, the offset is set to 0 (i.e., start from the first record).
+        Example Usage:
+        Fetch all courses in categories 1, 2, and 3: /fetch-by-categories?categories=1,2,3
+        Fetch only 5 courses in categories 1, 2, and 3: /fetch-by-categories?categories=1,2,3&limit=5
+        Fetch 5 courses, skipping the first 10: /fetch-by-categories?categories=1,2,3&limit=5&offset=10
+        This setup allows flexibility for pagination and result limiting when fetching the courses. 
+    """
+    try:
+        # Get the category IDs from the query parameter
+        category_ids = request.args.get('categories')  # Example: '1,2,3'
+        
+        # Get additional parameters for limit and offset
+        limit = request.args.get('limit', type=int)  # Default is None if not provided
+        offset = request.args.get('offset', type=int, default=0)  # Default to 0 if not provided
+        
+        # Start query for courses
+        query = Course.query
+        
+        if category_ids:
+            try:
+                category_ids = [int(cid) for cid in category_ids.split(',')]  # Convert to list of integers
+            except ValueError:
+                return jsonify({"error": "Invalid category IDs"}), 400  # Return a bad request response if parsing fails
+            
+            # Filter courses by the provided category IDs
+            query = query.filter(Course.categories.any(Category.id.in_(category_ids)))
+        
+        # Apply limit and offset if provided
+        if limit:
+            query = query.limit(limit)
+        
+        if offset:
+            query = query.offset(offset)
+        
+        # Execute the query and fetch the courses
+        courses = query.all()
+        
+        # Serialize and return the courses as JSON
+        courses_data = [course.serialize() for course in courses]
+        return jsonify(courses_data)
+    
+    except Exception as e:
+        # Catch any unexpected errors and return a 500 error with the exception message
+        return jsonify( {"success":False, "error": str(e)} ), 500
+
 
 @x_course_bp.route('/x_course_api.loadmore', methods=['GET'])
 def load_more_courses():

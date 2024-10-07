@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, render_template
 
 errors = Blueprint('errors', __name__)
 
@@ -20,3 +20,8 @@ def error_500(error):
 @errors.app_errorhandler(413)
 def error_413(error):
     return render_template('errors/500.html'), 413
+
+# Custom error message when the rate limit is exceeded
+@errors.errorhandler(429)
+def ratelimit_handler(e):
+    return jsonify({"success":False, "error": "Too many requests, please try again later."}), 429

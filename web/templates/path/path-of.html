@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ url_for('static', filename='img/illustration/icon-performance.webp ')}}" class="theme-filter" alt="performance">
+                            <img id="pathThumbImage" src="{{ url_for('static', filename='img/illustration/icon-performance.webp ')}}" class="theme-filter" alt="performance">
                             <div class="d-flex flex-column sh-5">
                                 <a href="#" id="path-heading" class="heading stretched-link">Russian Developers</a>
                             </div>
@@ -546,7 +546,7 @@
                                     <a href="/qdetail" class="body-link">
                                         <span class="clamp-line sh-6 lh-1-5" data-line="2"
                                             style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Basic
-                                            Introduction to Bread Making Techniques</span>
+                                            Introduction to Coding Techniques</span>
                                     </a>
                                 </h5>
                                 <div class="mb-3 text-muted sh-8 clamp-line" data-line="3"
@@ -1171,6 +1171,12 @@ $(document).ready(function() {
                 if(response.title) {
                     // Set the page title dynamically
                     document.title = `${response.title} . Russian Developers`;
+                }
+
+                // Update image source if image URL is returned
+                console.log(response.image);
+                if (response.image) {
+                    $('#pathThumbImage').attr('src', `${window.location.origin}/static/img/course/path/${response.image}`);
                 }
 
                 $("#path-heading").text(response.title);
