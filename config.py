@@ -10,16 +10,13 @@ LOGGING_LEVEL = logging.INFO  # Adjust the log level as needed
 
 #// APP-CONFIG
 class Config:
-
-    FLASK_APP = 'app.py'
     SECRET_KEY = getenv('SECRET_KEY')
     OPENAI_API_KEY = getenv('OPENAI_API_KEY')
-    UPLOAD_FOLDER = getenv('upload_url')
+    UPLOAD_FOLDER = getenv('UPLOAD_URL')
     MAX_CONTENT_PATH = None
     LANGUAGES = ['en', 'es']
     MS_TRANSLATOR_KEY = getenv('MS_TRANSLATOR_KEY')
     ELASTICSEARCH_URL = getenv('ELASTICSEARCH_URL', None)
-    # ELASTICSEARCH_URL=es_url
     POSTS_PER_PAGE = 25
     APP_LOGO = '/static/img/favicon/favicon32x32.png'
     ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'svg', 'jpg', 'jpeg', 'gif','mp4']
@@ -29,7 +26,6 @@ class Config:
     LOGGING_LEVEL = LOGGING_LEVEL
     SQLALCHEMY_ECHO = False
 
-    #SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://root:@localhost:3306/empty" #mysql(no-password set, it's supposed to come after //root:)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_POOL_SIZE = 50   # Increase the pool size if necessary
     SQLALCHEMY_POOL_TIMEOUT = 30  # Increase the pool timeout if necessary
@@ -61,9 +57,9 @@ class Config:
     REDIS_CONFIG = {
     'CACHE_TYPE': 'redis',
     'CACHE_KEY_PREFIX': 'server_1',
-    'CACHE_REDIS_HOST': 'redis://localhost',
+    'CACHE_REDIS_HOST': getenv('REDIS_HOST', 'redis://localhost'),
     'CACHE_REDIS_PORT': 6379,
-    'CACHE_REDIS_URL': getenv('redis_url', 'redis://localhost:6379/0'),
+    'CACHE_REDIS_URL': getenv('REDIS_URL', 'redis://localhost:6379/0'),
     }
 
     #//MAIL
