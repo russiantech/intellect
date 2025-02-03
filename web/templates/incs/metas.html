@@ -1,0 +1,55 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>{% block title %} Intellect . Your Digital Learning Companion. {% endblock title %}</title>
+<meta name="description" content="
+Intellect . Your Digital Learning Companion.Learn programming online on mobile or desktop for free. 
+Google's developer Choice with over 8 million users. Start learning now Intellect.
+Programming Hub, a new way to learn programming
+Interactive, simple & made for you
+">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url_for('static', filename='img/favicon/favicon.png')}}">
+
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon.png')}}" sizes="128x128">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon32x32.png')}}" sizes="32x32">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon/favicon16x16.png')}}" sizes="16x16">
+<meta name="application-name" content="Intellect">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/favicon/mstile-144x144.png')}}">
+<meta name="msapplication-square70x70logo" content="{{ url_for('static', filename='img/favicon/mstile-70x70.png')}}">
+<meta name="msapplication-square150x150logo" content="{{ url_for('static', filename='img/favicon/mstile-150x150.png')}}">
+<meta name="msapplication-wide310x150logo" content="{{ url_for('static', filename='img/favicon/mstile-310x150.png')}}">
+<meta name="msapplication-square310x310logo" content="{{ url_for('static', filename='img/favicon/mstile-310x310.png')}}">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='font/CS-Interface/style.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/OverlayScrollbars.min.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+<script src="{{ url_for('static', filename='js/base/loader.js')}}"></script>
+{# <script src="{{ url_for('static', filename='js/pages/explore.loadmore.js')}}"></script> #}
+
+<script>
+    /* const baseUrl = `${window.location.protocol}//${window.location.host}`;
+    const enrollmentUrl = baseUrl + `/x-enrol`; */
+
+    const baseUrl = window.location.protocol + "//" + window.location.host;
+    window.site_url =  baseUrl;
+    window.search_url =  window.site_url + "/json/search.json";
+    window.loadmore_url =  window.site_url + "/more";
+    window.chat_url =  window.site_url + "/chat";
+    window.getcourse_url =  window.site_url + "/get_course";
+
+</script>
+
+<link rel="manifest" href="./static/manifest.json">

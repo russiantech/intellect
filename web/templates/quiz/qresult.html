@@ -1,0 +1,1190 @@
+{% extends 'base.html' %}
+{% block title %} Quiz . Russiantechnologies {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    <h1 class="mb-0 pb-0 display-4" id="title">Quiz Result</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/qlist">Quizes</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row d-none d-lg-flex mb-3 g-0">
+            <div class="col-auto">
+                <div class="sw-lg-16 sh-1"></div>
+            </div>
+            <div class="col">
+                <div class="row gx-2 px-5">
+                    <div class="col-5">
+                        <div class="text-muted text-small">QUIZ</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-muted text-small">QUESTIONS</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="text-muted text-small">TIME</div>
+                    </div>
+                    <div class="col-2 text-end">
+                        <div class="text-muted text-small">SCORE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mb-5">
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-1.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Advanced React Web Developer Course</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">8m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">30
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            A</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-2.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Python for Beginners: From Zero to Expert</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">6m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">30
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            B</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-3.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Learn and Understand NodeJS</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">6m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">40
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            A</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-4.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">HTML 5 - The Complete Guide for Every Level</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">4m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">15
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            C</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-5.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Advanced Techniques with Gulpjs</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">8m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">15
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            A</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-6.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Introduction to Sass with Full Website</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">6m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">20
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            A</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-7.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Java - The Complete Guide</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">8m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">50
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            B</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-8.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">PHP for Beginners with CMS Project</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">7m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">40
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            B</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-9.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">10 Real Life C++ Projects</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">7m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">40
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            B</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="row g-0 h-auto sh-lg-12">
+                        <div class="col-12 col-lg-auto h-100">
+                            <img src="./static/img/course/small/course-10.webp" alt="course"
+                                class="card-img card-img-horizontal-lg sh-18 sw-lg-16 h-lg-100">
+                        </div>
+                        <div class="col-12 col-lg p-0 h-100">
+                            <div class="card-body h-100">
+                                <div class="row gx-2 d-flex h-100 align-items-lg-center">
+                                    <div class="col-lg-5 mb-2 mb-lg-1">
+                                        <a href="#" class="stretched-link body-link">
+                                            <div class="lh-1-5 mb-0">Introduction to Ubuntu: Best Practices for
+                                                Beginners</div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-clock text-primary">
+                                                        <path
+                                                            d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                        </path>
+                                                        <circle cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Time</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">7m
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-form-check text-primary">
+                                                        <path
+                                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Questions</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="sh-4 d-flex align-items-center text-alternate">40
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row gx-2 align-items-center">
+                                            <div class="col-auto d-lg-none">
+                                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="acorn-icons acorn-icons-badge text-primary">
+                                                        <path
+                                                            d="M13 11L13.8819 17.1734C13.9258 17.4809 13.9478 17.6347 13.8803 17.7191C13.8518 17.7547 13.8142 17.7819 13.7713 17.7976C13.6699 17.835 13.531 17.7655 13.2532 17.6266L10.3913 16.1957C10.2271 16.1136 10.1451 16.0725 10.0578 16.0624C10.0194 16.0579 9.98059 16.0579 9.94217 16.0624C9.85494 16.0725 9.77286 16.1136 9.60869 16.1957L6.74684 17.6266C6.46901 17.7655 6.3301 17.835 6.22866 17.7976C6.18584 17.7819 6.14815 17.7547 6.11967 17.7191C6.05219 17.6347 6.07416 17.4809 6.11809 17.1734L7 11">
+                                                        </path>
+                                                        <circle cx="10" cy="7" r="5"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="col col-lg-12">
+                                                <div class="row g-0">
+                                                    <div class="col d-lg-none">
+                                                        <div
+                                                            class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                            Score</div>
+                                                    </div>
+                                                    <div class="col-auto col-lg-12">
+                                                        <div
+                                                            class="sh-4 d-flex align-items-center text-alternate justify-content-lg-end">
+                                                            B</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary sw-25">Load More</button>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

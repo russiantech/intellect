@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <head>
+        <title>{% block title %} Paths . Intellect {% endblock title %}</title>
+        {% include('incs/metas.html') %}
+        {% block page_css %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}">
+        <!--  -->
+        <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2-bootstrap4.min.css')}}">
+        <!---->
+        <style>
+            .checkbox-dropdown {
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+                padding: 0.5rem;
+                max-height: 200px;
+                /* Adjust height as needed */
+                overflow-y: auto;
+            }
+
+            .checkbox-dropdown .form-check {
+                margin-bottom: 0.5rem;
+            }
+
+            .dropdown-menu {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+        </style>
+        {% endblock page_css %}
+    </head>
+
+<body>
+    <div id="root">
+
+        {% include('incs/nav.html') %}
+
+        <main>
+            <div class="container d-flex flex-column">
+                <div class="page-title-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <h1 class="mb-0 pb-0 display-4" id="title_0">Russian Developers</h1>
+                        </div>
+                        <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                            <button type="button"
+                                class="btn col-12 btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto d-inline-block d-xl-none"
+                                data-bs-toggle="modal" data-bs-target="#tableOfContentsModal">
+                                <i data-acorn-icon="menu-right"></i>
+                                <span>Contents</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex flex-grow-1 overflow-hidden pb-2 h-100">
+                    <div class="col-xl-8 col-xxl-9">
+                        <!--  -->
+                        <section class="scroll-section mb-5">
+                            <h2 class="small-title">Update Path Informations</h2>
+                            <div class="mb-5 card">
+                                <div class="card-body">
+
+                                    <form id="pathForm" class="mb-n3" method="post" action="/update_path" enctype="multipart/form-data">
+
+                                        <div class="mb-3 mx-auto position-relative" id="singleImageUploadExample">
+                                            
+                                            <img src="{{url_for('static', filename='img/profile/chris.jpg')}}"
+                                                alt="alternate text"
+                                                class="rounded-xl border border-separator-light border-4 sw-12 sh-12"
+                                                id="pathThumbImage">
+                                            <button class="btn btn-sm btn-icon btn-icon-only btn-separator-light position-absolute rounded-xl e-0 
+                                        b-0" type="button">
+                                        <i data-acorn-icon="upload"></i>
+                                            </button>
+                                            <input class="file-upload d-none" id="image" name="image" type="file">
+
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Select A Path </label>
+                                            <div class="filled mb-0 w-100 mb-3">
+                                                <i data-acorn-icon="web"></i>
+                                                <select required class="form-control select-single-no-search-filled" data-live-search="true" 
+                                                id="path_id" name="path_id">
+                                                    <option selected value="">Choose atleast one</option>
+                                                    <!-- <option value="english">english</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3"><label class="form-label">Path Title</label>
+                                            <input type="text" required class="form-control" id="title" name="title"
+                                                placeholder="Enter Path Title Here">
+                                        </div>
+
+                                        <div class="mb-3 col-12">
+                                            <label for="coursesDropdown" class="form-label">Select Courses</label>
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                                    id="coursesDropdown" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Select Courses
+                                                </button>
+                                                <div class="dropdown-menu p-3" id="coursesContainer"
+                                                    aria-labelledby="coursesDropdown"
+                                                    style="max-height: 200px; overflow-y: auto;">
+                                                    <!-- Checkboxes will be inserted here -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea rows="3" id="desc" name="desc"
+                                                placeholder="Enter Path Description Here"
+                                                class="form-control"></textarea>
+                                        </div>
+
+                                        <div id="response_div" class="alert "></div>
+
+                                        <div class="mb-3">
+                                            <button type="submit" id="submit" class="btn btn-primary">Update path</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="d-none d-xl-flex col-xl-4 col-xxl-3 h-100 scroll-out table-of-contents-scroll"
+                        id="tableOfContentsColumn">
+                    </div>
+                </div>
+
+                <div class="modal modal-right fade" id="tableOfContentsModal" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Content</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div id="tableOfContentsMoveContent" data-move-target="#tableOfContentsColumn"
+                                    data-move-breakpoint="xl">
+                                    <div id="courseContent">
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            1
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Introduction to Coding</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseOne" class="accordion-collapse collapse show ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-primary sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading">1. Candy cake gummi
+                                                                            bears</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-primary sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading">2. Brownie candy
+                                                                            biscuit
+                                                                            chupa chups</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">3. Cotton
+                                                                            candy
+                                                                            caramels icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">4.
+                                                                            Brownie candy
+                                                                            biscuit chupa chups</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">5.
+                                                                            Marshmallow
+                                                                            liquorice cake liquorice</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">6.
+                                                                            Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">7.
+                                                                            Biscuit halvah
+                                                                            muffin dragée</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">8. Halvah
+                                                                            cheesecake tootsie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            2
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Molding Techniques</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseTwo" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">1. Gummi
+                                                                            bears
+                                                                            dessert muffin pie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">2.
+                                                                            Tiramisu lemon
+                                                                            drops tootsie roll macaroon halvah bear
+                                                                            claw</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">3. Pie
+                                                                            gingerbread marzipan jujubes</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">4.
+                                                                            Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">5.
+                                                                            Macaroon
+                                                                            fruitcake sugar plum</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">6. Sugar
+                                                                            plum
+                                                                            pudding brownie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">7. Tart
+                                                                            gummies
+                                                                            topping biscuit</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            3
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Baking the Right Way</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseThree" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">1. Gummi
+                                                                            bears
+                                                                            dessert muffin pie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">2.
+                                                                            Tiramisu lemon
+                                                                            drops tootsie roll macaroon halvah bear
+                                                                            claw</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">3. Pie
+                                                                            gingerbread marzipan jujubes</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">4.
+                                                                            Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">5.
+                                                                            Macaroon
+                                                                            fruitcake sugar plum</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            4
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Presentation</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseFour" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">1. Lemon
+                                                                            drops
+                                                                            wafer brownie pastry</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">2. Bonbon
+                                                                            candy
+                                                                            canes oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">3. Tart
+                                                                            marshmallow macaroon soufflé</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                                    aria-expanded="false" aria-controls="collapseFive">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            5
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Conclusion</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseFive" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">1. Danish
+                                                                            cake
+                                                                            gummies jelly oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">2.
+                                                                            Chocolate bar
+                                                                            chocolate bar tart cotton candy</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">3. Lemon
+                                                                            drops
+                                                                            jelly lemon drops</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseSix"
+                                                    aria-expanded="false" aria-controls="collapseSix">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            6
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">What is Next?</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseSix" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">1. Danish
+                                                                            cake
+                                                                            gummies jelly oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#" class="heading muted-link">2. Sweet
+                                                                            roll
+                                                                            candy muffin chocolate</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {% include('incs/footer.html') %}
+
+    </div>
+
+    {% include('incs/search.html') %}
+
+    <!-- --------------------------- -->
+    <script src="{{url_for('static', filename='js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/autoComplete.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/clamp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-interface.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-learning.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/movecontent.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/helpers.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/globals.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/nav.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/search.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pages/misc.player.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+
+    <!--  --> <!--  -->
+    <script src="{{url_for('static', filename='setting/js/vendor/select2.full.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/singleimageupload.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/pages/account.settings.js')}}"></script>
+    <!--  -->
+    <script src="{{url_for('static', filename='js/plugins/controls.select2.js')}}"></script>
+
+    {% block page_js %}
+    <script>
+/* 
+$(document).ready(function() {
+
+// Make AJAX request to fetch paths
+$.ajax({
+url: '/get_paths',
+type: 'GET',
+success: function(response) {
+    var selectElement = $('#path_id');
+    selectElement.empty(); // Clear existing options before adding new ones
+    $.each(response, function(index, topic) {
+        // console.log("topic", topic);
+        // Create a new option element for each topic
+        var option = $('<option>', {
+            value: topic.id,
+            text: topic.title,
+            'data-slug': topic.slug // Set data-slug attribute
+        });
+        console.log("option", option.html());
+        // Append the option to the select element
+        selectElement.append(option);
+        
+    });
+},
+error: function(xhr, status, error) {
+    $("#response_div").text(error).addClass("alert-danger");
+    console.error('Error fetching paths:', error);
+}
+}); 
+
+// Populate form fields with initial course data when a course is selected
+$('#path_id').change(function() {
+var pathSlug = $(this).find('option:selected').data('slug');
+// console.log("pathSlug", pathSlug);
+if (pathSlug) {
+    $.ajax({
+        url: `/get_path/${pathSlug}?include_desc=true`, // Adjust the URL to your route for fetching course details by slug
+        type: 'GET',
+        success: function(response) { 
+            console.log(response);
+
+            // Populate form fields with course data
+            $.each(response, function(key, value) {
+                // Check if the field is not readonly or disabled
+                if (!$('[name="' + key + '"]').prop('readonly') && !$('[name="' + key + '"]').prop('disabled')) {
+                    // Populate the field with the corresponding value
+                    $('[name="' + key + '"]').val(value);
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching course details:', error);
+        }
+    });
+}
+});
+
+ // Fetch courses for the dropdown
+    $.ajax({
+        url: '/get_courses',
+        type: 'GET',
+        success: function(response) {
+            var container = $('#coursesContainer');
+            container.empty(); // Clear existing checkboxes before adding new ones
+            
+            $.each(response, function(index, course) {
+                // Create a checkbox for each course
+                var checkboxWrapper = $('<div>', { class: 'form-check' });
+                var input = $('<input>', {
+                    type: 'checkbox',
+                    class: 'form-check-input',
+                    id: 'course_' + course.id,
+                    value: course.id
+                });
+                var label = $('<label>', {
+                    class: 'form-check-label',
+                    for: 'course_' + course.id,
+                    text: course.title
+                });
+
+                checkboxWrapper.append(input).append(label);
+                container.append(checkboxWrapper);
+            });
+        },
+        error: function(xhr, status, error) {
+            $("#response_div").text(error).addClass("alert-danger");
+            console.error('Error fetching courses:', error);
+        }
+    });  
+
+    // Form submission handler
+    $("#pathForm").on("submit", function(e) {
+        e.preventDefault();
+        
+        var form = $(this);
+        var submitButton = form.find("#submit");
+
+        // var form = $(this);
+        // var url = form.attr("action");
+
+        // Collect selected courses
+        var selectedCourses = [];
+        $('#coursesContainer input[type="checkbox"]:checked').each(function() {
+            // selectedCourses.push($(this).val());
+            selectedCourses.push( parseInt($(this).val()) );
+        });
+
+        // Prepare JSON data
+        var formData = {
+            title: $('#title').val(),           // Collecting the title
+            desc: $('#desc').val(),      // Collecting the description
+            course_ids: selectedCourses,        // Selected courses
+            // Add other fields if needed
+            level: $('#level').val(),
+            duration: $('#duration').val(),
+            fee: $('#fee').val(),
+            rating: $('#rating').val()
+        };
+
+        
+        var url = form.attr("action");
+        url += `/${formData['path_id']}`;
+
+
+        console.log(formData)
+        // AJAX request to submit form data as JSON
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            beforeSend: function() {
+                // Animate the send button before sending
+                submitButton.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>...').attr("disabled", true);
+            },
+            success: function(response) {
+                // Handle success
+                $("#response_div").text(response.success ? response.message || 'Success' : response.error || JSON.stringify(response) || 'An error occurred.');
+                $("#response_div").removeClass("alert-danger").addClass("alert-primary");
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                $("#response_div").text(error).addClass("alert-danger");
+                console.error('Error:', error);
+            },
+            complete: function () {
+                // Revert the changes made to the button after the request is complete
+                submitButton.html('Submit').removeAttr("disabled");
+            }
+        });
+    });
+ 
+}); */
+
+
+    $(document).ready(function() {
+        
+            // Function to handle error display
+            function displayError(message) {
+                $("#response_div").text(message).addClass("alert-danger");
+            }
+        
+            // AJAX call to fetch paths
+            function fetchPaths() {
+                $.ajax({
+                    url: '/get_paths',
+                    type: 'GET',
+                    success: function(response) {
+                    
+                    // console.log(response);
+                    if(response.message || response.error){
+                        var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';                        
+                        $("#response_div").text(message).removeClass("alert-primary").addClass("alert-danger");
+                    }
+
+                    var selectElement = $('#path_id');
+                    selectElement.empty(); // Clear existing options before adding new ones
+
+                    $.each(response, function(index, topic) {
+                        // Check if the topic has a title or fallback to a generic title
+                        var title = topic.title || topic.slug + (index + 1);
+
+                        // Create a new option element for each topic
+                        var option = $('<option>', {
+                            value: topic.id,
+                            text: title, // Ensure the correct title is displayed
+                            'data-slug': topic.slug // Set data-slug attribute
+                        });
+
+                        console.log("Adding option: ", option.html());
+                        selectElement.append(option); // Append the option to the select element
+                    });
+
+                },
+                
+                error: function(xhr, status, error) {
+                        displayError('Error fetching paths: ' + error);
+                    }
+                });
+            }
+        
+            // AJAX call to fetch path details by slug
+            /* function fetchPathDetails(pathSlug) {
+                $.ajax({
+                    url: `/get_path/${pathSlug}?include_desc=true`,
+                    type: 'GET',
+                    success: function(response) {
+                        // console.log(response);
+                        if(response.message || response.error){
+                            var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';                        
+                            $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+                        }
+                        
+                        // Populate form fields with path data
+                        $.each(response, function(key, value) {
+                            var field = $('[name="' + key + '"]');
+                            if (!field.prop('readonly') && !field.prop('disabled')) {
+                                field.val(value);
+                            }
+                        });
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching path details:', error);
+                    }
+                });
+            }
+             */
+            
+             // AJAX call to fetch path details by slug, including courses
+            // AJAX call to fetch path details by slug, including course IDs
+function fetchPathDetails(pathSlug) {
+    $.ajax({
+        url: `/get_path/${pathSlug}?include_courses=true&include_desc=true`,
+        type: 'GET',
+        success: function(response) {
+            if(response.message || response.error){
+                var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';                        
+                $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+            }
+
+           // Populate form fields with path data (title, description, etc.)
+           $.each(response, function(key, value) {
+                var field = $('[name="' + key + '"]');
+                
+                // Exclude file inputs from being set programmatically to avoid errors of:
+                /*  Syntax error.Understand this error
+                jquery-3.5.1.min.js:2 Uncaught InvalidStateError: Failed to set the 'value' property on 'HTMLInputElement': This input element accepts a filename, which may only be programmatically set to the empty string.
+                    at HTMLInputElement.<anonymous> (jquery-3.5.1.min.js:2:69420)
+                    at Function.each (jquery-3.5.1.min.js:2:2975) */
+                if (field.attr('type') !== 'file' && !field.prop('readonly') && !field.prop('disabled')) {
+                    field.val(value);
+                }
+            });
+
+            // Update image source if image URL is returned
+            if (response.image) {
+                $('#pathThumbImage').attr('src', `${window.location.origin}/static/img/course/path/${response.image}`);
+            }
+
+            // Fetch the list of course IDs in this path
+            var pathCourseIds = response.courses.map(course => course.id);  // Assuming course IDs are returned
+            // console.log("pathCourseIds->", pathCourseIds)
+            fetchCourses(pathCourseIds);  // Pass pathCourseIds to fetchCourses function
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching path details:', error);
+        }
+    });
+}
+
+             // Fetch available courses
+            /* function fetchCourses() {
+                $.ajax({
+                    url: '/get_courses',
+                    type: 'GET',
+                    success: function(response) {
+                        // console.log(response);
+
+                        if(response.message || response.error){
+                            var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';                        
+                            $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+                        }
+                    
+                        var container = $('#coursesContainer');
+                        container.empty(); // Clear existing checkboxes
+        
+                        // Loop through the courses to create checkboxes
+                        $.each(response, function(index, course) {
+                            var checkboxWrapper = $('<div>', { class: 'form-check' });
+                            var input = $('<input>', {
+                                type: 'checkbox',
+                                class: 'form-check-input',
+                                id: 'course_' + course.id,
+                                value: course.id
+                            });
+                            var label = $('<label>', {
+                                class: 'form-check-label',
+                                for: 'course_' + course.id,
+                                text: course.title
+                            });
+        
+                            checkboxWrapper.append(input).append(label);
+                            container.append(checkboxWrapper);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        displayError('Error fetching courses: ' + error);
+                    }
+                });
+            }
+         */
+        // Fetch available courses, pre-check those that belong to the selected path
+        // Fetch available courses, pre-check those that belong to the selected path based on ID
+function fetchCourses(pathCourseIds = []) {
+    $.ajax({
+        url: '/get_courses',
+        type: 'GET',
+        success: function(response) {
+            if(response.message || response.error){
+                var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';                        
+                $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+            }
+
+            var container = $('#coursesContainer');
+            container.empty(); // Clear existing checkboxes
+
+            // console.log("response:", response);
+            console.log("pathCourseIds:", pathCourseIds);
+
+            // Loop through the courses to create checkboxes
+            /* $.each(response.courses, function(index, course) {
+                console.log("course ids:", course.id)
+                var checkboxWrapper = $('<div>', { class: 'form-check' });
+                var input = $('<input>', {
+                    type: 'checkbox',
+                    class: 'form-check-input',
+                    id: 'course_' + course.id,
+                    value: course.id,
+                    // Automatically check if the course ID is in the selected path
+                    checked: pathCourseIds.includes(course.id)
+                });
+                var label = $('<label>', {
+                    class: 'form-check-label',
+                    for: 'course_' + course.id,
+                    text: course.title
+                });
+
+                checkboxWrapper.append(input).append(label);
+                container.append(checkboxWrapper);
+            }); */
+             // Loop through the courses to create checkboxes
+             $.each(response, function(index, course) {
+                            var checkboxWrapper = $('<div>', { class: 'form-check' });
+                            var input = $('<input>', {
+                                type: 'checkbox',
+                                class: 'form-check-input',
+                                id: 'course_' + course.id,
+                                value: course.id,
+                                // Automatically check if the course ID is in the selected path
+                                checked: pathCourseIds.includes(course.id)
+                            });
+                            var label = $('<label>', {
+                                class: 'form-check-label',
+                                for: 'course_' + course.id,
+                                text: course.title
+                            });
+        
+                            checkboxWrapper.append(input).append(label);
+                            container.append(checkboxWrapper);
+                        });
+        },
+
+        error: function(xhr, status, error) {
+            displayError('Error fetching courses: ' + error);
+        }
+    });
+}
+
+            // Fetch paths and courses on page load
+            fetchPaths();
+            fetchCourses();
+        
+            // Event handler for when a path is selected
+            $('#path_id').change(function() {
+                var pathSlug = $(this).find('option:selected').data('slug');
+                if (pathSlug) {
+                    fetchPathDetails(pathSlug);
+                }
+            });
+        
+            /* // Handle form submission
+            $("#pathForm").on("submit", function(e) {
+                e.preventDefault();
+                
+                var form = $(this);
+                var submitButton = form.find("#submit");
+        
+                // Collect selected courses
+                var selectedCourses = $('#coursesContainer input[type="checkbox"]:checked').map(function() {
+                    return parseInt($(this).val());
+                }).get();
+        
+                // Prepare form data
+                var formData = {
+                    title: $('#title').val(),
+                    desc: $('#desc').val(),
+                    image: $('#image').val(),
+                    course_ids: selectedCourses,
+                    level: $('#level').val(),
+                    duration: $('#duration').val(),
+                    fee: $('#fee').val(),
+                    rating: $('#rating').val(),
+                    path_id: $('#path_id').val() // Include the selected path id
+                };
+                console.log(formData);
+                var url = form.attr("action") + '/' + formData.path_id;
+        
+                // AJAX request to submit form data as JSON
+                $.ajax({
+                    url: url,
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    beforeSend: function() {
+                        // Disable button and show loading indicator
+                        submitButton.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>...').attr("disabled", true);
+                    },
+                    success: function(response) {
+                        var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';
+                        console.log("message", message);
+                        $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+                    },
+                    error: function(xhr, status, error) {
+                        displayError('Error: ' + error);
+                    },
+                    complete: function() {
+                        // Re-enable submit button
+                        submitButton.html('Submit').removeAttr("disabled");
+                    }
+                });
+            });
+         */
+        $("#pathForm").on("submit", function(e) {
+            e.preventDefault();
+            
+            var form = $(this);
+            var submitButton = form.find("#submit");
+
+            // Collect selected courses
+            var selectedCourses = $('#coursesContainer input[type="checkbox"]:checked').map(function() {
+                return parseInt($(this).val());
+            }).get();
+
+            // Prepare FormData object instead of JSON
+            var formData = new FormData();
+            formData.append('title', $('#title').val());
+            formData.append('desc', $('#desc').val());
+            formData.append('level', $('#level').val());
+            formData.append('duration', parseInt( $('#duration').val()) || 0 );
+            formData.append('fee', parseInt( $('#fee').val()) || 0 );
+            formData.append('rating',  parseInt( $('#rating').val()) || 0 );
+            formData.append('path_id', parseInt( $('#path_id').val()) || 0 ); // Include path ID
+            formData.append('course_ids', JSON.stringify(selectedCourses)); // Array needs to be converted to a string
+
+            // Attach the image file
+            var imageFile = $('#image')[0].files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+            console.log(formData);
+            var url = form.attr("action") + '/' + $('#path_id').val();
+
+            // AJAX request to submit form data using FormData
+            $.ajax({
+                url: url,
+                type: "PUT",
+                processData: false, // Important! Prevent jQuery from processing the data
+                contentType: false,  // Important! Prevent jQuery from setting the content type
+                data: formData,
+                beforeSend: function() {
+                    // Disable button and show loading indicator
+                    submitButton.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>...').attr("disabled", true);
+                },
+                success: function(response) {
+                    var message = response.success ? response.message || 'Success' : response.error || 'An error occurred';
+                    console.log("message", message);
+                    $("#response_div").text(message).removeClass("alert-danger").addClass("alert-primary");
+                },
+                error: function(xhr, status, error) {
+                    displayError('Error: ' + error);
+                },
+                complete: function() {
+                    // Re-enable submit button
+                    submitButton.html('Submit').removeAttr("disabled");
+                }
+            });
+        });
+
+        });
+    </script>
+        
+    <script src="{{ url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    {% endblock page_js %}
+
+</body>
+
+</html>

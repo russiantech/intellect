@@ -1,0 +1,1 @@
+class IndexPage{constructor(){this._initBuyLink()}_initBuyLink(){document.querySelectorAll(".data-link").forEach((t=>{t.addEventListener("click",(t=>{t.preventDefault();const e=t.target.getAttribute("data-link"),n=t.target.getAttribute("target");window.open(e,n)}))}))}}

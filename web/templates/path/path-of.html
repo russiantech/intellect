@@ -1,0 +1,1359 @@
+{% extends 'base.html' %}
+{% block title %}Path Info . Russian{% endblock title %}
+{% block content %}
+<main>
+    <div id="path-container-path-of-page" class="container">
+        <div class="page-title-container">
+            <div class="row"> 
+                <div class="col-12 col-sm-6">
+                    <h1 class="mb-0 pb-0 display-4" id="title">Path Detail</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/plist">Paths</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                    <div class="m2" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="" 
+                    data-bs-content="Select this if you need an instructor to work along with you. | Click to Select/Deselect" 
+                    data-bs-original-title="Dedicated Instructor">
+                        <input type="checkbox" class="btn-check" disabled id="instructorled">
+                        <label class="btn btn-outline-primary" for="instructorled">Instructor Led</label>
+                    </div>
+                    <div class="m-1">.</div>
+                    <a id="start_now" href="./" class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                        <i data-acorn-icon="chevron-right"></i>
+                        <span>Start Now . $<em id="pathfee">0</em> </span>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="path-info-template" class="row g-5">
+            <div class="col-xl-4 col-xxl-3">
+                <h2 class="small-title">Summary</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img id="pathThumbImage" src="{{ url_for('static', filename='img/illustration/icon-performance.webp ')}}" class="theme-filter" alt="performance">
+                            <div class="d-flex flex-column sh-5">
+                                <a href="#" id="path-heading" class="heading stretched-link">Russian Developers</a>
+                            </div>
+                        </div>
+                        <div id="path-desc" class="text-muted mb-4">Techa powers business(es) & empowers people.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-online-class text-primary">
+                                        <path
+                                            d="M13.5 3C14.9045 3 15.6067 3 16.1111 3.33706 16.3295 3.48298 16.517 3.67048 16.6629 3.88886 17 4.39331 17 5.09554 17 6.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111 16.517 13.3295 16.3295 13.517 16.1111 13.6629 15.6067 14 14.9045 14 13.5 14L6.5 14C5.09554 14 4.39331 14 3.88886 13.6629 3.67048 13.517 3.48298 13.3295 3.33706 13.1111 3 12.6067 3 11.9045 3 10.5L3 6.5C3 5.09554 3 4.39331 3.33706 3.88886 3.48298 3.67048 3.67048 3.48298 3.88886 3.33706 4.39331 3 5.09554 3 6.5 3L13.5 3zM16.5 14C16.9659 14 17.1989 14 17.3827 14.0761 17.6277 14.1776 17.8224 14.3723 17.9239 14.6173 18 14.8011 18 15.0341 18 15.5V15.5C18 15.9659 18 16.1989 17.9239 16.3827 17.8224 16.6277 17.6277 16.8224 17.3827 16.9239 17.1989 17 16.9659 17 16.5 17L3.5 17C3.03406 17 2.80109 17 2.61732 16.9239 2.37229 16.8224 2.17761 16.6277 2.07612 16.3827 2 16.1989 2 15.9659 2 15.5V15.5C2 15.0341 2 14.8011 2.07612 14.6173 2.17761 14.3723 2.37229 14.1776 2.61732 14.0761 2.80109 14 3.03406 14 3.5 14L16.5 14z">
+                                        </path>
+                                        <circle cx="10" cy="8" r="2"></circle>
+                                        <path
+                                            d="M11.1972 11H8.80278C8.54207 11 8.41171 11 8.29195 11.03C8.13227 11.0701 7.98494 11.1489 7.86304 11.2596C7.77162 11.3426 7.69932 11.451 7.5547 11.6679C7.10693 12.3396 6.88304 12.6754 6.86968 12.9517C6.85188 13.3201 7.03826 13.6683 7.35464 13.8579C7.59192 14 7.99554 14 8.80278 14H11.1972C12.0045 14 12.4081 14 12.6454 13.8579C12.9617 13.6683 13.1481 13.3201 13.1303 12.9517C13.117 12.6754 12.8931 12.3396 12.4453 11.6679C12.3007 11.451 12.2284 11.3426 12.137 11.2596C12.0151 11.1489 11.8677 11.0701 11.7081 11.03C11.5883 11 11.4579 11 11.1972 11Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="courses_total" class="sh-4 d-flex align-items-center text-alternate">8</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-form-check text-primary">
+                                        <path
+                                            d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Quizes</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="quizzes_total" class="sh-4 d-flex align-items-center text-alternate">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="courses_time_total" class="sh-4 d-flex align-items-center text-alternate">32h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-graduation text-primary">
+                                        <g clip-path="url(#clip0_418:25)">
+                                            <path
+                                                d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                            </path>
+                                            <path
+                                                d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                            </path>
+                                        </g>
+                                        <defs>
+                                            <clippath id="clip0_418:25">
+                                                <path d="M0 0H20V20H0z"></path>
+                                            </clippath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">1.532</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-science text-primary">
+                                        <g clip-path="url(#clip0_418:62)">
+                                            <ellipse cx="10" cy="9.99998" rx="9.79071" ry="4.35142"
+                                                transform="rotate(-45 10 9.99998)"></ellipse>
+                                            <ellipse cx="10" cy="10" rx="9.79071" ry="4.35142"
+                                                transform="rotate(45 10 10)"></ellipse>
+                                            <circle r="1" transform="matrix(-1 0 0 1 10 10)"></circle>
+                                        </g>
+                                        <defs>
+                                            <clippath id="clip0_418:62">
+                                                <path d="M0 0H20V20H0z"></path>
+                                            </clippath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="path_level" class="sh-4 d-flex align-items-center text-alternate">Novice</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-xxl-9">
+                <h2 class="small-title">Courses</h2>
+                <div id="path-of-page-courses-container" class="row g-3 mb-5">
+                    <div id="path-page-course-template" class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-1.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">
+                                            Advanced React Web Developer Course
+                                        </a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper">
+                                                <!-- <select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select> -->
+                                                <div class="br-widget br-readonly">
+                                                    <a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a>
+                                                    <a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0 d-flex">
+                                           <span>$ </span> <div id="course_fee">27.50</div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-2.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Python
+                                            for Beginners: From Zero to Expert</a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 15.30</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-3.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Learn
+                                            and Understand NodeJS</a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 44.25</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-4.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">HTML
+                                            5 - The Complete Guide for Every Level</a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 62.00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-5.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">
+                                            Advanced Techniques with Gulpjs
+                                        </a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 23.25</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-6.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Introduction
+                                            to Sass with Full Website</a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 19.65</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-7.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Java
+                                            - The Complete Guide</a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 14.10</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/course-8.webp ')}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="/details"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">
+                                            PHP for Beginners with CMS Project
+                                        </a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper"><select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                                        data-rating-text="1" class="br-selected"></a><a href="#"
+                                                        data-rating-value="2" data-rating-text="2"
+                                                        class="br-selected"></a><a href="#" data-rating-value="3"
+                                                        data-rating-text="3" class="br-selected"></a><a href="#"
+                                                        data-rating-value="4" data-rating-text="4"
+                                                        class="br-selected"></a><a href="#" data-rating-value="5"
+                                                        data-rating-text="5" class="br-selected br-current"></a>
+                                                    <div class="br-current-rating">5</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>$ 22.25</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Quizes</h2>
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-xxl-2 g-3">
+                   
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="heading mb-2">
+                                    <a href="/qdetail" class="body-link">
+                                        <span class="clamp-line sh-6 lh-1-5" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; 
+                                            display: -webkit-box; -webkit-line-clamp: 2;">Basic Path Quizzes</span>
+                                    </a>
+                                </h5>
+                                <div class="mb-3 text-warning sh-8 clamp-line" data-line="3"
+                                    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; 
+                                    display: -webkit-box; -webkit-line-clamp: 3; ">
+                                    Kindly note that for now, your path quizzes and exams will be through an instructor.
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-form-check text-primary">
+                                                <path
+                                                    d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                    Questions</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-clock text-primary">
+                                                <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                </path>
+                                                <circle cx="10" cy="10" r="8"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">0m</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-graduation text-primary">
+                                                <g clip-path="url(#clip0_418:25)">
+                                                    <path
+                                                        d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                                    </path>
+                                                    <path
+                                                        d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_418:25">
+                                                        <path d="M0 0H20V20H0z"></path>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div id="path_level" class="sh-4 d-flex align-items-center text-alternate">intermediate
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#
+                <!----
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="heading mb-2">
+                                    <a href="/qdetail" class="body-link">
+                                        <span class="clamp-line sh-6 lh-1-5" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Basic
+                                            Introduction to Coding Techniques</span>
+                                    </a>
+                                </h5>
+                                <div class="mb-3 text-muted sh-8 clamp-line" data-line="3"
+                                    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">
+                                    Pie fruitcake jelly beans. Candy tootsie chocolate croissant jujubes icing chocolate
+                                    croissant jujubes icing macaroon croissant.
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-form-check text-primary">
+                                                <path
+                                                    d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                    Questions</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">25</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-clock text-primary">
+                                                <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                </path>
+                                                <circle cx="10" cy="10" r="8"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">5m</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-graduation text-primary">
+                                                <g clip-path="url(#clip0_418:25)">
+                                                    <path
+                                                        d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                                    </path>
+                                                    <path
+                                                        d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_418:25">
+                                                        <path d="M0 0H20V20H0z"></path>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div id="path_level" class="sh-4 d-flex align-items-center text-alternate">Beginner
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="heading mb-2">
+                                    <a href="/qdetail" class="body-link">
+                                        <span class="clamp-line sh-6 lh-1-5" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Advanced
+                                            Sandwich Making Techniques</span>
+                                    </a>
+                                </h5>
+                                <div class="mb-3 text-muted sh-8 clamp-line" data-line="3"
+                                    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">
+                                    Pie fruitcake jelly beans. Candy tootsie chocolate croissant jujubes icing chocolate
+                                    croissant jujubes icing macaroon croissant.
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-form-check text-primary">
+                                                <path
+                                                    d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                    Questions</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-clock text-primary">
+                                                <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                </path>
+                                                <circle cx="10" cy="10" r="8"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">4m</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-graduation text-primary">
+                                                <g clip-path="url(#clip0_418:25)">
+                                                    <path
+                                                        d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                                    </path>
+                                                    <path
+                                                        d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_418:25">
+                                                        <path d="M0 0H20V20H0z"></path>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">Novice</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="heading mb-2">
+                                    <a href="/qdetail" class="body-link">
+                                        <span class="clamp-line sh-6 lh-1-5" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Recipes
+                                            for Sweet and Healty Treats</span>
+                                    </a>
+                                </h5>
+                                <div class="mb-3 text-muted sh-8 clamp-line" data-line="3"
+                                    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">
+                                    Pie fruitcake jelly beans. Candy tootsie chocolate croissant jujubes icing chocolate
+                                    croissant jujubes icing macaroon croissant.
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-form-check text-primary">
+                                                <path
+                                                    d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                    Questions</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">40</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-clock text-primary">
+                                                <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                </path>
+                                                <circle cx="10" cy="10" r="8"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">10m</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-graduation text-primary">
+                                                <g clip-path="url(#clip0_418:25)">
+                                                    <path
+                                                        d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                                    </path>
+                                                    <path
+                                                        d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_418:25">
+                                                        <path d="M0 0H20V20H0z"></path>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">Expert</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="heading mb-2">
+                                    <a href="/qdetail" class="body-link">
+                                        <span class="clamp-line sh-6 lh-1-5" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">Recipes
+                                            for Sweet and Healty Treats</span>
+                                    </a>
+                                </h5>
+                                <div class="mb-3 text-muted sh-8 clamp-line" data-line="3"
+                                    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">
+                                    Pie fruitcake jelly beans. Candy tootsie chocolate croissant jujubes icing chocolate
+                                    croissant jujubes icing macaroon croissant.
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-form-check text-primary">
+                                                <path
+                                                    d="M10 14 18 14M10 6 18 6M6.66406 12.6162 4.01763 15.2626C3.82237 15.4579 3.50578 15.4579 3.31052 15.2626L2.1641 14.1162M6.66406 4.61617 4.01763 7.26262C3.82237 7.45788 3.50578 7.45788 3.31052 7.26261L2.1641 6.11617">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">
+                                                    Questions</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">40</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center mb-1">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-clock text-primary">
+                                                <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6">
+                                                </path>
+                                                <circle cx="10" cy="10" r="8"></circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">10m</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-auto">
+                                        <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-graduation text-primary">
+                                                <g clip-path="url(#clip0_418:25)">
+                                                    <path
+                                                        d="M8.55872 3.33498C9.22394 2.99352 9.55655 2.82279 9.91115 2.77976C10.0673 2.76081 10.2251 2.76034 10.3814 2.77837C10.7362 2.81932 11.0698 2.9881 11.737 3.32564L15.9358 5.44982C17.0715 6.02437 17.6393 6.31165 17.7593 6.73226C17.8098 6.9096 17.8104 7.09747 17.7608 7.27511C17.6434 7.69642 17.0772 7.98702 15.9449 8.56823L11.5835 10.807C10.9183 11.1485 10.5857 11.3192 10.2311 11.3622C10.0749 11.3812 9.91709 11.3817 9.76084 11.3636C9.40599 11.3227 9.07239 11.1539 8.40518 10.8164L4.20642 8.69217C3.07074 8.11762 2.5029 7.83035 2.38295 7.40974C2.33237 7.2324 2.33182 7.04453 2.38135 6.86689C2.49883 6.44558 3.06497 6.15498 4.19726 5.57376L8.55872 3.33498Z">
+                                                    </path>
+                                                    <path
+                                                        d="M4 9V12.1541C4 12.3879 4 12.5048 4.00811 12.6149C4.07044 13.4607 4.48781 14.2406 5.15696 14.7616C5.24405 14.8294 5.34133 14.8942 5.53587 15.0239V15.0239C6.09435 15.3962 6.37359 15.5824 6.64412 15.7302C8.73551 16.8727 11.2645 16.8727 13.3559 15.7302C13.6264 15.5824 13.9057 15.3962 14.4641 15.0239V15.0239C14.6587 14.8942 14.7559 14.8294 14.843 14.7616C15.5122 14.2406 15.9296 13.4607 15.9919 12.6149C16 12.5048 16 12.3879 16 12.1541V9">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_418:25">
+                                                        <path d="M0 0H20V20H0z"></path>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="sh-4 d-flex align-items-center text-alternate">Expert</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    #}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}
+
+{% block  page_js %} 
+
+<script src="{{ url_for('static', filename='js/pages/path.detail.js')}}"></script>
+
+<script>
+/*     // ================================ 
+    // for path fetch & display.
+     // Extract slug from the URL path
+    var pathName = window.location.pathname;
+    var slug = pathName.split('/').pop(); // Get the last segment of the path
+
+    $.ajax({
+        url: '/get_path/' + slug, // Using the extracted slug in the URL
+        type: 'GET',
+        success: function (response) {
+            var container_path_of_page = $('#path-of-page-courses-container');
+            var template = container_path_of_page.find('#path-page-course-template');
+
+            if (response && Array.isArray(response.courses) && response.courses.length > 0) {
+
+                //let payUrl = `${baseUrl}/init-payment/${parseInt(response.slug) || 100 }`;
+                let payUrl = `${baseUrl}/init-payment/${response.slug || '-' }`;
+                let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+                if(response.is_enrolled === true && response.slug ){
+
+                $("#start_now").attr("href", learnUrl).text(`Continue Learning`);
+
+                }else{
+                    $("#start_now").attr("href", payUrl);
+                }
+
+                if(response.title){
+                    // Set the page title dynamically
+                    document.title = `${response.title} . Russian Developers`;
+                }
+
+                $("#path-heading").text(response.title);
+                $("#path-desc").text(response.desc);
+                $("#pathfee").text(response.fee);
+                $("#courses_total").text(response.courses_total);
+                $("#quizzes_total").text(response.quizzes_total);
+                $("#courses_time_total").text(`${response.courses_time_total} hrs`);
+                // alert(JSON.stringify(response.courses))
+                var pathElements = response.courses.map(function (course) {
+                    // console.log("course:", course);
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', `${baseUrl}/prev/` + course.slug);
+                    clone.find('img').attr('src', `${baseUrl}/static/img/course/` + (course.image || "graduate.png") );
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    clone.find('#course_fee').text(course.fee);
+                    // clone.find('.text-muted').text(course.progress + '%');
+                    // clone.find('.progress-bar').css('width', course.progress + '%');
+                    return clone;
+
+                });
+
+                container_path_of_page.empty().append(pathElements);
+
+            } else {
+                // If no learning progress, show the placeholder experience.
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "welcome",
+                        // image: "welcome.webp",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        // image: "track.webp",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "explore-courses",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Your tech carreer begins with intellect. Get professional with us today.."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function (course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching learning progress:', error);
+        }
+    });
+    
+    // Handle form submission
+document.getElementById('start_now').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // add spinner
+    const submitButton = this;
+    submitButton.disabled = true; // Disable the button
+    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+    // const form = document.getElementById('payment-form');
+    // const formData = new FormData(form);
+    // // Log form data entries
+    // /* for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    // }
+    // console.log(form.action); 
+
+    fetch( $("#start_now").attr("href"), {
+        method: 'POST',
+        // body: formData
+    })
+    .then( response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-success"> ${data.message}</div>`;
+            window.location.href = data.redirect_url; // Redirect on success
+        } else {
+            // alert(data.error || 'Something went wrong. Please try again.');
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-danger"> -> ${data.error}</div>`;
+        }
+    })
+
+    .catch(error => console.error('Error:', error))
+
+    .finally(() => {
+        submitButton.disabled = false; // Re-enable the button
+        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+    });
+});
+ */
+/* ================================ */
+// Fetch and display path details
+$(document).ready(function() {
+    // Extract slug from the URL path
+    var pathName = window.location.pathname;
+    var slug = pathName.split('/').pop(); // Get the last segment of the path
+
+    $.ajax({
+        url: '/get_path/' + slug, // Using the extracted slug in the URL
+        type: 'GET',
+        success: function(response) {
+            var container_path_of_page = $('#path-of-page-courses-container');
+            var template = container_path_of_page.find('#path-page-course-template');
+
+            if (response && Array.isArray(response.courses) && response.courses.length > 0) {
+
+                let payUrl = `${baseUrl}/init-payment/${response.slug || '-' }`;
+                let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+                if(response.is_enrolled === true && response.slug) {
+                    $("#start_now").attr("href", learnUrl).text(`Continue Learning`);
+                } else {
+                    // $("#start_now").attr("href", payUrl);
+
+                    // Handle form submission within this block
+                    document.getElementById('start_now').addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent default action
+
+                        const submitButton = this;
+                        submitButton.disabled = true; // Disable the button
+                        submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                        fetch(payUrl, {
+                            method: 'POST',
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // console.log(JSON.stringify(data));
+                            if (data.success) {
+                                response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                                // window.location.href = data.redirect_url; // Redirect on success
+                            } else {
+                                response_modal(data.error || 'Unsuccessful');
+                             }
+
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }   
+                        })
+                        .catch(error => console.error('Error:', error))
+                        .finally(() => {
+                            submitButton.disabled = false; // Re-enable the button
+                            submitButton.innerHTML = `Start Now . $${response.fee}`; // Reset button text
+                        });
+                    });
+                }
+
+                if(response.title) {
+                    // Set the page title dynamically
+                    document.title = `${response.title} . Russian Developers`;
+                }
+
+                // Update image source if image URL is returned
+                console.log(response.image);
+                if (response.image) {
+                    $('#pathThumbImage').attr('src', `${window.location.origin}/static/img/course/path/${response.image}`);
+                }
+
+                $("#path-heading").text(response.title);
+                $("#path-desc").text(response.desc);
+                $("#pathfee").text(response.fee);
+                $("#path_level").text(`intermediate`);
+                $("#courses_total").text(response.courses_total);
+                $("#quizzes_total").text(response.quizzes_total);
+                $("#courses_time_total").text(`${response.courses_time_total} hrs`);
+
+                var pathElements = response.courses.map(function(course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', `${baseUrl}/prev/` + course.slug);
+                    clone.find('img').attr('src', `${baseUrl}/static/img/course/` + (course.image || "graduate.png"));
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    clone.find('#course_fee').text(course.fee);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+
+            } else {
+                // If no courses available, show the placeholder content
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "welcome",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "explore-courses",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "explore-courses",
+                        image: "graduate.png",
+                        desc: "Your tech career begins with intellect. Get professional with us today."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function(course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_path_of_page.empty().append(pathElements);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching path details:', error);
+        }
+    });
+});
+
+</script>
+{% endblock page_js %}

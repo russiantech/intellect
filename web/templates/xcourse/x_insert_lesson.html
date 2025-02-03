@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <head> 
+        <title>{% block title %} Lessons . Russsian Programers {% endblock title %}</title>
+        {% include('incs/metas.html') %}
+        {% block  page_css %} 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}">
+        {% endblock page_css %}
+</head>
+<body>
+    <div id="root">
+        
+        {% include('incs/nav.html') %}
+
+        <main>
+            <div class="container d-flex flex-column">
+                <div class="page-title-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <h1 class="mb-0 pb-0 display-4" id="title">Russian Developers</h1>
+                        </div>
+                        <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                            <button type="button"
+                                class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto d-inline-block d-xl-none"
+                                data-bs-toggle="modal" data-bs-target="#tableOfContentsModal">
+                                <i data-acorn-icon="menu-right"></i>
+                                <span>Contents</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row d-flex flex-grow-1 overflow-hidden pb-2 h-100">
+                    <div class="col-xl-8 col-xxl-9">
+                        <!--  -->
+                        <section class="scroll-section mb-5">
+                            <h2 class="small-title">Provide Lesson Informations</h2>
+                        <div class="mb-5 card">
+                            <div class="card-body">
+
+                                <form class="mb-n3" method="post" action="/create_lesson" enctype="multipart/form-data">
+
+                                    <div class="mb-3 mx-auto position-relative" id="singleImageUploadExample">
+                                        <img src="./static/img/profile/chris.jpg" alt="alternate text" class="rounded-xl border border-separator-light border-4 sw-12 sh-12" id="contactThumbModal">
+                                        <button class="btn btn-sm btn-icon btn-icon-only btn-separator-light position-absolute rounded-xl e-0 
+                                        b-0" type="button"><i data-acorn-icon="upload"></i></button> 
+                                        <input class="file-upload d-none" id="photo" name="photo" type="file">
+                                         
+                                    </div>
+
+                                    <div class="mb-3"><label class="form-label">Lesson Title</label>
+                                        <input type="text" required class="form-control" id="title" name="title"
+                                        placeholder="Enter Lesson Here">
+                                        </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Select A Course </label>
+                                        <div class="filled mb-0 w-100 mb-3">
+                                            <i data-acorn-icon="web"></i> 
+                                            
+                                            <select required class="form-control select-single-no-search-filled" 
+                                            id="course_id" name="course_id">
+                                                <option selected value="">Choose atleast one</option>
+                                                <!-- <option value="english">english</option> -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <textarea rows="3" id="desc" name="desc" 
+                                        placeholder="Description Here" class="form-control"> </textarea>
+                                    </div>
+
+                                    <div id="response_div" class="alert "></div>
+
+                                    <div class="mb-3">
+                                        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                        </section>
+                    </div>
+
+                    <div class="d-none d-xl-flex col-xl-4 col-xxl-3 h-100 scroll-out table-of-contents-scroll"
+                        id="tableOfContentsColumn">
+                    </div>
+                </div>
+                
+                <div class="modal modal-right fade" id="tableOfContentsModal" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Content</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div id="tableOfContentsMoveContent" data-move-target="#tableOfContentsColumn"
+                                    data-move-breakpoint="xl">
+                                    <div id="courseContent">
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            1
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Introduction to Coding</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseOne" class="accordion-collapse collapse show ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-primary sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading">1. Candy cake gummi
+                                                                            bears</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-primary sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading">2. Brownie candy biscuit
+                                                                            chupa chups</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">3. Cotton candy
+                                                                            caramels icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">4. Brownie candy
+                                                                            biscuit chupa chups</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">5. Marshmallow
+                                                                            liquorice cake liquorice</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">6. Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">7. Biscuit halvah
+                                                                            muffin dragée</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">8. Halvah
+                                                                            cheesecake tootsie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            2
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Molding Techniques</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseTwo" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">1. Gummi bears
+                                                                            dessert muffin pie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">2. Tiramisu lemon
+                                                                            drops tootsie roll macaroon halvah bear
+                                                                            claw</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">3. Pie
+                                                                            gingerbread marzipan jujubes</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">4. Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">5. Macaroon
+                                                                            fruitcake sugar plum</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">6. Sugar plum
+                                                                            pudding brownie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">7. Tart gummies
+                                                                            topping biscuit</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            3
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Baking the Right Way</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseThree" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">1. Gummi bears
+                                                                            dessert muffin pie</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">2. Tiramisu lemon
+                                                                            drops tootsie roll macaroon halvah bear
+                                                                            claw</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">3. Pie
+                                                                            gingerbread marzipan jujubes</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">4. Pudding pastry
+                                                                            icing</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">5. Macaroon
+                                                                            fruitcake sugar plum</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            4
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Presentation</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseFour" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">1. Lemon drops
+                                                                            wafer brownie pastry</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">2. Bonbon candy
+                                                                            canes oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">3. Tart
+                                                                            marshmallow macaroon soufflé</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                                    aria-expanded="false" aria-controls="collapseFive">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            5
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">Conclusion</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseFive" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">1. Danish cake
+                                                                            gummies jelly oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">2. Chocolate bar
+                                                                            chocolate bar tart cotton candy</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">3. Lemon drops
+                                                                            jelly lemon drops</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseSix"
+                                                    aria-expanded="false" aria-controls="collapseSix">
+                                                    <div class="sw-4 me-3">
+                                                        <div
+                                                            class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            6
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">What is Next?</div>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseSix" class="accordion-collapse collapse ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">1. Danish cake
+                                                                            gummies jelly oat cake</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-0">
+                                                        <div
+                                                            class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div
+                                                                class="w-100 d-flex sh-1 position-relative justify-content-center">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-muted sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a href="#"
+                                                                            class="heading muted-link">2. Sweet roll
+                                                                            candy muffin chocolate</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {% include('incs/footer.html') %}
+        
+    </div>
+   
+    {% include('incs/search.html') %}
+    
+    <!-- --------------------------- -->
+    <script src="{{url_for('static', filename='js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/autoComplete.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/clamp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-interface.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-learning.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/movecontent.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/helpers.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/globals.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/nav.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/search.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pages/misc.player.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script> 
+
+    {% block  page_js %} 
+    <script>
+        $(document).ready( function(){
+            // Make AJAX request to fetch categories
+            $.ajax({
+            url: '/get_courses',
+            type: 'GET',
+            success: function(response) {
+                var selectElement = $('#course_id');
+                selectElement.empty(); // Clear existing options before adding new ones
+                $.each(response, function(index, category) {
+                    // Create a new option element for each category
+                    var option = $('<option>', {
+                        value: category.id,
+                        text: category.title
+                    });
+                    // Append the option to the select element
+                    selectElement.append(option);
+                    
+                });
+            },
+            error: function(xhr, status, error) {
+                $("#response_div").text(error).addClass("alert-danger");
+                console.error('Error fetching categories:', error);
+            }
+            });  
+        });
+
+        /* ============================== */
+
+ (() => {
+    // Attach a submit handler to the form
+    $("form").on("submit", function(e) {
+        e.preventDefault();
+
+        // Get the form data as an object
+        var formData = {};
+        $(this).serializeArray().forEach( function(field) {
+            //formData[field.name] = field.value;
+            if (field.name === "course_id") {
+                formData[field.name] = parseInt(field.value, 0);
+            } else {
+                formData[field.name] = field.value;
+            }
+
+        });
+
+        console.log(formData);
+
+        var form = $(this);
+        var url = form.attr("action");
+
+        // Send the data using POST with content type JSON
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+
+            /*  */
+            beforeSend: () => { 
+                /* animate the send button b/4 send */
+                form.find("#submit").html('<span class="spinner-grow spinner-grow-sm" role="status"\
+                aria-hidden="true"></span>...')
+            },
+            /*  */
+
+            success: function(response){
+                //console.log(response);
+                $("#response_div").text(response.message).addClass("alert-primary");
+            },
+
+            error: function(xhr, status, error){
+                // Handle error
+                console.error('Error:', error);
+            },
+
+            complete: function() {
+            // Revert the changes made to the button after the request is complete
+            form.find("#submit").html('Submit').removeAttr("disabled");; // Or replace with the original button text
+            }
+
+        });
+
+        form.find("#submit").attr("disabled", "disabled");/* .html('<span class="spinner-grow spinner-grow-sm" role="status"\
+         aria-hidden="true"></span> loading...') */;
+    });
+    })();
+
+    </script>
+    <script src="{{ url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    {% endblock page_js %}
+    
+</body>
+</html>

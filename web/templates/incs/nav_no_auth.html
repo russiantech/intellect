@@ -1,0 +1,283 @@
+<div id="nav" class="nav-container d-flex">
+    <div class="nav-content d-flex">
+        <div class="logo position-relative"><a href="{{url_for('main.index')}}"><div class="img"></div> </a> </div>
+        {# <div class="language-switch-container">
+            <button class="btn btn-empty language-button dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" 
+            aria-expanded="false">EN</button>
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-item">DE</a>
+                <a href="#" class="dropdown-item active">EN</a>
+                <a href="#" class="dropdown-item">ES</a>
+            </div>
+        </div> #}
+        <div class="user-container d-flex">
+            <!----
+        <a href="{{ url_for('auth_api.signin') }}" 
+            class="d-flex user position-relative"  aria-haspopup="false" aria-expanded="false"> 
+            <img class="profile" alt="profile" src="{{ url_for('static', filename='img/profile/default.webp') }}">
+            <div class="name">Russiantechnologies </div>
+        </a> ---->
+
+        <a href="{{ url_for('auth_api.signin') if not current_user.is_authenticated else url_for('main.user') }}" 
+        class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+        
+        <img class="profile" alt="profile" src="{{ url_for('static', 
+        filename='img/profile/'+ (current_user.image | default('default.webp')) )}}">
+
+        <div class="name"> {{ current_user.name or current_user.username or "Russiantechnologies" }} </div>
+    </a>
+        
+            <div class="dropdown-menu dropdown-menu-end user-menu wide">
+                {% if current_user.is_authenticated %}
+                <div class="row mb-3 ms-0 me-0">
+                    <div class="col-12 ps-1 mb-2">
+                        <div class="text-extra-small text-primary">ACCOUNT ( {{ current_user.created|time_ago }} )</div>
+                    </div>
+                    <div class="col-6 ps-1 pe-1">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{{url_for('auth_api.update', username=current_user.username)}}">profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 pe-1 ps-1">
+                        <ul class="list-unstyled">
+                            <li> <a href="/pay">Billing</a>  </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-1 ms-0 me-0">
+                    <div class="col-12 p-1 mb-2 pt-2">
+                        <div class="text-extra-small text-primary">DEVELOPERS</div>
+                    </div>
+                    <div class="col-6 ps-1 pe-1">
+                        <ul class="list-unstyled">
+                            <li> <a href="/dev">Build</a> </li>
+                            <li> <a href="">community</a>  </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 pe-1 ps-1">
+                        <ul class="list-unstyled">
+                            <li> <a href="/share">share</a> </li>
+                            <li> <a href="">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-1 ms-0 me-0">
+                    <div class="col-12 p-1 mb-3 pt-3">
+                        <div class="separator-light"></div>
+                    </div>
+                    <div class="col-6 ps-1 pe-1">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="/help">
+                                    <i data-acorn-icon="help" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">Help</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/docs">
+                                    <i data-acorn-icon="file-text" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">Docs</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 pe-1 ps-1">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{{url_for('auth_api.update', username=current_user.username)}}">
+                                    <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{url_for('auth_api.signout')}}">
+                                    <i data-acorn-icon="logout" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% include('incs/notify.html') %}
+
+        <div class="menu-container flex-grow-1">
+            <ul id="menu" class="menu">
+                {% if current_user.is_authenticated %}
+                <li>
+                    <a href="#dashboards">
+                        <i data-acorn-icon="home-garage" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Dashboards</span>
+                    </a>
+                    <ul id="dashboards">
+                        <li>
+                            <a href="/">
+                                <span class="label">My learning</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/qresult">
+                                <span class="label">My-quizzes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/quiz">
+                        <i data-acorn-icon="quiz" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Quizzes</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/materi">
+                        <i data-acorn-icon="destination" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Materi</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li>
+                    <a href="{{url_for('main.index')}}">
+                        <i data-acorn-icon="navigate-diagonal" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Courses</span>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.us')}}">
+                        <i data-acorn-icon="image" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Us</span>
+                    </a>
+                </li>
+                <li class="isDisabled">
+                    <a href="{{url_for('main.blog')}}">
+                        <i data-acorn-icon="file-text" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Blog</span>
+                    </a>
+                </li>
+
+<!--------------------------Disabled below links for now ------------------->
+                {% if current_user.is_authenticated and current_user.is_admin() %}
+                <li class="isDisabled">
+                    <a href="#quiz2" aria-disabled="true">
+                    <i data-acorn-icon="file-image" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Quiz</span>
+                    </a>
+                    <ul id="quiz2">
+                        <li>
+                            <a href="/quiz2" aria-disabled="true">
+                                <span class="label">Quizzes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/qresult2" aria-disabled="true">
+                                <span class="label">My result</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="isDisabled">
+                    <a href="{{url_for('chat.list')}}" aria-disabled="true">
+                        <i data-acorn-icon="online-class" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Chatme</span>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </a>
+                </li>
+
+                <li class="isDisabled">
+                    <a href="{{url_for('main.path')}}" aria-disabled="true">
+                        <i data-acorn-icon="destination" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Paths</span>
+                    </a>
+                </li>
+                <li class="isDisabled">
+                    <a href="{{url_for('main.tutor_list')}}" aria-disabled="true">
+                        <i data-acorn-icon="lecture" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Instructors</span>
+                    </a>
+                </li>
+                <li class="isDisabled">
+                    <a href="#misc" aria-disabled="true">
+                        <i data-acorn-icon="layout-5" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Misc</span>
+                    </a>
+                    <ul id="misc" >
+                        <li>
+                            <a href="{{url_for('main.school')}}" aria-disabled="true">
+                                <span class="label">School</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.player')}}" aria-disabled="true">
+                                <span class="label">Play</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.materi')}}" aria-disabled="true">
+                                <span class="label">Material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('main.syllabus')}}" aria-disabled="true">
+                                <span class="label">Syllabus</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+
+        <div class="mobile-buttons-container">
+            <a href="#" id="scrollSpyButton" class="spy-button" data-bs-toggle="dropdown">
+                <i data-acorn-icon="menu-dropdown"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" id="scrollSpyDropdown"></div>
+            <a href="#" id="mobileMenuButton" class="menu-button">
+                <i data-acorn-icon="menu"></i>
+            </a>
+        </div>
+        
+    </div>
+    <div class="nav-shadow"></div>
+</div>
+
+<style>
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+a[aria-disabled="true"] {
+  color: currentColor;
+  display: inline-block;  /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+}
+</style>
+<script>
+    document.body.addEventListener('click', function (event) {
+  // filter out clicks on any other elements
+  if (event.target.nodeName == 'A' && event.target.getAttribute('aria-disabled') == 'true') {
+    event.preventDefault();
+  }
+});
+</script>

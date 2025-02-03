@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <head>
+        <title>{% block title %} Learn . Russsian Developers {% endblock title %}</title>
+        {% include('incs/metas.html') %}
+        {% block page_css %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}">
+        {% endblock page_css %}
+    </head>
+<body>
+    <div id="root">
+
+        {% include('incs/nav.html') %}
+
+        <main>
+            <div class="container d-flex flex-column">
+                <div class="page-title-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <h1 class="mb-0 pb-0 display-4" id="title">{{_chapt.title}}</h1>
+                            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                <ul class="breadcrumb pt-0">
+                                    <li class="breadcrumb-item"><a href="{{url_for('main.index')}}">Home</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                            <button type="button"
+                                class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto d-inline-block d-xl-none"
+                                data-bs-toggle="modal" data-bs-target="#tableOfContentsModal">
+                                <i data-acorn-icon="menu-right"></i>
+                                <span>Contents </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex flex-grow-1 overflow-hidden pb-2 h-100">
+                    <div class="col-xl-8 col-xxl-9">
+
+                        <div class="card mb-5 h-100 bg-transparent">
+                        <!-------by---topics--------->
+                        {% for t in _topic %}
+                        {% if (t.title|slugify|lower == request.args.get('topiq')|string|slugify|lower) %}
+                        <section class="scroll-section mb-5" id="topic{{loop.index}}">
+                            <h4 class="small-title">{{loop.index}}. {{ t.title }}</h4>
+                            <div class="card btn-next">
+                                <div class="card-body">
+                                    <div class="heading"><h4>{{t.title}}</h4></div>
+                                    {% set tokened = t.desc|sent_tokenize %}
+                                    {% for desc in tokened %}
+                                    <h5 class="bit_sized_element {{'d-none' if (loop.index != 1) else '' }}">{{desc}}</h5> <br>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="card-footer text-center border-0 mt-3 pt-1"
+                                style="margin-top: 10px;">
+                                <button type="button" class="btn btn-icon btn-icon-end btn-outline-primary btn-prev">
+
+                                    <span>Back</span>
+                                    <i data-acorn-icon="chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-icon btn-icon-end btn-outline-primary btn-next">
+
+                                    <span>Continue</span>
+                                    <i data-acorn-icon="chevron-right"></i>
+                                </button>
+                            </div>
+
+                            </div>
+                        </section>
+                        {% endif %}
+                        {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="d-none d-xl-flex col-xl-4 col-xxl-3 h-100 scroll-out table-of-contents-scroll" id="tableOfContentsColumn"></div>
+                </div>
+
+                <div class="modal modal-right fade" id="tableOfContentsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Content</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                                <div id="tableOfContentsMoveContent" data-move-target="#tableOfContentsColumn" data-move-breakpoint="xl">
+                                    <div id="courseContent">
+
+                                        {% for c in _chapt %}
+
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse{{loop.index}}"
+                                                    aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                                                    <div class="sw-4 me-3">
+                                                        <div class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            {{ loop.index }}
+                                                        </div>
+                                                    </div>
+                                                    <div> <div class="heading mb-0 {{ 'text-primary' if ( loop.index == request.args.get('page')|int ) else '' }}">
+                                                        {{ c.title }}</div> </div>
+                                                </div>
+                                                <div id="collapse{{loop.index}}" class="accordion-collapse collapse ms-2 ps-1 {{'show' if loop.index == request.args.get('page')|int else ''}}"
+                                                    data-bs-parent="#courseContent">
+                                                
+                                                    {% for t in c.topiq %}
+
+                                                    <div class="row g-0 {{ 'mt-4' if (loop.index == 1) else '' }} ">
+                                                        <div class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div class="bg-primary sw-1 sh-1 rounded-xl position-relative"></div>
+                                                            </div>
+                                                            <div class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div class="line-w-1 bg-separator h-100 position-absolute"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                         <a href="?topiq={{t.title|slugify|lower}}"  
+                                                                        class="heading {{'muted-link' if (loop.index != 1) else 'muted-link' }} ">
+                                                                        {{ loop.index|string + '. ' + t.title }}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {% endfor %}
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {% include('incs/footer.html') %}
+
+    </div>
+
+    {% include('incs/search.html') %}
+
+    <script src="{{url_for('static', filename='js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/autoComplete.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/clamp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-interface.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-learning.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/movecontent.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/helpers.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/globals.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/nav.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/search.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pages/misc.player.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+
+    {% block page_js %}
+    <script src="{{ url_for('static', filename='js/pages/learn.bit.js')}}"></script>
+ <!--    <script src="{{ url_for('static', filename='js/pages/plyr.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/misc.player.js')}}"></script> -->
+    {% endblock page_js %}
+
+</body>
+</html>

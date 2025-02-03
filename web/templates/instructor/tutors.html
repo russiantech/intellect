@@ -1,0 +1,1503 @@
+{% extends 'base.html' %}
+{% block title %} Instructors . Russian Developers {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    <h1 class="mb-0 pb-0 display-4" id="title">Instructor List {{tutors}}</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4 g-3 mb-5">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-1.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Blaine Cottrell</a>
+                        <div class="text-muted text-medium mb-2">Chemistry</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Pie fruitcake jelly beans. Candy tootsie chocolate croissant
+                            jujubes icing macaroon croissant.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">25</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">210h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">12.148</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-2.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Cherish Kerr</a>
+                        <div class="text-muted text-medium mb-2">Biology</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="4" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Donut halvah cotton candy cake dessert. Wafer jujubes
+                            gingerbread halvah.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">65h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">2.983</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-3.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Beatrice Janelle</a>
+                        <div class="text-muted text-medium mb-2">Science</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Bear claw cake sweet. Cupcake marzipan powder macaroon jelly-o
+                            chocolate bonbon liquorice.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">8</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">95h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">4.432</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-4.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Eulalie Armel</a>
+                        <div class="text-muted text-medium mb-2">Arts</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Marshmallow liquorice cake liquorice jujubes bear claw. Muffin
+                            bear claw bear claw.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">42</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">491h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">11.004</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-5.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Zayn Hartley</a>
+                        <div class="text-muted text-medium mb-2">Algebra</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Gummies sugar plum cake pie muffin danish bear claw bear claw
+                            jelly-o. Chocolate sugar icing biscuit.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">22</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">311h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">9.941</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-6.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Esperanza Lodge</a>
+                        <div class="text-muted text-medium mb-2">Geometry</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="4" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Liquorice chocolate bar toffee gummi bears. Muffin sweet
+                            tootsie roll tart sugar plum muffin.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">29</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">321h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">12.108</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-7.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Kathryn Mengel</a>
+                        <div class="text-muted text-medium mb-2">History</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"
+                                            class="br-selected br-current"></a>
+                                        <div class="br-current-rating">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Danish brownie fruitcake tootsie roll donut bonbon ice cream.
+                            Sweet roll candy chocolate.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">14</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">189h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">10.185</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-8.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Eneida Farzana</a>
+                        <div class="text-muted text-medium mb-2">Spanish</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"
+                                            class="br-selected br-current"></a>
+                                        <div class="br-current-rating">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Cake oat cake sugar plum caramels fruitcake tart dessert jelly
+                            beans pudding.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">15</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">206h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">9.842</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-9.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Fabian Ciera</a>
+                        <div class="text-muted text-medium mb-2">English</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"
+                                            class="br-selected br-current"></a>
+                                        <div class="br-current-rating">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Fruitcake sweet caramels toffee cupcake carrot cake. Tiramisu
+                            lemon drops tootsie roll bear claw.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">24</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">391h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">16.548</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-4.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Ryland Darrin</a>
+                        <div class="text-muted text-medium mb-2">Philosophy</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"
+                                            class="br-selected br-current"></a>
+                                        <div class="br-current-rating">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Bonbon candy canes oat cake. Pudding pastry icing. Sweet sugar
+                            plum liquorice gingerbread.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">13</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">116h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">12.856</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-2.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Laurent Wilma</a>
+                        <div class="text-muted text-medium mb-2">Physics</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="4" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected br-current"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"></a>
+                                        <div class="br-current-rating">4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Halvah cheesecake tootsie roll gingerbread chocolate
+                            fruitcake. Candy canes lemon drops.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">14</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">108h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">12.560</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="sw-13 position-relative mb-3 mx-auto">
+                            <img src="./static/img/profile/profile-10.webp" class="img-fluid rounded-xl" alt="thumb">
+                        </div>
+                        <a href="/tutor/tid" class="body-link">Selby Madge</a>
+                        <div class="text-muted text-medium mb-2">Music</div>
+                        <div class="mb-2">
+                            <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                <div class="br-wrapper"><select class="rating" name="rating" autocomplete="off"
+                                        data-readonly="true" data-initial-rating="5" style="display: none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br-widget br-readonly"><a href="#" data-rating-value="1"
+                                            data-rating-text="1" class="br-selected"></a><a href="#"
+                                            data-rating-value="2" data-rating-text="2" class="br-selected"></a><a
+                                            href="#" data-rating-value="3" data-rating-text="3"
+                                            class="br-selected"></a><a href="#" data-rating-value="4"
+                                            data-rating-text="4" class="br-selected"></a><a href="#"
+                                            data-rating-value="5" data-rating-text="5"
+                                            class="br-selected br-current"></a>
+                                        <div class="br-current-rating">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-muted sh-7">Chocolate bar chocolate bar tart cotton tart pudding lollipop.
+                            Chupa chups croissant.</div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Courses</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-1">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">118h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Trainee</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="sh-4 d-flex align-items-center text-alternate">5.443</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <a href="/list" class="btn btn-outline-primary w-100 me-1 btn-sm">Courses</a>
+                            <button class="btn btn-icon btn-icon-only btn-outline-primary btn-sm" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-more-horizontal undefined">
+                                    <path
+                                        d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-outline-primary sw-25">Load More</button>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

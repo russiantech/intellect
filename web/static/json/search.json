@@ -1,0 +1,62 @@
+[
+    {
+        "label": "Dashboards > Elearning",
+        "url": "/"
+    },
+    {
+        "label": "Dashboards > School",
+        "url": "/school"
+    },
+    {
+        "label": "Courses > Explore",
+        "url": "/explore"
+    },
+    {
+        "label": "Courses > List",
+        "url": "course"
+    },
+    {
+        "label": "Courses > Detail",
+        "url": "Course/details"
+    },
+    {
+        "label": "Quiz > List",
+        "url": "quiz"
+    },
+    {
+        "label": "Quiz > Detail",
+        "url": "qlist"
+    },
+    {
+        "label": "Quiz > Result",
+        "url": "result"
+    },
+    {
+        "label": "Paths > List",
+        "url": "path"
+    },
+    {
+        "label": "Paths > Detail",
+        "url": "pdetails"
+    },
+    {
+        "label": "Instructors > List",
+        "url": "tutors"
+    },
+    {
+        "label": "Instructors > Detail",
+        "url": "Instructor.Detail.html"
+    },
+    {
+        "label": "Miscellaneous > Player",
+        "url": "Misc.Player.html"
+    },
+    {
+        "label": "Miscellaneous > Material",
+        "url": "Misc.Material.html"
+    },
+    {
+        "label": "Miscellaneous > Syllabus",
+        "url": "Misc.Syllabus.html"
+    }
+]

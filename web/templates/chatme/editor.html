@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block title %}Courses . Russian Developers Program {% endblock title %}
+{% block  page_css %} 
+<link rel="stylesheet" href="asset/font/CS-Interface/style.css">
+<link rel="stylesheet" href="asset/css/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="asset/css/vendor/OverlayScrollbars.min.css">
+{% endblock page_css %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <section class="scroll-section" id="title">
+                    <div class="page-title-container">
+                        <h1 class="mb-0 pb-0 display-4">Editor</h1>
+                        <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                            <ul class="breadcrumb pt-0">
+                                <li class="breadcrumb-item"><a
+                                        href="https://acorn-html-classic-dashboard.coloredstrategies.com/Dashboards.Default.html">Home</a>
+                                </li>
+                                <li class="breadcrumb-item"><a
+                                        href="https://acorn-html-classic-dashboard.coloredstrategies.com/Interface.html">Interface</a>
+                                </li>
+                                <li class="breadcrumb-item"><a
+                                        href="https://acorn-html-classic-dashboard.coloredstrategies.com/Interface.Forms.html">Forms</a>
+                                </li>
+                                <li class="breadcrumb-item"><a
+                                        href="https://acorn-html-classic-dashboard.coloredstrategies.com/Interface.Forms.Controls.html">Controls</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </section>
+                <div>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <p class="mb-0">A modern rich text editor built for compatibility and extensibility.
+                            </p>
+                        </div>
+                    </div>
+                    <section class="scroll-section" id="quillBubble">
+                        <h2 class="small-title">Quill Bubble</h2>
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="html-editor-bubble sh-19 html-editor" id="quillEditorBubble"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="scroll-section" id="quillStandart">
+                        <h2 class="small-title">Quill Standart</h2>
+                        <div class="card mb-5">
+                            <div class="card-body editor-container">
+                                <div class="html-editor sh-19" id="quillEditor"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="scroll-section" id="filled">
+                        <h2 class="small-title">Filled</h2>
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="filled custom-control-container editor-container">
+                                    <div class="html-editor sh-9" id="quillEditorFilled"></div>
+                                    <i data-acorn-icon="notebook-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="scroll-section" id="topLabel">
+                        <h2 class="small-title">Top Label</h2>
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="top-label custom-control-container editor-container">
+                                    <div class="html-editor sh-9" id="quillEditorTopLabel"></div>
+                                    <span>EDITOR</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="scroll-section" id="floatingLabel">
+                        <h2 class="small-title">Floating Label</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-floating">
+                                    <div class="html-editor sh-13" id="quillEditorFloatingLabel"></div>
+                                    <label>Editor</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="col-md-auto d-none d-lg-block" id="scrollSpyMenu">
+                <ul class="nav flex-column">
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#title">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Title</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#quillBubble">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Quill Bubble</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#quillStandart">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Quill Standart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#filled">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Filled</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#topLabel">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Top Label</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link"
+                            href="https://acorn-html-classic-dashboard.coloredstrategies.com/#floatingLabel">
+                            <i data-acorn-icon="chevron-right"></i>
+                            <span>Floating Label</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% block  page_js %} 
+<script src="{{ url_for('static', filename='js/vendor/movecontent.js')}}"></script> 
+<script src="{{ url_for('static', filename='js/cs/scrollspy.js')}}"></script>
+<script src="{{ url_for('static', filename='js/vendor/quill.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/vendor/quill.active.js')}}"></script>
+<script src="{{ url_for('static', filename='js/forms/controls.editor.js')}}"></script>
+{% endblock page_js %}
+
+{% endblock content %}

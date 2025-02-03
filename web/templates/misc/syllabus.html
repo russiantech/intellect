@@ -1,0 +1,508 @@
+{% extends 'base.html' %}
+{% block title %} Syllabus. Russian Developers {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    <h1 class="mb-0 pb-0 display-4" id="title">Syllabus</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-12 col-xl-4 col-xxl-3">
+                <h2 class="small-title">Instructor</h2>
+                <div class="card mb-5">
+                    <div class="card-body mb-n5">
+                        <div class="d-flex align-items-center flex-column mb-5">
+                            <div class="mb-4 d-flex align-items-center flex-column">
+                                <div class="sw-13 position-relative mb-3">
+                                    <img src="static/img/profile/profile-2.webp" class="img-fluid rounded-xl" alt="thumb">
+                                </div>
+                                <div class="h5 mb-0">Eulalie Armel</div>
+                                <div class="text-muted mb-2">Arts</div>
+                                <div class="text-muted text-center">Cake oat cake sugar plum caramels fruitcake tart
+                                    dessert jelly beans pudding.</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100">
+                                <button type="button" class="btn btn-primary w-100 me-2">Courses</button>
+                                <button type="button" class="btn btn-outline-primary w-100 me-2">Follow</button>
+                                <button class="btn btn-icon btn-icon-only btn-outline-primary" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-more-horizontal undefined">
+                                        <path
+                                            d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <p class="text-small text-muted mb-2">ABOUT ME</p>
+                            <p>
+                                Jujubes brownie marshmallow apple pie donut ice cream jelly-o jelly-o gummi bears.
+                                Tootsie roll chocolate bar dragée bonbon cheesecake icing. Danish wafer donut cookie
+                                caramels gummies topping.
+                            </p>
+                        </div>
+                        <div class="mb-5">
+                            <p class="text-small text-muted mb-2">CONTACT</p>
+                            <a href="#" class="d-block body-link mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-screen me-2">
+                                    <path d="M10 15V16V18M8 18H12"></path>
+                                    <path
+                                        d="M14.5 2C15.9045 2 16.6067 2 17.1111 2.33706C17.3295 2.48298 17.517 2.67048 17.6629 2.88886C18 3.39331 18 4.09554 18 5.5L18 11.5C18 12.9045 18 13.6067 17.6629 14.1111C17.517 14.3295 17.3295 14.517 17.1111 14.6629C16.6067 15 15.9045 15 14.5 15L5.5 15C4.09554 15 3.39331 15 2.88886 14.6629C2.67048 14.517 2.48298 14.3295 2.33706 14.1111C2 13.6067 2 12.9045 2 11.5L2 5.5C2 4.09554 2 3.39331 2.33706 2.88886C2.48298 2.67048 2.67048 2.48298 2.88886 2.33706C3.39331 2 4.09554 2 5.5 2L14.5 2Z">
+                                    </path>
+                                    <path d="M9 7 7 10M13.2412 7 11.2412 10"></path>
+                                </svg>
+                                <span class="align-middle">blainecottrell.com</span>
+                            </a>
+                            <a href="#" class="d-block body-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-email me-2">
+                                    <path
+                                        d="M18 7L11.5652 10.2174C10.9086 10.5457 10.5802 10.7099 10.2313 10.7505C10.0776 10.7684 9.92238 10.7684 9.76869 10.7505C9.41977 10.7099 9.09143 10.5457 8.43475 10.2174L2 7">
+                                    </path>
+                                    <path
+                                        d="M14.5 4C15.9045 4 16.6067 4 17.1111 4.33706C17.3295 4.48298 17.517 4.67048 17.6629 4.88886C18 5.39331 18 6.09554 18 7.5L18 12.5C18 13.9045 18 14.6067 17.6629 15.1111C17.517 15.3295 17.3295 15.517 17.1111 15.6629C16.6067 16 15.9045 16 14.5 16L5.5 16C4.09554 16 3.39331 16 2.88886 15.6629C2.67048 15.517 2.48298 15.3295 2.33706 15.1111C2 14.6067 2 13.9045 2 12.5L2 7.5C2 6.09554 2 5.39331 2.33706 4.88886C2.48298 4.67048 2.67048 4.48298 2.88886 4.33706C3.39331 4 4.09554 4 5.5 4L14.5 4Z">
+                                    </path>
+                                </svg>
+                                <span class="align-middle">contact@blainecottrell.com</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Grading</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row gx-2 mb-3">
+                            <div class="col">A</div>
+                            <div class="col-auto">90% - 100%</div>
+                        </div>
+                        <div class="row gx-2 mb-3">
+                            <div class="col">B</div>
+                            <div class="col-auto">80% - 89%</div>
+                        </div>
+                        <div class="row gx-2 mb-3">
+                            <div class="col">C</div>
+                            <div class="col-auto">70% - 79%</div>
+                        </div>
+                        <div class="row gx-2 mb-3">
+                            <div class="col">D</div>
+                            <div class="col-auto">60% - 69%</div>
+                        </div>
+                        <div class="row gx-2">
+                            <div class="col">F</div>
+                            <div class="col-auto">59% or less</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-8 col-xxl-9">
+                <h2 class="small-title">Course</h2>
+                <div class="card mb-5">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="heading">Description</div>
+                            <p>
+                                Liquorice caramels apple pie chupa chups bonbon. Jelly-o candy apple pie sugar plum
+                                icing chocolate cake lollipop jujubes bear claw. Pastry sweet roll carrot cake cake
+                                macaroon gingerbread cookie.
+                                <strong>Brownie candy cookie</strong>
+                                candy pie sweet roll biscuit marzipan. Chocolate bar candy canes macaroon liquorice
+                                danish biscuit biscuit.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="heading">Prerequisites</div>
+                            <p>
+                                Fruitcake sweet caramels toffee cupcake carrot cake. Tiramisu lemon drops tootsie roll
+                                macaroon halvah bear claw. Bonbon candy canes oat cake. Pudding pastry icing. Sweet
+                                sugar plum liquorice gummies soufflé gingerbread. Halvah cheesecake tootsie roll
+                                gingerbread chocolate fruitcake. Candy canes lemon drops dessert gummies. Pudding
+                                marshmallow chocolate gingerbread carrot cake apple pie jelly marzipan macaroon. Tart
+                                gummies topping biscuit. Chocolate bar chocolate bar tart cotton candy tart pudding
+                                lollipop.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="heading">Outline</div>
+                            <p>
+                                Muffin sweet tootsie roll tart sugar plum muffin. Danish brownie fruitcake tootsie roll
+                                donut bonbon ice cream. Sweet roll candy muffin chocolate bar carrot cake. Cake oat cake
+                                sugar plum caramels fruitcake tart dessert jelly beans pudding. Liquorice caramels apple
+                                pie chupa chups bonbon. Jelly-o candy apple pie sugar plum icing chocolate cake lollipop
+                                jujubes bear claw.
+                            </p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="heading">Sequencing</div>
+                            <p>
+                                Bear claw cake sweet. Cupcake marzipan powder macaroon jelly-o chocolate bonbon
+                                liquorice. Marshmallow liquorice cake liquorice jujubes bear claw. Muffin jelly-o
+                                brownie sweet bear claw bear claw. Gummies sugar plum cake pie muffin danish bear claw
+                                bear claw jelly-o. Chocolate icing biscuit. Lollipop chocolate cake jujubes pastry ice
+                                cream pie cotton candy cotton candy toffee. Liquorice croissant cupcake macaroon
+                                liquorice. Halvah muffin biscuit caramels ice cream candy macaroon carrot cake. Muffin
+                                chocolate croissant gummies donut pudding candy.Liquorice caramels apple pie chupa chups
+                                bonbon. Jelly-o candy apple pie sugar plum icing chocolate cake lollipop jujubes bear
+                                claw.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="heading">Objectives</div>
+                            <ol class="ps-4 mb-0">
+                                <li>
+                                    Cookie
+                                    <p>
+                                        Sesame snaps brownie gummi bears tootsie roll caramels dragée. Powder cake
+                                        gummies jelly beans toffee carrot cake bonbon powder muffin.
+                                    </p>
+                                </li>
+                                <li>
+                                    Macaroon
+                                    <p>Fruitcake chocolate chocolate cake. Marzipan wafer macaroon cookie candy canes
+                                        fruitcake.</p>
+                                </li>
+                                <li>
+                                    Muffin
+                                    <p>Jelly-o candy apple pie sugar plum icing chocolate cake lollipop jujubes bear
+                                        claw.</p>
+                                </li>
+                                <li>
+                                    Brownie
+                                    <p>Sugar plum gummi bears jujubes cookie jelly-o tootsie roll chocolate bar.</p>
+                                </li>
+                                <li>
+                                    Lollipop
+                                    <p>Liquorice caramels apple pie chupa chups bonbon.</p>
+                                </li>
+                                <li>
+                                    Brownie
+                                    <p>Muffin sweet tootsie roll tart sugar plum muffin.</p>
+                                </li>
+                                <li>
+                                    Caramels
+                                    <p class="mb-0">Gingerbread pudding chocolate cake cake.</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Timeline</h2>
+                <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 g-2 mb-5">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div
+                                class="card-body d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
+                                <p class="text-primary heading mb-4">Week 1</p>
+                                <div class="d-flex flex-column mb-n4 text-start align-items-start w-100">
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">OBJECTIVES</p>
+                                        <ol class="ps-3 mb-0">
+                                            <li class="mb-1">Sugar plum gummi bears jujubes.</li>
+                                            <li class="mb-1">Liquorice caramels apple pie chupa chups bonbon.</li>
+                                            <li class="mb-1">Muffin sweet tootsie roll tart.</li>
+                                            <li class="mb-1">Gingerbread pudding chocolate.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ACTIVITIES</p>
+                                        <p class="mb-0">
+                                            Gummies sugar plum cake pie muffin danish bear claw bear claw jelly-o.
+                                            Chocolate icing biscuit. Lollipop chocolate cake jujubes pastry ice cream
+                                            pie cotton candy cotton candy toffee. Liquorice croissant cupcake macaroon
+                                            liquorice.
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ASSIGNMENTS</p>
+                                        <p class="mb-0">
+                                            Pudding marshmallow chocolate gingerbread carrot cake apple pie jelly
+                                            marzipan macaroon. Tart gummies topping biscuit.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div
+                                class="card-body d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
+                                <p class="text-primary heading mb-4">Week 2</p>
+                                <div class="d-flex flex-column mb-n4 text-start align-items-start w-100">
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">OBJECTIVES</p>
+                                        <ol class="ps-3 mb-0">
+                                            <li class="mb-1">Donut chocolate cake.</li>
+                                            <li class="mb-1">Cotton candy caramels icing.</li>
+                                            <li class="mb-1">Gummies sugar plum cake pie.</li>
+                                            <li class="mb-1">Muffin jelly-o brownie sweet bear claw bear claw.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ACTIVITIES</p>
+                                        <p class="mb-0">
+                                            Apple pie candy sugar plum caramels soufflé. Bear claw cotton candy powder
+                                            pastry. Cotton candy caramels icing marshmallow toffee chupa chups tart
+                                            tart. Donut chocolate cake croissant sweet cake muffin halvah muffin lemon
+                                            drops.
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ASSIGNMENTS</p>
+                                        <p class="mb-0">
+                                            Muffin jelly-o brownie sweet bear claw bear claw. Gummies sugar plum cake
+                                            pie muffin danish bear claw bear claw jelly-o. Chocolate icing biscuit.
+                                            Lollipop chocolate cake jujubes pastry ice cream pie cotton candy cotton
+                                            candy toffee.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div
+                                class="card-body d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
+                                <p class="text-primary heading mb-4">Week 3</p>
+                                <div class="d-flex flex-column mb-n4 text-start align-items-start w-100">
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">OBJECTIVES</p>
+                                        <ol class="ps-3 mb-0">
+                                            <li class="mb-1">Pudding marshmallow chocolate gingerbread.</li>
+                                            <li class="mb-1">Cotton candy caramels icing.</li>
+                                            <li class="mb-1">Gummies sugar plum cake pie muffin chocolate cake jujubes
+                                                pastry danish.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ACTIVITIES</p>
+                                        <p class="mb-0">
+                                            Bear claw cake sweet. Cupcake marzipan powder macaroon jelly-o chocolate
+                                            bonbon liquorice. Marshmallow liquorice cake liquorice jujubes bear claw.
+                                            Muffin jelly-o brownie sweet bear claw bear claw. Gummies sugar plum cake
+                                            pie muffin danish bear claw bear claw jelly-o.
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ASSIGNMENTS</p>
+                                        <p class="mb-0">
+                                            Pudding marshmallow chocolate gingerbread carrot cake apple pie jelly
+                                            marzipan macaroon. Sweet sugar plum liquorice gummies soufflé gingerbread.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div
+                                class="card-body d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
+                                <p class="text-primary heading mb-4">Week 4</p>
+                                <div class="d-flex flex-column mb-n4 text-start align-items-start w-100">
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">OBJECTIVES</p>
+                                        <ol class="ps-3 mb-0">
+                                            <li class="mb-1">Chupa chups croissant jujubes chocolate.</li>
+                                            <li class="mb-1">Chocolate icing biscuit.</li>
+                                            <li class="mb-1">Liquorice croissant cupcake macaroon liquorice.</li>
+                                        </ol>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ACTIVITIES</p>
+                                        <p class="mb-0">
+                                            Gummies sugar plum cake pie muffin danish bear claw bear claw jelly-o.
+                                            Chocolate icing biscuit. Lollipop chocolate cake jujubes pastry ice cream
+                                            pie cotton candy cotton candy toffee. Liquorice croissant cupcake macaroon
+                                            liquorice.
+                                        </p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="text-small text-muted mb-2">ASSIGNMENTS</p>
+                                        <p class="mb-0">
+                                            Chocolate bar chocolate bar tart cotton candy tart pudding lollipop. Chupa
+                                            chups croissant jujubes chocolate topping pastry pastry.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Materials</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-row flex-wrap">
+                            <div class="sw-30 me-2 mb-2">
+                                <div class="row g-0 rounded-sm sh-8 border">
+                                    <div class="col-auto">
+                                        <a href="static/img/course/large/course-1.webp" data-caption="cake.webp"
+                                            class="lightbox">
+                                            <img src="static/img/course/small/course-1.webp"
+                                                class="card-img card-img-horizontal rounded-sm-start sw-10"
+                                                alt="product image 1">
+                                        </a>
+                                    </div>
+                                    <div class="col rounded-sm-end d-flex flex-column justify-content-center px-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0 clamp-line" data-line="1"
+                                                style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">
+                                                cake.webp</p>
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                data-delay="{'show':'1000', 'hide':'0'}"
+                                                data-bs-original-title="Download">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-download text-alternate">
+                                                    <path
+                                                        d="M2 14V14.5C2 15.9045 2 16.6067 2.33706 17.1111C2.48298 17.3295 2.67048 17.517 2.88886 17.6629C3.39331 18 4.09554 18 5.5 18H14.5C15.9045 18 16.6067 18 17.1111 17.6629C17.3295 17.517 17.517 17.3295 17.6629 17.1111C18 16.6067 18 15.9045 18 14.5V14">
+                                                    </path>
+                                                    <path
+                                                        d="M14 10 10.7071 13.2929C10.3166 13.6834 9.68342 13.6834 9.29289 13.2929L6 10M10 2 10 13">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="text-small text-primary">346 KB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sw-30 me-2 mb-2">
+                                <div class="row g-0 rounded-sm sh-8 border">
+                                    <div class="col-auto">
+                                        <a href="static/img/course/large/course-1.webp" data-caption="pastry.webp"
+                                            class="lightbox">
+                                            <img src="static/img/course/small/course-1.webp"
+                                                class="card-img card-img-horizontal rounded-sm-start sw-10"
+                                                alt="product image 2">
+                                        </a>
+                                    </div>
+                                    <div class="col rounded-sm-end d-flex flex-column justify-content-center px-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0 clamp-line" data-line="1"
+                                                style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">
+                                                pastry.webp</p>
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                data-delay="{'show':'1000', 'hide':'0'}"
+                                                data-bs-original-title="Download">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-download text-alternate">
+                                                    <path
+                                                        d="M2 14V14.5C2 15.9045 2 16.6067 2.33706 17.1111C2.48298 17.3295 2.67048 17.517 2.88886 17.6629C3.39331 18 4.09554 18 5.5 18H14.5C15.9045 18 16.6067 18 17.1111 17.6629C17.3295 17.517 17.517 17.3295 17.6629 17.1111C18 16.6067 18 15.9045 18 14.5V14">
+                                                    </path>
+                                                    <path
+                                                        d="M14 10 10.7071 13.2929C10.3166 13.6834 9.68342 13.6834 9.29289 13.2929L6 10M10 2 10 13">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="text-small text-primary">521 KB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sw-30 me-2 mb-2">
+                                <div class="row g-0 rounded-sm sh-8 border">
+                                    <div class="col-auto">
+                                        <div class="sw-10 d-flex justify-content-center align-items-center h-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-file-text text-primary">
+                                                <path
+                                                    d="M6.5 18H13.5C14.9045 18 15.6067 18 16.1111 17.6629C16.3295 17.517 16.517 17.3295 16.6629 17.1111C17 16.6067 17 15.9045 17 14.5V7.44975C17 6.83775 17 6.53175 16.9139 6.24786C16.8759 6.12249 16.8256 6.00117 16.7638 5.88563C16.624 5.62399 16.4076 5.40762 15.9749 4.97487L14.0251 3.02513L14.0251 3.02512C13.5924 2.59238 13.376 2.37601 13.1144 2.23616C12.9988 2.1744 12.8775 2.12415 12.7521 2.08612C12.4682 2 12.1622 2 11.5503 2H6.5C5.09554 2 4.39331 2 3.88886 2.33706C3.67048 2.48298 3.48298 2.67048 3.33706 2.88886C3 3.39331 3 4.09554 3 5.5V14.5C3 15.9045 3 16.6067 3.33706 17.1111C3.48298 17.3295 3.67048 17.517 3.88886 17.6629C4.39331 18 5.09554 18 6.5 18Z">
+                                                </path>
+                                                <path d="M13 6 7 6M13 10 7 10M13 14 7 14"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col rounded-sm-end d-flex flex-column justify-content-center pe-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0 clamp-line" data-line="1"
+                                                style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">
+                                                nice_recipe.doc</p>
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                data-delay="{'show':'1000', 'hide':'0'}"
+                                                data-bs-original-title="Download">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-download text-alternate">
+                                                    <path
+                                                        d="M2 14V14.5C2 15.9045 2 16.6067 2.33706 17.1111C2.48298 17.3295 2.67048 17.517 2.88886 17.6629C3.39331 18 4.09554 18 5.5 18H14.5C15.9045 18 16.6067 18 17.1111 17.6629C17.3295 17.517 17.517 17.3295 17.6629 17.1111C18 16.6067 18 15.9045 18 14.5V14">
+                                                    </path>
+                                                    <path
+                                                        d="M14 10 10.7071 13.2929C10.3166 13.6834 9.68342 13.6834 9.29289 13.2929L6 10M10 2 10 13">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="text-small text-primary">521 KB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sw-30 me-2 mb-2">
+                                <div class="row g-0 rounded-sm sh-8 border">
+                                    <div class="col-auto">
+                                        <div class="sw-10 d-flex justify-content-center align-items-center h-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="acorn-icons acorn-icons-file-text text-primary">
+                                                <path
+                                                    d="M6.5 18H13.5C14.9045 18 15.6067 18 16.1111 17.6629C16.3295 17.517 16.517 17.3295 16.6629 17.1111C17 16.6067 17 15.9045 17 14.5V7.44975C17 6.83775 17 6.53175 16.9139 6.24786C16.8759 6.12249 16.8256 6.00117 16.7638 5.88563C16.624 5.62399 16.4076 5.40762 15.9749 4.97487L14.0251 3.02513L14.0251 3.02512C13.5924 2.59238 13.376 2.37601 13.1144 2.23616C12.9988 2.1744 12.8775 2.12415 12.7521 2.08612C12.4682 2 12.1622 2 11.5503 2H6.5C5.09554 2 4.39331 2 3.88886 2.33706C3.67048 2.48298 3.48298 2.67048 3.33706 2.88886C3 3.39331 3 4.09554 3 5.5V14.5C3 15.9045 3 16.6067 3.33706 17.1111C3.48298 17.3295 3.67048 17.517 3.88886 17.6629C4.39331 18 5.09554 18 6.5 18Z">
+                                                </path>
+                                                <path d="M13 6 7 6M13 10 7 10M13 14 7 14"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col rounded-sm-end d-flex flex-column justify-content-center pe-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0 clamp-line" data-line="1"
+                                                style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">
+                                                bread_making.doc</p>
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                data-delay="{'show':'1000', 'hide':'0'}"
+                                                data-bs-original-title="Download">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-download text-alternate">
+                                                    <path
+                                                        d="M2 14V14.5C2 15.9045 2 16.6067 2.33706 17.1111C2.48298 17.3295 2.67048 17.517 2.88886 17.6629C3.39331 18 4.09554 18 5.5 18H14.5C15.9045 18 16.6067 18 17.1111 17.6629C17.3295 17.517 17.517 17.3295 17.6629 17.1111C18 16.6067 18 15.9045 18 14.5V14">
+                                                    </path>
+                                                    <path
+                                                        d="M14 10 10.7071 13.2929C10.3166 13.6834 9.68342 13.6834 9.29289 13.2929L6 10M10 2 10 13">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="text-small text-primary">1.422 KB</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <meta charset="utf-8">
+    {#<title>{% block title %} Intellect . Russian Developers {% endblock title %}</title>#}
+    {% include('incs/metas.html') %}
+    {% block page_css %} {% endblock page_css %}
+</head>
+
+<body>
+    <div id="root">
+        {% include('incs/nav.html') %}
+
+        {% block content %}
+        <main> </main>
+        {% endblock content %}
+        
+        {% include('incs/footer.html') %}
+    </div>
+
+    {% include('incs/settings.html') %}
+    {% include('incs/search.html') %}
+    {% include "incs/response_modal.html" %}
+
+    {% include('incs/bottom.html') %}
+    {% block page_js %} {% endblock page_js %}
+
+<script>
+function response_modal(message) {
+    document.getElementById('response_text').innerHTML= message;
+    // console.log(message)
+    $('#response_modal').modal('show');
+}
+
+// Function to clear irrelevant items from localStorage
+function clearInitialLocalStorage() {
+    // Clear specific keys or completely clear localStorage based on your needs
+    // For example, you can clear everything:
+    localStorage.clear();
+
+    // Or remove specific keys if necessary:
+    // localStorage.removeItem('key_to_remove');
+}
+
+// Call this function to ensure localStorage is clean at the start
+// clearInitialLocalStorage();
+
+// Track different types of interactions (click, view, like, etc.)
+function trackInteraction(courseTitle, courseDescription, action) {
+    let interactionString = formatInteractionString(courseTitle, courseDescription, action);
+    storeInteractionLocally(interactionString);
+}
+
+// Format the interaction into a single string with a natural language description
+function formatInteractionString(courseTitle, courseDescription, action) {
+    let interactionMessage = "";
+
+    switch (action) {
+        case 'click':
+            interactionMessage = `They just clicked on "${courseTitle}", it's about ${courseDescription}. Recommend courses for such a person.`;
+            break;
+        case 'view':
+            interactionMessage = `They just viewed the course "${courseTitle}". It's about ${courseDescription}. Recommend related courses.`;
+            break;
+        case 'like':
+            interactionMessage = `They just liked the course "${courseTitle}". It's about ${courseDescription}. Find similar courses they might enjoy.`;
+            break;
+        case 'enroll':
+            interactionMessage = `They just enrolled in "${courseTitle}". It's about ${courseDescription}. Suggest follow-up courses for them.`;
+            break;
+        case 'rate':
+            interactionMessage = `They just rated the course "${courseTitle}". It's about ${courseDescription}. Recommend more courses based on this interest.`;
+            break;
+        default:
+            interactionMessage = `They interacted with the course "${courseTitle}". It's about ${courseDescription}. Provide relevant recommendations.`;
+            break;
+    }
+
+    // Limit the length to a reasonable size, e.g., 200 characters
+    if (interactionMessage.length > 200) {
+        interactionMessage = interactionMessage.substring(0, 197) + '...';
+    }
+
+    return interactionMessage;
+}
+
+// Store the formatted interaction string in local storage
+function storeInteractionLocally(interactionString) {
+    localStorage.setItem('interaction', interactionString);
+}
+
+// Fetch and display course recommendations
+$(document).ready(function () {
+    let interaction = localStorage.getItem('interaction');
+    console.log(interaction)
+    if (interaction) {
+        $.ajax({
+            url: '/recommendations',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ interaction: interaction }),
+            success: function (response) {
+                var container = $('.scroll-by-count');
+                var template = container.find('.template');
+                console.log('recommendations', response);
+
+                if (Array.isArray(response)) {
+                    var pathElements = response.map(function (course) {
+                        var clone = template.clone().show();
+                        clone.find('a').attr('href', './learn/' + course.slug);
+                        clone.find('img').attr('src', './static/img/course/' + course.image);
+                        clone.find('.font-heading').text(course.title);
+                        clone.find('.text-muted').text(course.desc);
+                        return clone;
+                    });
+
+                    container.empty().append(pathElements);
+                } else {
+                    // console.error('Expected an array but got:', response); // this will log it as error to the console
+                    console.log("Non-array-response-from-open-ai", response);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching recommendations:', error);
+            }
+        });
+    }
+});
+
+// Example usage for different interactions
+// trackInteraction('JavaScript Basics', 'A course on JavaScript fundamentals', 'click');
+
+        // ...
+
+        {% if (current_user.is_authenticated) %}
+
+        function set_message_count(n) {
+            $('#message_count').text(n);
+            $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+        }
+
+        $(function () {
+            var since = 0;
+            setInterval(function () {
+                $.ajax('{{ url_for('auth_api.notify') }}?since=' + since).done(
+                    function (notifications) {
+                        for (var i = 0; i < notifications.length; i++) {
+                            if (notifications[i].name == 'unread_message_count')
+                                set_message_count(notifications[i].data);
+                            since = notifications[i].timestamp;
+                        }
+                    }
+                );
+            }, 10000);
+        });
+/*
+    // load progress if user is logged in
+    $(document).ready(function () {
+        // Make AJAX request to fetch learning progress data
+        $.ajax({
+            url: '/learning_progress',
+            type: 'GET',
+            success: function (response) {
+                // Log the contents of the response to verify its structure
+                console.log('Response from /learning_progress:', response);
+                
+                // Check if the response is an array
+                if (Array.isArray(response)) {
+                    var userCourses = response;
+                    console.log(userCourses);
+                    
+                    // Initialize OverlayScrollbars
+                    // OverlayScrollbars(document.querySelectorAll('.scroll-by-count'), {});
+
+                    var container = $('.scroll-by-count');
+                    var courseCount = userCourses.length;
+                    container.attr('data-count', courseCount); // Update the data-count attribute with the course count
+
+                    // Use map() to generate an array of cloned elements for each course
+                    var pathElements = userCourses.map(function (course) {
+                        var clone = container.find('.card').first().clone(); // Ensure to clone the first card element
+                        clone.find('a').attr('href', './learn/' + course.slug);
+                        clone.find('img').attr('src', './static/img/course/' + course.image);
+                        clone.find('.font-heading').text(course.title);
+                        clone.find('.text-muted').text(course.progress + '%');
+                        clone.find('.progress-bar').css('width', course.progress + '%');
+                        return clone;
+                    });
+
+                    // console.log(pathElements);
+                    // Append the array of cloned elements to the container
+                    container.empty().append(pathElements);
+                } else {
+                    console.error('Expected an array but got:', response);
+                }
+            },
+
+            error: function (xhr, status, error) {
+                console.error('Error fetching learning progress:', error);
+            }
+        });
+    });
+    */
+    {% endif %}
+    
+    /* ================================ */
+    // for path fetch & display.
+    $.ajax({
+        url: '/get_paths',
+        type: 'GET',
+        success: function (response) {
+            var container_welcome_page = $('.path-container-welcome-page');
+            var template = container_welcome_page.find('.template');
+
+            if (Array.isArray(response) && response.length > 0) {
+
+                var pathElements = response.map(function (path) {
+                    // console.log(path)
+                    var clone = template.clone().show(); 
+                    clone.find('a').attr('href', './path-of/' + path.slug);
+
+                    // clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+                    // Update image source if image URL is returned
+                    if (path.image) {
+                        // $('#pathThumbImage').attr('src', `${window.location.origin}/static/img/course/path/${response.image}`);
+                        clone.find('img').attr('src', `${window.location.origin}/static/img/course/path/${path.image}`);
+                    }else{
+                        clone.find('img').attr('src', './static/img/course/' + (path.image || "graduate.png") );
+                    }
+                    
+                    clone.find('.heading').text(path.title);
+                    clone.find('.text-muted').text(path.desc);
+                    // clone.find('.text-muted').text(path.progress + '%');
+                    // clone.find('.progress-bar').css('width', path.progress + '%');
+                    return clone;
+                });
+
+                container_welcome_page.empty().append(pathElements);
+
+            } else {
+                // If no learning progress, show the placeholder experience.
+                var placeholderCourses = [
+                    {
+                        title: "Welcome, Intellect!",
+                        slug: "./welcome",
+                        // image: "welcome.webp",
+                        image: "graduate.png",
+                        desc: "Select a course to start learning. Click Start Now to access content."
+                    },
+                    {
+                        title: "Track Your Progress",
+                        slug: "track-progress",
+                        // image: "track.webp",
+                        image: "graduate.png",
+                        desc: "When you're' enrolled, you can track your learning progress here."
+                    },
+                    {
+                        title: "Explore Courses",
+                        slug: "./",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Browse our courses and discover your next learning journey."
+                    },
+                    {
+                        title: "What is path",
+                        slug: "./paths",
+                        // image: "explore.webp",
+                        image: "graduate.png",
+                        desc: "Your tech carreer begins with intellect. Get professional with us today.."
+                    }
+                ];
+
+                var pathElements = placeholderCourses.map(function (course) {
+                    var clone = template.clone().show();
+                    clone.find('a').attr('href', course.slug);
+                    // clone.find('a').attr('href', './learn/' + course.slug);
+                    clone.find('img').attr('src', './static/img/course/' + course.image);
+                    clone.find('.heading').text(course.title);
+                    clone.find('.text-muted').text(course.desc);
+                    return clone;
+                });
+
+                container_welcome_page.empty().append(pathElements);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching learning progress:', error);
+        }
+    });
+    /* ================================== */
+    
+</script>
+
+</body>
+</html>

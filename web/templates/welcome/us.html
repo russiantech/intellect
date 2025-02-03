@@ -1,0 +1,689 @@
+{% extends 'base.html' %}
+{% block title %} Us . Russian Developers {% endblock title %}
+
+{#
+{% block page_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2-bootstrap4.min.css')}}">
+{% endblock page_css %}
+
+#}
+
+{% block content %}
+
+<main>
+    <div class="home-container mb-5" id="home">
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xl-6 hero-text-container order-1 order-xl-0">
+                        <h1 class="display-1 mb-3">
+                            <span class="d-block">Intellect</span>
+                        </h1>
+                        <p class="heading mb-7 pe-lg-6">
+                            Building a future where learning fits seamlessly into your everyday life.
+                            Let's Mpower busy individuals to acquire skills on their own terms & schedules.
+                        </p>
+                        <div>
+                            <a href="./welcome"
+                                class="btn btn-primary btn-icon btn-icon-end btn-xl rounded-xl px-7 me-1 mb-1">
+                                <span>Explore Courses</span>
+                            </a>
+                            <a href="./signin" target="_blank"
+                                class="btn btn-outline-white btn-xl rounded-xl mb-1 me-1 px-4 data-link">
+                                Sign-in
+                            </a>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="col-md-6 col-sm-6 col-xl-6">
+                        <img src="{{url_for('static', filename='./img/course/choose5cb9.jpg')}}" alt="paysafe"
+                            style="width: 100%; height: 300px;" class="img-fluid rounded">
+                    </div>
+                    <!--  -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- -------------------------- -->
+    <div class="container">
+
+        <!---- <h1 class="small-title">Intellect</h1> --->
+        <div class="row">
+            <div class="col-12 col-xxl-auto mb-5">
+                <div class="card h-100-card sw-xxl-100">
+                    <div class="card-body g-0">
+                        <div class="col-12 d-flex flex-column justify-content-between align-items-start">
+                            <div>
+                                <div class="mb-4">
+                                    This platform is offered by Russian technologies for the russian developers program,
+                                    <br>
+                                    where we m-power newbies and professionals and also power your businesses using
+                                    technology.
+                                </div>
+                            </div>
+                            <div>
+                                <div class=" mb-4">
+                                    <div class="mt-2 mb-2 cta-3 text-primary">Experts in the industry</div>
+                                    <p>Our expert team excels in software development, artificial intelligence, web and mobile programming, 
+                                        data science, cybersecurity, and digital marketing. <br>
+                                        We deliver secure, intelligent, and reliable solutions to elevate your brand, earning the trust of many top-tier companies. <br> 
+                                        Russian Developers is the development arm of Techa, driving technological innovation and excellence.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="mt-2 mb-2 cta-3 text-primary">How we succeed</div>
+                                    <p>
+                                        As part of Techa, our mission is to equip individuals with the skills to tackle any technological challenge. <br>
+                                        Our success is measured by the success of those we empower. Our offerings are constantly 
+                                        updated with the latest technologies to ensure growth, advancement, and smart business solutions. 
+                                        Partner with us for guaranteed success.
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="./welcome" class="btn btn-icon btn-icon-start btn-outline-primary stretched-link mb-4">
+                                <i data-acorn-icon="plus"></i>
+                                <span>Explore Courses</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <h1>Our Competitive Edge</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-2 mb-5">
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+
+                                <i data-acorn-icon="chart-4" class="icon" data-acorn-size="18"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">Russian Developers & Success</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Essential skills to help you navigate any technological challenge. We guide
+                                    you along the way until you succeed.
+                                    When you succeed, we succeed!.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-building text-primary">
+                                    <path
+                                        d="M5 5.5C5 4.09554 5 3.39331 5.33706 2.88886C5.48298 2.67048 5.67048 2.48298 5.88886 2.33706C6.39331 2 7.09554 2 8.5 2H11.5C12.9045 2 13.6067 2 14.1111 2.33706C14.3295 2.48298 14.517 2.67048 14.6629 2.88886C15 3.39331 15 4.09554 15 5.5V14.5C15 15.9045 15 16.6067 14.6629 17.1111C14.517 17.3295 14.3295 17.517 14.1111 17.6629C13.6067 18 12.9045 18 11.5 18H8.5C7.09554 18 6.39331 18 5.88886 17.6629C5.67048 17.517 5.48298 17.3295 5.33706 17.1111C5 16.6067 5 15.9045 5 14.5V5.5Z">
+                                    </path>
+                                    <path
+                                        d="M12 18V15.75C12 15.0478 12 14.6967 11.8315 14.4444C11.7585 14.3352 11.6648 14.2415 11.5556 14.1685C11.3033 14 10.9522 14 10.25 14H9.75C9.04777 14 8.69665 14 8.44443 14.1685C8.33524 14.2415 8.24149 14.3352 8.16853 14.4444C8 14.6967 8 15.0478 8 15.75V18">
+                                    </path>
+                                    <path d="M8 5H8.5M8 8H8.5M8 11H8.5M11.5 5H12M11.5 8H12M11.5 11H12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">Indemand skills</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Stay on-top of in-demand and new tech skills for the home & work places. Get
+                                    certified & become job ready today.
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-folders text-primary">
+                                    <path
+                                        d="M18 15 18 5C18 4.06812 18 3.60218 17.8478 3.23463 17.6448 2.74458 17.2554 2.35523 16.7654 2.15224 16.3978 2 15.9319 2 15 2 14.0681 2 13.6022 2 13.2346 2.15224 12.7446 2.35523 12.3552 2.74458 12.1522 3.23463 12 3.60217 12 4.06812 12 5L12 15C12 15.9319 12 16.3978 12.1522 16.7654 12.3552 17.2554 12.7446 17.6448 13.2346 17.8478 13.6022 18 14.0681 18 15 18 15.9319 18 16.3978 18 16.7654 17.8478 17.2554 17.6448 17.6448 17.2554 17.8478 16.7654 18 16.3978 18 15.9319 18 15zM8 15 8 5C8 4.06812 8 3.60218 7.84776 3.23463 7.64477 2.74458 7.25542 2.35523 6.76537 2.15224 6.39782 2 5.93188 2 5 2 4.06812 2 3.60218 2 3.23463 2.15224 2.74458 2.35523 2.35523 2.74458 2.15224 3.23463 2 3.60217 2 4.06812 2 5L2 15C2 15.9319 2 16.3978 2.15224 16.7654 2.35523 17.2554 2.74458 17.6448 3.23463 17.8478 3.60217 18 4.06812 18 5 18 5.93188 18 6.39782 18 6.76537 17.8478 7.25542 17.6448 7.64477 17.2554 7.84776 16.7654 8 16.3978 8 15.9319 8 15z">
+                                    </path>
+                                    <path d="M15 5 15 11M15 14 15 15M5 5 5 11M5 14 5 15"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">Quick Mastery</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Designed in Russian expert's enagaging & easy to learn style. Learn the
+                                    skills you need in minutes even as you're being guided. Track your progress
+                                    & measure performance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+
+                                <i data-acorn-icon="file-empty" class="icon" data-acorn-size="18"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">Learn from Xperience.</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Our professionals will be with you every step of the way to ensure success.
+                                </div>
+                                <div class=" text-primary mb-0" href="/welcome">Learn from professionals today
+                                    !!!</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+
+                                <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">Self-paced</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Learn the exact skills you need in minutes with convenience. --self paced
+                                    learning--. With great fun and style right here
+                                    on our web platform.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('main.index') }}" class="card hover-border-primary h-100">
+                    <div class="card-body row g-0">
+                        <div class="col-auto">
+                            <div
+                                class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
+                                <i data-acorn-icon="trend-up" class="icon" data-acorn-size="18"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column ps-card justify-content-start">
+                                <div class="d-flex flex-column justify-content-center mb-2">
+                                    <div class="heading text-primary mb-0">100%</div>
+                                </div>
+                                <div class="text-alternate">
+                                    Experts are here. Remember #Russian developers!
+                                    We innovate to meet our clients needs & demands, from quality courses and software products. We're Trusted.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <br>
+        <h1>Loved by companies & users.</h1>
+        <div class="row g-2 mb-5">
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                24:00</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">techexperts</div>
+                                    <div class="text-small  text-truncate">software company.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                16:22</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">Laura stephens</div>
+                                    <div class="text-small  text-truncate">
+                                        School/students.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                10:05</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">Mr Emeka Rochas</div>
+                                    <div class="text-small  text-truncate">python developer/student.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                12:20</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">DHL</div>
+                                    <div class="text-small  text-truncate">Logistics company</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                24:00</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">Bizalert</div>
+                                    <div class="text-small  text-truncate">Marketing agency.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card">
+                    <a href="#" class="row g-0 sh-11">
+                        <div class="col-auto h-100">
+                            <img src="{{url_for('static', filename='./img/profile/default.webp')}}" alt="testimonials"
+                                class="card-img card-img-horizontal sw-14 theme-filter">
+                            <div
+                                class="position-absolute bg-foreground opacity-75 text-primary px-1 py-1 text-extra-small b-1 s-1 rounded-lg">
+                                16:50</div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body d-flex flex-column pt-0 pb-0 h-100 justify-content-center">
+                                <div class="d-flex flex-column">
+                                    <div class="font-heading">Ramin Popol - USA</div>
+                                    <div class="text-small  text-truncate">ecom-sharks.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <!--  -->
+        <h1 id="support_us_h">Support us today</h1>
+        <style>
+            #support_us_h {
+                color: hsl(0, 0%, 28%);
+                font-size: 50px;
+                font-weight: bold;
+                font-family: monospace;
+                letter-spacing: 7px;
+                cursor: pointer;
+                margin-right: 5px;
+                transition: 0.5s ease-out;
+                animation: slide 2s infinite alternate, glow 1.5s infinite alternate;
+            }
+
+            @keyframes slide {
+                0% {
+                    margin-left: 0;
+                }
+
+                100% {
+                    margin-left: 30px;
+                }
+            }
+
+            @keyframes glow {
+                0% {
+                    color: hsl(0, 0%, 28%);
+                    text-shadow: none;
+                }
+
+                100% {
+                    color: #fff;
+                    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
+                }
+            }
+        </style>
+
+        <div class="row mb-5">
+            <div class="col-12 col-xxl-auto mb-5">
+                <div class="card h-100-card sw-xxl-100">
+                    <div class="card-body row g-0">
+
+                        {#<div class="container">
+                            <form id="payment-form" action="/submit-payment" method="POST">
+                                <div class="row">
+                                    <!-- Predefined Amounts -->
+                                    <div class="col-12 mb-3">
+                                        <label for="predefined-amounts" class="form-label">Select an Amount:</label>
+                                        <div id="predefined-amounts">
+                                            {% for amount in support_amount.split(',') %}
+                                            <button class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1 amount-btn" 
+                                                    data-amount="{{ amount }}" type="button">
+                                                $<span>{{ amount }}</span>
+                                            </button>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Custom Amount Input -->
+                                    <div class="col-12 mb-3">
+                                        <label for="amount" class="form-label">Or Enter a Custom Amount:</label>
+                                        <input type="number" class="form-control" id="amount" name="amount" min="1" placeholder="Enter amount">
+                                    </div>
+                        
+                                    <!-- Submit Button -->
+                                    <div class="col-12">
+                                        <button id="submit-payment" class="btn btn-primary" type="button">Submit Payment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> #}
+
+                        
+                    <div class="col-12 col-xl-8" id="s_payment">
+                            
+                            <form method="post" id="payment-form" action="{{url_for('pay.support_pay')}}">
+
+                                <label for="predefined-amounts" class="form-label">Select an Amount:</label>
+                                        <div id="predefined-amounts">
+                                            {% for amount in support_amount.split(',') %}
+                                            <button class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1 amount-btn" 
+                                                    data-amount="{{ amount }}" type="button">
+                                                $<span>{{ amount }}</span>
+                                            </button>
+                                            {% endfor %}
+                                        </div>
+
+                                <!-- Custom Amount Input -->
+                                <div class="mb-3 filled">
+                                    <i class="acorn-icons acorn-icons-help undefined"></i>
+                                    <i data-acorn-icon="wallet"></i>
+                                    <input type="number" name="amount" id="amount" min="1" required class="form-control" placeholder="enter amount to pay">
+                                </div>
+
+                                <!--<div class="row g-3">-->
+                                <div class="col-md-4 col-6 mb-3 filled w-100 d-flex flex-column">
+                                    <i data-acorn-icon="user"></i>
+                                    <input type="email" name="email" class="form-control" placeholder="enter your email address" />
+                                </div>
+
+                                <div>
+                                    <label class="form-label d-block">Select subscription</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="hourly">
+                                        <label class="form-check-label" for="subscription">hourly</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="daily">
+                                        <label class="form-check-label" for="subscription">daily</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="weekly">
+                                        <label class="form-check-label" for="subscription">weekly</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="monthly">
+                                        <label class="form-check-label" for="subscription">monthly</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="subscription" type="radio"
+                                            id="subscription" value="yearly">
+                                        <label class="form-check-label" for="subscription">annual</label>
+                                    </div>
+                                </div>
+
+                                <div class="text-warning"> Thanks for making this dream a reality..!!!</div>
+
+                                <div id="response-message" class="mt-3"></div>
+                                
+                                <button id="submit-payment" class="btn btn-icon btn-icon-start btn-primary mt-3 mb-4">
+                                   <i data-acorn-icon="chevron-right"></i>
+                                    <span>Support Now</span>
+                                </button>
+
+                            </form>
+
+                        </div> 
+
+                        <div class="col-12 col-xl-4">
+                            <img src="{{url_for('static', filename='./img/course/choose5cb9.jpg')}}" alt="paysafe"
+                                class="img-fluid rounded m-2">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="row">
+            <div class="col-12 col-xxl-auto">
+                <div class="col-12 col-xl-12" id="s_payment">
+                    <div class="text-warning mb-3">Let's connect</div>
+
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>Whatsapp</span>
+                    </a>
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>Facebook</span>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>hello@techa.com</span>
+                    </a>
+                    {#
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>07026561327</span>
+                    </a>
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>Instagram</span>
+                    </a>
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>Twitter</span>
+                    </a>
+                    <a class="btn btn-sm btn-icon btn-icon-end btn-outline-primary mb-3 me-1" type="button">
+                        <span>Linkedin</span>
+                    </a>#}
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}
+{% block page_js %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to get query parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                make_pay: params.get('make_pay')
+            };
+        }
+
+        // Check if make_pay is true
+        const queryParams = getQueryParams();
+        if (queryParams.make_pay === 'true') {
+            console.log("e suppose scroll")
+            // Scroll to the element
+            document.getElementById('support_us_h').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+
+<script>
+// Highlight selected amount and update the input field
+document.querySelectorAll('.amount-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+        // Remove highlight from all buttons and revert to primary
+        document.querySelectorAll('.amount-btn').forEach(function(btn) {
+            btn.classList.remove('btn-outline-white');
+            btn.classList.add('btn-outline-primary');
+        });
+
+        // Highlight the clicked button
+        button.classList.remove('btn-outline-primary');
+        button.classList.add('btn-outline-white');
+
+        // Set the selected amount
+        const selectedAmount = button.getAttribute('data-amount').trim();
+        document.getElementById('amount').value = selectedAmount;
+    });
+});
+
+// Handle custom amount input
+document.getElementById('amount').addEventListener('input', function() {
+    const customAmount = this.value.trim();
+    document.getElementById('amount').value = customAmount;
+
+    // Remove the highlight from all buttons when custom amount is typed
+    document.querySelectorAll('.amount-btn').forEach(function(btn) {
+        btn.classList.remove('btn-outline-white');
+        btn.classList.add('btn-outline-primary');
+    });
+});
+
+// Handle form submission
+document.getElementById('submit-payment').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // add spinner
+    const submitButton = this;
+    submitButton.disabled = true; // Disable the button
+    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+    const form = document.getElementById('payment-form');
+    const formData = new FormData(form);
+    // Log form data entries
+    /* for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+    console.log(form.action); */
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then( response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-success"> ${data.message}</div>`;
+            window.location.href = data.redirect_url; // Redirect on success
+        } else {
+            // alert(data.error || 'Something went wrong. Please try again.');
+            document.getElementById('response-message').innerHTML = `<div class="alert alert-danger"> -> ${data.error}</div>`;
+        }
+    })
+
+    .catch(error => console.error('Error:', error))
+
+    .finally(() => {
+        submitButton.disabled = false; // Re-enable the button
+        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+    });
+});
+
+    </script>
+{% endblock page_js %}

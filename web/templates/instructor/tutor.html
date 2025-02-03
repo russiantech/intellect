@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% block title %} Instructors Details .  Russian Developers {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    <h1 class="mb-0 pb-0 display-4" id="title">Techa Instructors</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/tutors">Instructors</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-12 col-xl-4 col-xxl-3">
+                <h2 class="small-title">About</h2>
+                <div class="card">
+                    <div class="card-body mb-n5">
+                        <div class="d-flex align-items-center flex-column mb-5">
+                            <div class="mb-4 d-flex align-items-center flex-column">
+                                <div class="sw-13 position-relative mb-3">
+                                    <img src="{{ url_for('static', filename='img/profile/' + tutor.photo)}}" class="img-fluid rounded-xl" alt="thumb">
+                                </div>
+                                <div class="h5 mb-0">{{tutor.name}}</div>
+                                <div class="text-muted mb-2">{{tutor.lang}}</div>
+                                <div class="text-muted text-center">{{(tutor.intro)}}</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100">
+                                <button type="button" class="btn btn-primary w-100 me-2">Courses</button>
+                                <button type="button" class="btn btn-outline-primary w-100 me-2">Follow</button>
+                                <button class="btn btn-icon btn-icon-only btn-outline-primary" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-more-horizontal undefined">
+                                        <path
+                                            d="M9 10C9 9.44772 9.44772 9 10 9V9C10.5523 9 11 9.44772 11 10V10C11 10.5523 10.5523 11 10 11V11C9.44772 11 9 10.5523 9 10V10zM2 10C2 9.44772 2.44772 9 3 9V9C3.55228 9 4 9.44772 4 10V10C4 10.5523 3.55228 11 3 11V11C2.44772 11 2 10.5523 2 10V10zM16 10C16 9.44772 16.4477 9 17 9V9C17.5523 9 18 9.44772 18 10V10C18 10.5523 17.5523 11 17 11V11C16.4477 11 16 10.5523 16 10V10z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <p class="text-small text-muted mb-2">ABOUT {{tutor.name}}</p>
+                            <p> 
+                              {{tutor.intro}}
+                            </p>
+                        </div>
+                        <div class="mb-5">
+                            <p class="text-small text-muted mb-2">CONTACT</p>
+                            <a href="#" class="d-block body-link mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-screen me-2">
+                                    <path d="M10 15V16V18M8 18H12"></path>
+                                    <path
+                                        d="M14.5 2C15.9045 2 16.6067 2 17.1111 2.33706C17.3295 2.48298 17.517 2.67048 17.6629 2.88886C18 3.39331 18 4.09554 18 5.5L18 11.5C18 12.9045 18 13.6067 17.6629 14.1111C17.517 14.3295 17.3295 14.517 17.1111 14.6629C16.6067 15 15.9045 15 14.5 15L5.5 15C4.09554 15 3.39331 15 2.88886 14.6629C2.67048 14.517 2.48298 14.3295 2.33706 14.1111C2 13.6067 2 12.9045 2 11.5L2 5.5C2 4.09554 2 3.39331 2.33706 2.88886C2.48298 2.67048 2.67048 2.48298 2.88886 2.33706C3.39331 2 4.09554 2 5.5 2L14.5 2Z">
+                                    </path>
+                                    <path d="M9 7 7 10M13.2412 7 11.2412 10"></path>
+                                </svg>
+                                <span class="align-middle">{{tutor.website }}</span>
+                            </a>
+                            <a href="#" class="d-block body-link mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-screen me-2">
+                                    <path d="M10 15V16V18M8 18H12"></path>
+                                    <path
+                                        d="M14.5 2C15.9045 2 16.6067 2 17.1111 2.33706C17.3295 2.48298 17.517 2.67048 17.6629 2.88886C18 3.39331 18 4.09554 18 5.5L18 11.5C18 12.9045 18 13.6067 17.6629 14.1111C17.517 14.3295 17.3295 14.517 17.1111 14.6629C16.6067 15 15.9045 15 14.5 15L5.5 15C4.09554 15 3.39331 15 2.88886 14.6629C2.67048 14.517 2.48298 14.3295 2.33706 14.1111C2 13.6067 2 12.9045 2 11.5L2 5.5C2 4.09554 2 3.39331 2.33706 2.88886C2.48298 2.67048 2.67048 2.48298 2.88886 2.33706C3.39331 2 4.09554 2 5.5 2L14.5 2Z">
+                                    </path>
+                                    <path d="M9 7 7 10M13.2412 7 11.2412 10"></path>
+                                </svg>
+                                <span class="align-middle">{{tutor.phone }}</span>
+                            </a>
+                            <a href="mailto:{{tutor.email}}" class="d-block body-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-email me-2">
+                                    <path
+                                        d="M18 7L11.5652 10.2174C10.9086 10.5457 10.5802 10.7099 10.2313 10.7505C10.0776 10.7684 9.92238 10.7684 9.76869 10.7505C9.41977 10.7099 9.09143 10.5457 8.43475 10.2174L2 7">
+                                    </path>
+                                    <path
+                                        d="M14.5 4C15.9045 4 16.6067 4 17.1111 4.33706C17.3295 4.48298 17.517 4.67048 17.6629 4.88886C18 5.39331 18 6.09554 18 7.5L18 12.5C18 13.9045 18 14.6067 17.6629 15.1111C17.517 15.3295 17.3295 15.517 17.1111 15.6629C16.6067 16 15.9045 16 14.5 16L5.5 16C4.09554 16 3.39331 16 2.88886 15.6629C2.67048 15.517 2.48298 15.3295 2.33706 15.1111C2 14.6067 2 13.9045 2 12.5L2 7.5C2 6.09554 2 5.39331 2.33706 4.88886C2.48298 4.67048 2.67048 4.48298 2.88886 4.33706C3.39331 4 4.09554 4 5.5 4L14.5 4Z">
+                                    </path>
+                                </svg>
+                                 <span class="align-middle"> {{tutor.email}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-8 col-xxl-9">
+                <h2 class="small-title">Stats</h2>
+                <div class="row g-3 mb-5">
+                    <div class="col-12 col-lg-6 col-xxl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
+                                    <span>Courses</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="acorn-icons acorn-icons-presentation text-primary">
+                                        <path
+                                            d="M6.5 14C5.09554 14 4.39331 14 3.88886 13.6629C3.67048 13.517 3.48298 13.3295 3.33706 13.1111C3 12.6067 3 11.9045 3 10.5L3 8.5C3 7.09554 3 6.3933 3.33706 5.88886C3.48298 5.67048 3.67048 5.48298 3.88886 5.33706C4.39331 5 5.09554 5 6.5 5L13.5 5C14.9045 5 15.6067 5 16.1111 5.33706C16.3295 5.48298 16.517 5.67048 16.6629 5.88886C17 6.39331 17 7.09554 17 8.5L17 10.5C17 11.9045 17 12.6067 16.6629 13.1111C16.517 13.3295 16.3295 13.517 16.1111 13.6629C15.6067 14 14.9045 14 13.5 14L6.5 14Z">
+                                        </path>
+                                        <path d="M10 14L10 17"></path>
+                                        <path
+                                            d="M17.125 2C17.4761 2 17.6517 2 17.7778 2.08427C17.8324 2.12074 17.8793 2.16762 17.9157 2.22221C18 2.34833 18 2.52388 18 2.875L18 4.125C18 4.47612 18 4.65167 17.9157 4.77779C17.8793 4.83238 17.8324 4.87926 17.7778 4.91574C17.6517 5 17.4761 5 17.125 5L2.875 5C2.52388 5 2.34833 5 2.22221 4.91573C2.16762 4.87926 2.12074 4.83238 2.08426 4.77779C2 4.65167 2 4.47612 2 4.125L2 2.875C2 2.52388 2 2.34833 2.08426 2.22221C2.12074 2.16762 2.16762 2.12074 2.22221 2.08426C2.34833 2 2.52388 2 2.875 2L17.125 2Z">
+                                        </path>
+                                        <circle cx="10" cy="17.5" r="0.5"></circle>
+                                        <path d="M13 8H7M12 11H8"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-medium text-muted mb-1">
+                                    <span class="text-medium">{{tutor.newcourse}} New</span>
+                                </div>
+                                <div class="cta-1 text-primary">{{tutor.coursecount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xxl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
+                                    <span>Rating</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-star text-primary">
+                                        <path
+                                            d="M9.09413 2.93747C9.45349 2.16887 10.5465 2.16887 10.9059 2.93747L12.4188 6.17326C12.5602 6.47565 12.8431 6.68755 13.173 6.73816L16.6418 7.2702C17.4452 7.39343 17.7738 8.37275 17.2073 8.9556L14.6304 11.6071C14.4098 11.834 14.3097 12.152 14.3604 12.4644L14.9594 16.1503C15.0933 16.9748 14.2174 17.5904 13.4871 17.1851L10.4852 15.5193C10.1834 15.3518 9.81658 15.3518 9.51477 15.5193L6.51293 17.1851C5.78261 17.5904 4.90669 16.9748 5.04064 16.1503L5.63956 12.4644C5.69032 12.152 5.5902 11.834 5.36961 11.6071L2.79266 8.9556C2.22619 8.37275 2.55478 7.39343 3.35816 7.2702L6.82695 6.73816C7.1569 6.68755 7.43984 6.47565 7.58122 6.17326L9.09413 2.93747Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="text-medium text-muted mb-1">
+                                    <span class="text-medium">{{tutor.rating}} Users</span>
+                                </div>
+                                <div class="cta-1 text-primary">{{tutor.approx_rating}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xxl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
+                                    <span>Trainee</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-diploma text-primary">
+                                        <path
+                                            d="M15 4.00001V4.00001C16.1046 4.00001 17 4.89544 17 6.00001L17 14.5C17 15.9045 17 16.6067 16.6629 17.1111C16.517 17.3295 16.3295 17.517 16.1111 17.6629C15.6067 18 14.9045 18 13.5 18L6.5 18C5.09554 18 4.39331 18 3.88886 17.6629C3.67048 17.517 3.48298 17.3295 3.33706 17.1111C3 16.6067 3 15.9045 3 14.5L3 7.50001C3 6.09555 3 5.39332 3.33706 4.88887C3.48298 4.67049 3.67048 4.48299 3.88886 4.33707C4.39331 4.00001 5.09554 4.00001 6.5 4.00001L9.5 4.00001">
+                                        </path>
+                                        <path
+                                            d="M14 6L14 13.3252C14 13.5663 14 13.6868 13.9433 13.7319C13.9196 13.7507 13.8908 13.7619 13.8606 13.764C13.7884 13.7691 13.7069 13.6803 13.544 13.5025L13.29 13.2255C12.7767 12.6655 12.5201 12.3856 12.2057 12.3195C12.0701 12.2909 11.9299 12.2909 11.7943 12.3195C11.4799 12.3856 11.2233 12.6655 10.71 13.2255L10.456 13.5025C10.2931 13.6803 10.2116 13.7691 10.1394 13.764C10.1092 13.7619 10.0804 13.7507 10.0567 13.7319C10 13.6868 10 13.5663 10 13.3252L10 6">
+                                        </path>
+                                        <circle cx="12" cy="4" r="3"></circle>
+                                        <path d="M6 15H7M6 12H7M6 9H7"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-medium text-muted mb-1">
+                                    <span class="text-medium">~{{tutor.hours}} Monthly</span>
+                                </div>
+                                <div class="cta-1 text-primary">{{tutor.trainee}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xxl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
+                                    <span>Content</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="acorn-icons acorn-icons-clock text-primary">
+                                        <path d="M8 12L9.70711 10.2929C9.89464 10.1054 10 9.851 10 9.58579V6"></path>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </svg>
+                                </div>
+                                <div class="text-medium text-muted mb-1">
+                                    <span class="text-medium">~{{tutor.hours}} Hours Weekly</span>
+                                </div>
+                                <div class="cta-1 text-primary">{{tutor.hours}} Hours</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h2 class="small-title">Courses</h2>
+                    <button class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small"
+                        type="button">
+                        <span class="align-bottom">View All</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="acorn-icons acorn-icons-chevron-right align-middle">
+                            <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="row g-3 mb-5">
+                {% for k, c in tutor.course.items() %}
+                    <div class="col-md-12 col-lg-6 col-xl-12 col-xxl-6">
+                        <div class="card">
+                            <div class="row g-0 h-auto sh-sm-19">
+                                <div class="col-12 col-sm-auto h-100">
+                                    <img src="{{ url_for('static', filename='img/course/small/' + c.photo)}}" alt="course"
+                                        class="card-img card-img-horizontal-sm sh-19 h-sm-100 sw-sm-16 sw-lg-20">
+                                </div>
+                                <div class="col-12 col-sm p-0 h-100">
+                                    <div class="card-body">
+                                        <a href="details/c.title)}}"
+                                            class="body-link clamp-line lh-1-5 mb-1 heading sh-6" data-line="2"
+                                            style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">
+                                           {{c.title}}
+                                        </a>
+                                        <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                            <div class="br-wrapper">
+                                                <select class="rating" name="rating"
+                                                    autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                    style="display: none;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="card-text mb-0">
+                                            <div>${{c.fee}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h2 class="small-title">Reviews</h2>
+                    <button class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small"
+                        type="button">
+                        <span class="align-bottom">View All</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="acorn-icons acorn-icons-chevron-right align-middle">
+                            <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card mb-5">
+                    <div class="card-body">
+                    {% for k, r in tutor.review.items() %}
+                        <div class="d-flex align-items-center border-bottom border-separator-light pb-3 mt-3">
+                            <div class="row g-0 w-100">
+                                <div class="col-auto">
+                                    <div class="sw-5 me-3">
+                                        <img src="{{ url_for('static', filename='img/profile/' + r.photo )}}" class="img-fluid rounded-xl" alt="thumb">
+                                    </div>
+                                </div>
+                                <div class="col pe-3">
+                                    <div>{{r.name}}</div>
+                                    <div class="text-muted text-small mb-2">{{r.when}}</div>
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block mb-2">
+                                        <div class="br-wrapper">
+                                            <select class="rating" name="rating" autocomplete="off"
+                                                data-readonly="true" data-initial-rating="5" style="display: none;">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-medium text-alternate lh-1-25">{{r.comment}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

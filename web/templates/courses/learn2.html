@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %} {{ course.title }} {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <section class="scroll-section" id="title">
+                    <div class="page-title-container">
+                        <h1 class="mb-0 pb-0 display-4"> {{course.title}}</h1>
+                        <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                            <ul class="breadcrumb pt-0">
+                                <li class="breadcrumb-item"><a href="{{url_for('main.user' if current_user.is_authenticated else 'main.index')}}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{url_for('main.index')}}">Explore</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </section>
+                                    {#    <!--------------topics-------------->
+                                        {% for t in topic %}
+                                        <section class="scroll-section mb-5" id="chapter2">
+                                            <h2 class="small-title">{{loop.index}}. {{t.title }}</h2>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="heading">{{t.title}}</div>
+                                                    <p>{{ t.desc }}</p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        {% endfor %}
+                                        <!--------------------------------------> #}
+                <div>
+{# <!--                     {% for c in course.lesson %}
+                    <section class="scroll-section mb-5" id="chapter{{loop.index}}">
+                        <h2 class="small-title">{{loop.index}}. {{c.title}}</h2>
+                        <div class="card">
+                            <div class="card-body">
+                            {% for t in c.topiq %}
+                           <div>
+                            <strong> <div class="heading">{{t.title}}  </div></strong>
+                                <p class="d-none">
+                                    {{t.desc}}
+                                    <strong>Brownie candy cookie</strong>
+                                </p>
+                            
+                            </div>
+                            {% endfor %}
+
+                                <div class="d-flex flex-row flex-wrap">
+                                   {% if course.material or course.lesson.material %}
+
+                                    <div class="sw-30 me-2 mb-2">
+                                        <div class="row g-0 rounded-sm sh-8 border">
+                                            <div class="col-auto">
+                                                <div class="sw-10 d-flex justify-content-center align-items-center h-100">
+                                                    <i data-acorn-icon="file-text" class="text-primary" data-acorn-size="20"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col rounded-sm-end d-flex flex-column justify-content-center pe-3">
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-0 clamp-line" data-line="1"
+                                                        style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">
+                                                        
+                                                        {{course.material or course.lesson.material }}</p>
+                                                    
+                                                        <a href="{{url_for('static', filename='img/materi/'+ course.material|string or course.lesson.material|string)}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="" data-delay="{'show':'1000', 'hide':'0'}"
+                                                        data-bs-original-title="Download">
+                                                        <i data-acorn-icon="download" class="text-alternate" data-acorn-size="17"></i>
+                                                    
+                                                    </a>
+                                                </div>
+                                                <div class="text-small text-primary">521 KB</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    {% endfor %} --> #}
+                </div>
+            </div>
+            <div class="col-md-auto d-none d-lg-block" id="scrollSpyMenu">
+                <ul class="nav flex-column">
+                    {% for c in course.lesson %}
+                    <li>
+                        <a class="nav-link" href="#chapter{{loop.index}}">
+                            <i data-acorn-icon="chevron-right" class="text-primary" data-acorn-size="20"></i>
+                            {# <span>Lesson {{loop.index}}</span> #}
+                            <span>{{c.title}}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

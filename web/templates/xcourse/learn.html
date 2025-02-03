@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <head> 
+        <title>{% block title %} Learn . Russsian Programers {% endblock title %}</title>
+        {% include('incs/metas.html') %}
+        {% block  page_css %} 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}">
+        {% endblock page_css %}
+</head>
+<body>
+    <div id="root">
+        
+        {% include('incs/nav.html') %}
+
+        <main>
+            <div class="container d-flex flex-column">
+                <div class="page-title-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-5">
+                            <h1 class="mb-0 pb-0 display-4" id="course-title">Intellect</h1>
+                        </div>
+                        <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                            <button type="button"
+                                class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-sm-auto d-inline-block d-xl-none"
+                                data-bs-toggle="modal" data-bs-target="#tableOfContentsModal">
+                                <i data-acorn-icon="menu-right"></i>
+                                <span>Contents</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row d-flex flex-grow-1 overflow-hidden pb-2 h-100">
+                    <div class="col-xl-8 col-xxl-9">
+                        <div class="card mb-5 h-100 bg-transparent">
+                           <!--  -->
+                           <section class="scroll-section mb-5" id="course-desc">
+                            <h2 class="small-title">Hi there! Welcome !! </h2>
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div id="snippets-container" class="h-100 d-flex flex-column justify-content-between align-items-center cursor-default">
+                                        
+                                        <div id="snippets">
+                                            <img src="../static/img/course/learn/react_native.png" 
+                                            class="mb-5 w-40 img-fluid img-responsive">
+                                            <h2 class="small-title lower-opacity mb-3">..</h2>
+                                            <p class="heading text-alternate section-text mb-5">
+                                            Select a topic to start/continue learning.
+                                            </p>
+                                        
+                                        </div>
+                                        
+                                    </div>
+                                    <!--  -->
+                                    <div class="btn-group mb-0">
+                                        <button class="btn btn-outline-primary btn-sm rounded-xl mr-3" type="button">
+                                        Back
+                                        </button> 
+                                        <div class="me-4 align-content-center text-primary"></div>
+                                        <button class="btn btn-outline-primary btn-sm rounded-xl" type="button">
+                                        Continue
+                                        </button>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" 
+                                    aria-labelledby="offcanvasBottomLabel" aria-modal="true" role="dialog">
+                                        <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasBottomLabel"> .. </h5> <span> <i data-acorn-icon="crown"></i></span>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body small">
+                                            <p class="small">.</p>
+                                            
+                                            <button id="next_topic" class="btn btn-outline-primary btn-sm rounded-xl " type="button">
+                                                <i data-acorn-icon="star"></i> Continue To Next Topic 
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <!--  -->
+                                </div>
+                            </div>
+                        </section>
+                        </div> 
+
+                    </div>
+
+                    <div class="d-none d-xl-flex col-xl-4 col-xxl-3 h-100 scroll-out table-of-contents-scroll"
+                        id="tableOfContentsColumn">
+                    </div>
+                </div>
+                
+                <div class="modal modal-right fade" id="tableOfContentsModal" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Content</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- <div class="modal-body p-0">
+                                <div id="tableOfContentsMoveContent" data-move-target="#tableOfContentsColumn"
+                                    data-move-breakpoint="xl">
+                                    <div id="courseContent">
+                                        <div id="card" class="card mb-2 d-none">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                    <div class="sw-4 me-3">
+                                                        <div class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            1
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">lesson</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div id="collapseOne" class="accordion-collapse collapse show1 ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="row g-0 mt-4 d-none">
+                                                        <div class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                            <div class="w-100 d-flex sh-1"></div>
+                                                            <div
+                                                                class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                <div
+                                                                    class="bg-primary sw-1 sh-1 rounded-xl position-relative">
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                <div
+                                                                    class="line-w-1 bg-separator h-100 position-absolute">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="h-100">
+                                                                <div class="d-flex flex-column justify-content-start">
+                                                                    <div class="d-flex flex-column">
+                                                                        <a class="heading"> - </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="modal-body p-0">
+                                <div id="tableOfContentsMoveContent" data-move-target="#tableOfContentsColumn" data-move-breakpoint="xl">
+                                    <div id="courseContent">
+                                        <div class="card mb-2 d-none">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row align-content-center align-items-center cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    <div class="sw-4 me-3">
+                                                        <div class="border border-1 border-primary rounded-xl sw-4 sh-4 text-primary d-flex justify-content-center align-items-center">
+                                                            1
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="heading mb-0">lesson</div>
+                                                    </div>
+                                                </div>
+                            
+                                                <div id="collapseOne" class="accordion-collapse collapse show1 ms-2 ps-1"
+                                                    data-bs-parent="#courseContent">
+                                                    <div class="scroll-container" style="max-height: 200px; overflow-y: auto;">
+                                                        <!-- Add this container for scrolling -->
+                                                        <div class="row g-0 mt-4 d-none">
+                                                            <div class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                                                <div class="w-100 d-flex sh-1"></div>
+                                                                <div class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                                                    <div class="bg-primary sw-1 sh-1 rounded-xl position-relative"></div>
+                                                                </div>
+                                                                <div class="w-100 d-flex h-100 justify-content-center position-relative">
+                                                                    <div class="line-w-1 bg-separator h-100 position-absolute"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col mb-2">
+                                                                <div class="h-100">
+                                                                    <div class="d-flex flex-column justify-content-start">
+                                                                        <div class="d-flex flex-column">
+                                                                            <a class="heading"> - </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ---------------------- -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {% include('incs/footer.html') %}
+        
+    </div>
+   
+    {% include('incs/search.html') %}
+    
+    <script src="{{url_for('static', filename='js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/autoComplete.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/clamp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-interface.js')}}"></script>
+    <script src="{{url_for('static', filename='icon/acorn-icons-learning.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/vendor/movecontent.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/helpers.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/globals.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/nav.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/search.js')}}"></script>
+    <script src="{{url_for('static', filename='js/base/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pages/misc.player.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script> 
+
+    {% block  page_js %} 
+    <script src="{{ url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+
+    <script> 
+
+    function sanitizeJSON(jsonData) {
+        try {
+                // Attempt to parse the JSON data
+                parsedData = JSON.parse(jsonData);
+                return parsedData;
+            } catch (error) {
+                // Replace special characters with their HTML entities
+                jsonData = jsonData.replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    //.replace(/"/g, '&quot;')
+                    //.replace(/'/g, '&#39;')
+                    .replace(/\//g, '&#x2F;');
+                // Return the JSON string as it is
+                return jsonData;
+            }
+        }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUrl = window.location.href;
+        const courseSlug = getcourseSlugFromUrl(currentUrl);
+        fetchCourseBySlug(courseSlug);
+    });
+
+    function getcourseSlugFromUrl(url) {
+        const parts = url.split('/');
+        return parts[parts.length - 1];
+    }
+
+    function fetchCourseBySlug(courseSlug) {
+        $.ajax({
+            url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
+            type: 'GET',
+            success: function(response){
+                if(response.title){
+                    // Set the page title dynamically
+                    document.title = `${response.title} . Russian Developers`;
+                    document.querySelector('#course-title').textContent = `${response.title}`;
+                }
+
+                var courseContentDiv = document.getElementById('courseContent');
+
+                if(!response.lessons){
+                    return courseContentDiv.textContent = 'Had some glitch loading lessons right now';
+                }
+
+                response.lessons.forEach((lesson, index) => {
+                    var lessonClone = courseContentDiv.querySelector('.card').cloneNode(true);
+                    lessonClone.classList.remove('d-none');
+                    lessonClone.querySelector('.border').textContent = index + 1;
+                    lessonClone.querySelector('.heading').textContent = lesson.title;
+
+                    var lessonToggle = lessonClone.querySelector('.cursor-pointer');
+                    lessonToggle.setAttribute('data-bs-target', `#collapse-${index}`);
+                    lessonToggle.setAttribute('aria-controls', `collapse-${index}`);
+                    
+                    var topicList = lessonClone.querySelector('.accordion-collapse');
+                    topicList.setAttribute('id', `collapse-${index}`);
+                    
+                    lesson.topics.forEach((topic, topicIndex) => {
+                        var topicItem = topicList.querySelector('.row').cloneNode(true);
+                        topicItem.classList.remove('d-none'); //make temporarity hidden show dropdown of topics
+                        topicItem.querySelector('.heading').textContent = (topicIndex + 1) + '. ' + topic.title;
+                        
+                        if(topic.slug){
+                            topicItem.querySelector('.heading').setAttribute('data-slug', topic.slug);
+                        }
+                        if (!topic.slug || topic.slug === null) {
+                            let headingElement = topicItem.querySelector('.heading');
+                            headingElement.style.pointerEvents = 'none'; // Disables click events
+                            topicItem.querySelector('.heading').style.color = 'brown';
+                        }
+
+                        topicItem.querySelector('.heading').style.cursor = 'pointer';
+                        // Add event listener to each topic
+                        topicItem.querySelector('.heading').addEventListener('click', function() {
+                            var topicSlug = this.getAttribute('data-slug');
+                            //let topicUrl = `/get_topic/${topicSlug}?include_desc=true`;
+                            fetchTopicData(topicSlug);
+                        });
+                        topicList.appendChild(topicItem);
+                    });
+
+                    courseContentDiv.appendChild(lessonClone);
+                });
+
+            },
+
+            error: function(xhr, status, error) {
+                console.error('Error fetching course:', error);
+            }
+
+        });
+    }
+
+    function fetchTopicData(topicSlug) {
+    if (!topicSlug) {
+        console.error('Invalid topic slug:', topicSlug);
+        return;
+    }
+
+    $.ajax({
+        url: `/get_topic/${topicSlug}?include_desc=true`,
+        type: 'GET',
+        success: function(response) {
+            // Handle the fetched topic data
+            let courseDescSection = document.getElementById('course-desc');
+            let snippetsContainer = courseDescSection.querySelector('#snippets-container');
+            //let snippetsTemplate = snippetsContainer.querySelector('#snippets').cloneNode(true);
+            let snippetsTemplate = snippetsContainer.querySelector('#snippets');
+            let responseDesc = typeof (response.desc) === "object" ? JSON.parse(response.desc) : sanitizeJSON(response.desc);
+            //console.log(responseDesc)
+            courseDescSection.querySelector('.small-title').textContent = response.title;
+            
+            if (!responseDesc || responseDesc.length === 0 ) {
+                snippetsContainer.innerHTML = `
+                    <h2>Something went wrong</h2>
+                    <p>There was a little glitch trying to load course content, try again.</p>
+                `;
+                return console.log(responseDesc);
+            }
+
+            // Display content in bit-sized portions
+            let currentIndex = 0;
+            displayContentAtIndex(currentIndex);
+
+            function displayContentAtIndex(index) {
+                snippetsContainer.innerHTML = ""; // Clear previous content
+                
+                let item = responseDesc[index];
+                let snippetTemplate = createSnippetTemplate(item);
+                
+                snippetsContainer.appendChild(snippetTemplate);
+
+                //speakText(snippetsContainer.querySelector('#snippets').textContent);
+                // Get all elements within the snippets
+                let snippetElement = snippetsContainer.querySelector('#snippets *');
+                
+                // Update button text or functionality as needed
+                let backButton = courseDescSection.querySelector('.btn-outline-primary:first-of-type');
+                let continueButton = courseDescSection.querySelector('.btn-outline-primary:last-of-type');
+                
+                if (index === 0) {
+                    backButton.textContent = 'Back';
+                    backButton.removeEventListener('click', handleBackButtonClick);
+                    backButton.addEventListener('click', handleBackButtonClick);
+                    backButton.disabled = true;
+                } else {
+                    backButton.disabled = false;
+                }
+
+                if (index === responseDesc.length - 1) {
+                    continueButton.textContent = 'Finish';
+                    continueButton.removeEventListener('click', handleContinueButtonClick);
+                    continueButton.addEventListener('click', function() {
+                        //console.log('{{ current_user.id or None }}', response.id);
+                        // Show the offcanvas modal
+
+                        handleFinishButtonClick('{{ current_user.id or None }}', response.id);
+
+                        let offCanvas = document.getElementById('offcanvasBottom');
+                        offCanvas.querySelector('#offcanvasBottomLabel').innerHTML = 
+                        ( `Congrats ! . ${response.title}  Completed . `);
+
+                        var offcanvasBottom = new bootstrap.Offcanvas(offCanvas);
+                        offcanvasBottom.show();
+
+                    });
+                } else {
+                    continueButton.textContent = 'Continue';
+                    continueButton.removeEventListener('click', handleFinishButtonClick);
+                    continueButton.addEventListener('click', handleContinueButtonClick);
+                }
+
+
+                /*  */
+                // Get all elements within the snippets container
+    let snippetElements = snippetsContainer.querySelectorAll('#snippets *');
+
+    // Concatenate text content from all elements
+    let fullText = Array.from(snippetElements)
+        .map(element => element.textContent.trim()) // Get text content of each element and trim any leading/trailing whitespace
+        .join(' ');
+
+    speakText(fullText);
+                /*  */
+            }
+
+            /*  */
+            function speakText(text) {
+            // Create a new SpeechSynthesisUtterance object with the provided text
+            var utterance = new SpeechSynthesisUtterance(text);
+
+            // Set options for the speech synthesis (voice, rate, pitch, etc.)
+            utterance.lang = 'en-US'; // Language
+            utterance.rate = 1.0;      // Speech rate (1.0 is the default)
+            utterance.pitch = 1.8;     // Speech pitch (1.0 is the default)
+
+            // Speak the text
+            window.speechSynthesis.speak(utterance);
+        }
+            /*  */
+
+            function createSnippetTemplate(item) {
+                let snippetClone = snippetsTemplate.cloneNode(true);
+
+                if (item.image) {
+                    let imageUrl = `${baseUrl}/static/img/course/learn/${item.image}`;
+                    snippetClone.querySelector('img').setAttribute('src', imageUrl);
+                    snippetClone.querySelector('img').style.borderRadius = '8px';
+                    snippetClone.querySelector('img').style.width = '100%';
+
+                    snippetClone.querySelector('img').onerror = function() {
+                        // Hide the image if it fails to load (404 or other errors)
+                        snippetClone.querySelector('img').classList.add('d-none');
+                    };
+                }
+
+                snippetClone.querySelector('h2').textContent = item.title;
+                
+                // Tokenize and display large text gradually
+                let desc = item.desc;
+                let tokenizedText = tokenizeText(desc);
+                let contentContainer = snippetClone.querySelector('p');
+                contentContainer.textContent = ""; // Clear any existing content
+                
+                let currentIndex = 0;
+                
+                let interval = setInterval(function() {
+                    contentContainer.textContent += ' '+ tokenizedText[currentIndex++];
+                    if (currentIndex >= tokenizedText.length) {
+                        clearInterval(interval);
+                    }
+                }, 1000); // Adjust the interval speed as needed
+
+                return snippetClone;
+            }
+
+            /* function tokenizeText(textArray) {
+                if (!Array.isArray(textArray)) {
+                    console.error('Input is not an array:', textArray);
+                    return [];
+                }
+    
+                let sentences = [];
+                textArray.forEach((text) => {
+                    if (typeof text === 'string') {
+                        let textSentences = text.match(/[^\.!\?]+[\.!\?]+/g); // Match all sentences
+                        if (textSentences) {
+                            sentences.push(...textSentences);
+                        } else {
+                            sentences.push(text); // If no sentence found, add the original text
+                        }
+                    } else {
+                        console.error('Array element is not a string:', text);
+                    }
+                });
+                
+                return sentences;
+            } */
+            
+            /*  */
+            function tokenizeText(textArray) {
+                
+                if (!Array.isArray(textArray)) {
+                    console.error('Input is not an array:', textArray); //can happen if the topic is not updated yet
+                    return [];
+                    /* let snippetsContainer = courseDescSection.querySelector('#snippets-container');
+                    return snippetsContainer.innerHTML = `
+                    <h2>Something went wrong</h2>
+                    <p>There was a little glitch trying to load course content, try again.</p>
+                `; */
+
+                }
+
+                let sentences = [];
+                textArray.forEach((text) => {
+                    if (typeof text === 'string') {
+                        let textSentences = text.match(/[^.!?]+[.!?]+/g); // Match all sentences
+                        if (textSentences) {
+                            sentences.push(...textSentences);
+                        } else {
+                            sentences.push(text); // If no sentence found, add the original text
+                        }
+                    } else {
+                        console.error('Array element is not a string:', text);
+                    }
+                });
+
+                return sentences;
+            }
+
+            /*  */
+            function handleBackButtonClick() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    displayContentAtIndex(currentIndex);
+                }
+            }
+
+            function handleContinueButtonClick() {
+                if (currentIndex < responseDesc.length - 1) {
+                    currentIndex++;
+                    displayContentAtIndex(currentIndex);
+                }
+            }
+
+            function handleFinishButtonClick(user_id, topic_id) {
+                // Construct the data object to send in the request
+                var requestData = {
+                    user_id: parseInt(user_id),
+                    topic_id: parseInt(topic_id)
+                };
+
+                JSON.stringify(requestData)
+                // Make an AJAX request to mark the topic as completed
+                $.ajax({
+                    url: '/mark_completed',
+                    type: 'POST',
+                    contentType: "application/json",
+                    data: JSON.stringify(requestData), // Stringify the data object
+                    
+                    success: function(response) {
+                        console.log(response.message); // Log the success message
+                        // Optionally, update the UI to reflect that the topic has been marked as completed
+                        let offCanvas = document.getElementById('offcanvasBottom');
+                        offCanvas.querySelector('p').innerHTML = ( response.message);
+                        offCanvas.querySelector('p').style.color = `brown`;
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error marking topic as completed:', error); // Log any errors
+                    }
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching topic data:', error);
+        }
+    });
+}
+
+    </script>
+
+    {% endblock page_js %}
+        
+</body>
+</html>

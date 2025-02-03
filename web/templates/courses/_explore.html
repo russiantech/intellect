@@ -1,0 +1,530 @@
+{% extends 'base.html' %}
+{% block title %}Courses . Russian Developers Program {% endblock title %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+           
+            <div class="row g-0">
+                <div class="col-auto mb-2 mb-md-0 me-auto">
+                    <div class="w-auto sw-md-30">
+                        <h1 class="mb-0 pb-0 display-4" id="title">Explore Courses</h1>
+                        <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                            <ul class="breadcrumb pt-0">
+                                <li class="breadcrumb-item"><a href="">...Advanced Technologies</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-auto d-flex d-lg-none align-items-start mb-2 mb-md-0 order-md-1">
+                    <button type="button" class="btn btn-primary btn-icon btn-icon-only ms-1" id="menuButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="acorn-icons acorn-icons-menu-left undefined">
+                            <path
+                                d="M5 13 2.35355 10.3536C2.15829 10.1583 2.15829 9.84171 2.35355 9.64645L5 7M2 3 18 3M11 10 18 10M2 17 18 17">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="col-12 col-md d-flex align-items-start justify-content-end justify-content-lg-start">
+                    <div class="me-lg-auto w-100 w-md-auto search-input-container border border-separator">
+                        <input class="form-control search" type="text" autocomplete="off" placeholder="Search"
+                            id="taskSearch">
+                        <span class="search-magnifier-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="acorn-icons acorn-icons-search undefined">
+                                <circle cx="9" cy="9" r="7"></circle>
+                                <path d="M14 14L17.5 17.5"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-icon-start ms-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="acorn-icons acorn-icons-sort undefined">
+                            <path d="M6 18 6 3M14 2 14 17"></path>
+                            <path d="M3 5 6 2 9 5M11 15 14 18 17 15"></path>
+                        </svg>
+                        <span>Sort</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <h2 class="small-title"> Trending</h2>
+            <h2 class="small-title"></h2>
+            <div class="mt-n1">
+                <button class="btn btn-icon btn-icon-end btn-background pe-0 pt-0" type="button">
+                    <span>View All</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="acorn-icons acorn-icons-chevron-right undefined">
+                        <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-auto d-none d-lg-flex">
+                <div class="nav flex-column sw-30 pe-7" id="menuColumn"></div>
+            </div>
+            <div class="col">
+                <div class="row g-3 row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 mb-5">
+                    {% for k, c in data.items() %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{url_for('static', filename='img/course/small/'+c.photo)}}" 
+                            class="card-img-top sh-22" alt="card image" >
+                            <div class="card-body">
+                                <h5 class="heading mb-0"><a href="/course/cid" class="body-link stretched-link">{{c.title}}</a></h5>
+                            </div>
+                            <div class="card-footer border-0 pt-0">
+                                <div class="mb-2">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block">
+                                        <div class="br-wrapper">
+                                            <select class="rating" name="rating" autocomplete="off"
+                                                data-readonly="true" data-initial-rating="5" style="display: none;">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted d-inline-block text-small align-text-top">(39)</div>
+                                </div>
+                                <div class="card-text mb-0">
+                                    <div class="text-muted text-overline text-small">
+                                        <del>$ 36.50</del>
+                                    </div>
+                                    <div>$ 28.75</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-outline-primary sw-25">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---------------------------------->
+        <h2 class="small-title">Paths</h2>
+        <div class="row g-3 row-cols-1 row-cols-xl-2 row-cols-xxl-4 mb-5">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/illustration/icon-performance.webp')}}" class="theme-filter"
+                                alt="performance">
+                            <div class="d-flex flex-column sh-5">
+                                <a href="/path" class="heading stretched-link">Frontend Developer</a>
+                            </div>
+                        </div>
+                        <div class="text-muted">Sweet roll apple pie tiramisu bonbon sugar plum muffin sesame snaps
+                            chocolate. Lollipop halvah powder.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/illustration/icon-experiment.webp')}}" class="theme-filter"
+                                alt="experiment">
+                            <div class="d-flex flex-column sh-5">
+                                <a href="/path" class="heading stretched-link">CSS Mastery</a>
+                            </div>
+                        </div>
+                        <div class="text-muted">Chocolate cake marshmallow bear claw sweet. Apple pie macaroon sesame
+                            snaps candy jelly pudding.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/illustration/icon-storage.webp')}}" class="theme-filter" alt="storage">
+                            <div class="d-flex flex-column sh-5">
+                                <a href="/path" class="heading stretched-link">Webmaster</a>
+                            </div>
+                        </div>
+                        <div class="text-muted">Cheesecake chocolate carrot cake pie lollipop lemon drops toffee
+                            lollipop.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/illustration/icon-accounts.webp')}}" class="theme-filter" alt="people">
+                            <div class="d-flex flex-column sh-5">
+                                <a href="/path" class="heading stretched-link">Backend Developer</a>
+                            </div>
+                        </div>
+                        <div class="text-muted">Cake tart apple pie bear bonbon sugar plum muffin sesame snaps sweet
+                            roll gingerbread bonbon sugar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---------------------------------->
+
+        <!---------------------------------->
+        <h2 class="small-title">Sale</h2>
+        <div class="row g-3">
+            <div class="col-lg-6 mb-5 position-relative">
+                <span class="badge rounded-pill bg-primary me-1 position-absolute e-4 t-n2 z-index-1">-30%</span>
+                <div class="card w-100 sh-24 hover-img-scale-up">
+                    <img src="{{ url_for('static', filename='img/banner/cta-horizontal-short-1.webp')}}" class="card-img h-100 scale"
+                        alt="card image">
+                    <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
+                        <div>
+                            <div class="cta-3 mb-3 text-white opacity-75 w-75">Introduction to Machine Learning</div>
+                            <div class="mb-4 text-white opacity-75">$ 26.25</div>
+                            <a href="/course-details" class="btn btn-icon btn-icon-start btn-primary stretched-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-chevron-right undefined">
+                                    <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16">
+                                    </path>
+                                </svg>
+                                <span>View</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5 position-relative">
+                <span class="badge rounded-pill bg-primary me-1 position-absolute e-4 t-n2 z-index-1">-25%</span>
+                <div class="card w-100 sh-24 hover-img-scale-up">
+                    <img src="{{ url_for('static', filename='img/banner/cta-horizontal-short-2.webp')}}" class="card-img h-100 scale"
+                        alt="card image">
+                    <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
+                        <div>
+                            <div class="cta-3 mb-3 text-white opacity-75 w-75">Basic Robotics Coding with Arduino</div>
+                            <div class="mb-4 text-white opacity-75">$ 19.80</div>
+                            <a href="/course-details" class="btn btn-icon btn-icon-start btn-primary stretched-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-chevron-right undefined">
+                                    <path d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16">
+                                    </path>
+                                </svg>
+                                <span>View</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---------------------------------->
+
+        <div class="modal modal-right fade" id="menuModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Course Filters</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="menuMoveContent" data-move-target="#menuColumn" data-move-breakpoint="lg">
+                            <div class="menu-items">
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">CATEGORY</p>
+                                    <div class="mt-3">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="category1">
+                                            <label class="form-check-label" for="category1">Coding</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="category2">
+                                            <label class="form-check-label" for="category2">Cake</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="category3">
+                                            <label class="form-check-label" for="category3">Fruit</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="category4">
+                                            <label class="form-check-label" for="category4">Vegetable</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="category5">
+                                            <label class="form-check-label" for="category5">Sandwich</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">DURATION</p>
+                                    <div class="mt-3">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="duration1">
+                                            <label class="form-check-label" for="duration1">0 - 672 Hours</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="duration2">
+                                            <label class="form-check-label" for="duration2">720 - 10 Hours</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="duration3">
+                                            <label class="form-check-label" for="duration3">10-20 Hours</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="duration4">
+                                            <label class="form-check-label" for="duration4">20-50 Hours</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="duration5">
+                                            <label class="form-check-label" for="duration5">50-100 Hours</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">PRICE</p>
+                                    <div class="row g-1">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Min">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Max">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-icon btn-icon-only btn-outline-primary" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-chevron-right undefined">
+                                                    <path  d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">SEARCH</p>
+                                    <div class="row g-1">
+                                        <div class="col"> <input type="text" name="kwords" class="form-control" placeholder="Keyword"></div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-icon btn-icon-only btn-outline-primary"
+                                                type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="acorn-icons acorn-icons-chevron-right undefined">
+                                                    <path  d="M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">RATING</p>
+                                    <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="ratings" id="rating5">
+                                    <div class="form-check-label">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                    <div class="br-wrapper"><select class="rating-filter" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5" style="display: none;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select><div class="br-widget br-readonly"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a><a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a><a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a><a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a><div class="br-current-rating">5</div></div></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="ratings" id="rating4">
+                                    <div class="form-check-label">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                    <div class="br-wrapper"><select class="rating-filter" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="4" style="display: none;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select><div class="br-widget br-readonly"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a><a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a><a href="#" data-rating-value="4" data-rating-text="4" class="br-selected br-current"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating">4</div></div></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="ratings" id="rating3">
+                                    <div class="form-check-label">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                    <div class="br-wrapper"><select class="rating-filter" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="3" style="display: none;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select><div class="br-widget br-readonly"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a><a href="#" data-rating-value="3" data-rating-text="3" class="br-selected br-current"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating">3</div></div></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="ratings" id="rating2">
+                                    <div class="form-check-label">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                    <div class="br-wrapper"><select class="rating-filter" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="2" style="display: none;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select><div class="br-widget br-readonly"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected br-current"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating">2</div></div></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="ratings" id="rating1">
+                                    <div class="form-check-label">
+                                    <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                    <div class="br-wrapper"><select class="rating-filter" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="1" style="display: none;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select><div class="br-widget br-readonly"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected br-current"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating">1</div></div></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
+                                <div class="mb-5">
+                                    <p class="text-small text-muted mb-2">RATING</p>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="ratings" id="rating5">
+                                        <div class="form-check-label">
+                                            <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                                <div class="br-wrapper">
+                                                    <select class="rating-filter" name="rating"
+                                                        autocomplete="off" data-readonly="true" data-initial-rating="5"
+                                                        style="display: none;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                    <div class="br-widget br-readonly">
+                                                        <a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a>
+                                                        <a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a>
+                                                        <a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a>
+                                                        <a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a>
+                                                        <a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a>
+                                                        <div class="br-current-rating">5</div>
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="ratings" id="rating4">
+                                        <div class="form-check-label">
+                                            <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                                <div class="br-wrapper">
+                                                    <select class="rating-filter" name="rating"
+                                                        autocomplete="off" data-readonly="true" data-initial-rating="4"
+                                                        style="display: none;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="ratings" id="rating3">
+                                        <div class="form-check-label">
+                                            <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                                <div class="br-wrapper">
+                                                    <select class="rating-filter" name="rating"
+                                                        autocomplete="off" data-readonly="true" data-initial-rating="3"
+                                                        style="display: none;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="ratings" id="rating2">
+                                        <div class="form-check-label">
+                                            <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                                <div class="br-wrapper">
+                                                    <select class="rating-filter" name="rating"
+                                                        autocomplete="off" data-readonly="true" data-initial-rating="2"
+                                                        style="display: none;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="ratings" id="rating1">
+                                        <div class="form-check-label" for="rating1">
+                                            <div class="br-wrapper br-theme-cs-icon d-inline-block pe-none">
+                                                <div class="br-wrapper">
+                                                    <select class="rating-filter" name="rating"
+                                                        autocomplete="off" data-readonly="true" data-initial-rating="1"
+                                                        style="display: none;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <div class="d-flex flex-row justify-content-between w-100">
+                                        <button type="button" class="btn btn-outline-primary w-100 me-2">Clear</button>
+                                        <button type="button" class="btn btn-primary w-100">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% block  page_js %} 
+<script src="{{ url_for('static', filename='js/vendor/movecontent.js')}}"></script> 
+<script src="{{ url_for('static', filename='js/pages/course.list.js')}}"></script>
+{% endblock page_js %}
+
+{% endblock content %}

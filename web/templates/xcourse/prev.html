@@ -1,0 +1,896 @@
+{% extends 'base.html' %}
+{% block title %}Info . Intellect{% endblock title %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/plyr.css')}}" />
+{% endblock page_css %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="page-title-container">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h1 class="mb-0 pb-0 display-4" id="course-title">(advance title)</h1>
+                    <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                        <ul class="breadcrumb pt-0">
+                            {% if request.referrer %}
+                            <li class="breadcrumb-item text-danger">
+                                <a href="{{ request.referrer }}"><i data-acorn-icon="chevron-left"></i>Back</a>
+                            </li>
+                            {% endif %}
+                            <li class="breadcrumb-item text-danger">
+                                <a href="{{ url_for('main.index') }}"><i data-acorn-icon="chevron-left"></i>Home</a>
+                            </li> <li class="breadcrumb-item text-danger">
+                                <a href="{{ url_for('main.index') }}"><i data-acorn-icon="chevron-left"></i>Courses</a>
+                            </li> 
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-12 col-sm-6 d-flex align-items-start justify-content-end">
+                    
+                    <div class="mr-2" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="" 
+                    data-bs-content="Select this if you need an instructor to work along with you. | Click to Select/Deselect" 
+                    data-bs-original-title="Dedicated Instructor">
+                        <input type="checkbox" class="btn-check" id="instructorled">
+                        <label class="btn btn-outline-primary" for="instructorled">Instructor Led</label>
+                    </div>
+                    
+                    <div class="m-1">.</div>
+                    <button id="startNowButton" href="./" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                        <i data-acorn-icon="chevron-right"></i>
+                        <span>Start . $<em id="course-fee">0</em></span>
+                    </button>
+
+                    <div class="m-1">.</div>
+
+                    <div class="btn-group mb-0">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+                            <i data-acorn-icon="share"></i>  Share
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-sm">
+                            <li>
+                                <a class="dropdown-item social-share whatsapp" target="_blank" href="#">Whatsapp</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share facebook" target="_blank" href="#">Facebook</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share instagram" target="_blank" href="#">Instagram</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share twitter" target="_blank" href="#">Twitter</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share linkedin" target="_blank" href="#">Linkedin</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item social-share email" target="_blank" href="#">Email</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+
+                    <!-- <a id="startNowButton" href="./" class="btn btn-primary btn-icon btn-icon-start w-100 w-sm-auto">
+                        <i data-acorn-icon="share"></i>
+                        <span>Share</em></span>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xxl-8 mb-5">
+                <h2 class="small-title">Preview</h2>
+                <div class="card mb-5">
+                    <div class="card-img-top">
+                        <video class="player sh-50 cover" 
+                        poster="{{url_for('static', filename='img/course/default.webp')}}"
+                            id="videoPlayer">
+                            <source src="{{url_for('static', filename='videos/View_From_A_Blue_Moon_Trailer-576p.mp4')}}"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <div id="description-div">
+                        <div id="course-desc" class="card-body d-none">
+                            <h3>title</h3>
+                            <p class="mb-2"> </p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer border-0 pt-0">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="sw-5 d-inline-block position-relative me-3">
+                                        <img src="{{url_for('static', filename='img/logo/favicon.svg')}}"
+                                            class="img-fluid rounded-xl" alt="thumb">
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <a href="#">Intellect</a>
+                                        <div class="text-muted text-small">Russian Developers</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-muted">
+                                <div class="row g-0 justify-content-end">
+                                    <div class="col-auto pe-3">
+                                        <i data-acorn-icon="eye" class="text-primary me-1"
+                                            data-acorn-size="15"></i>
+                                        <span id="course-views" class="align-middle">4.8K</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i data-acorn-icon="message" class="text-primary me-1"
+                                            data-acorn-size="15"></i>
+                                        <span id="course-comments" class="align-middle">12</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Table of Contents</h2>
+                <div class="card mb-5">
+
+                    <div id="lessons-div" class="card-body">
+
+                        <div id="lesson-template" class="row g-0">
+                            <div
+                                class="col-auto sw-1 d-flex flex-column justify-content-center align-items-center position-relative me-4">
+                                <div class="w-100 d-flex sh-1"></div>
+                                <div
+                                    class="rounded-xl shadow d-flex flex-shrink-0 justify-content-center align-items-center">
+                                    <div class="bg-gradient-light sw-1 sh-1 rounded-xl position-relative"></div>
+                                </div>
+                                <div class="w-100 d-flex h-100 justify-content-center position-relative">
+                                    <div class="line-w-1 bg-separator h-100 position-absolute"></div>
+                                </div>
+                            </div>
+                            <div class="col mb-4">
+                                <div class="h-100">
+                                    <div class="d-flex flex-column justify-content-start">
+                                        <div class="d-flex flex-column">
+                                            <p class="heading"><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>lessons...</p>
+                                            <ul class="list-unstyled">
+                                                <li> topics <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xxl-4 mb-n5">
+                <h2 class="small-title">At a Glance</h2>
+                <div class="card mb-5">
+                    <div class="card-body">
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="clock" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Duration</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id=course-duration class="sh-4 d-flex align-items-center text-alternate">14 Hours
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="presentation" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="course-lessons_count" class="sh-4 d-flex align-items-center text-alternate">0 Lessons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="diploma" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Level</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="course-level" class="sh-4 d-flex align-items-center text-alternate">Beginner
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="calendar" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Release</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="course-created" class="sh-4 d-flex align-items-center text-alternate">05.11.2021
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="star" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Rating</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="course-rating" class="sh-4 d-flex align-items-center text-alternate">4.8 (843)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 align-items-center mb-0">
+                            <div class="col-auto">
+                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                                    <i data-acorn-icon="graduation" class="text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <div class="sh-4 d-flex align-items-center lh-1-25">Completed By</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div id="course-completedby" class="sh-4 d-flex align-items-center text-alternate">1.522</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="small-title">Tags</h2>
+                <div class="card mb-5">
+                    <div class="card-body">
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>coding (12)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>artificial intelligence (3)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>software development(1)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>cyber security (3)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>hacking (5)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>technologies (7)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>techa (3)</span>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-icon-end btn-outline-alternate mb-1 me-1"
+                            type="button">
+                            <span>intellect (3)</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+
+<script src="{{ url_for('static', filename='js/vendor/plyr.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/pages/course.detail.js')}}"></script>
+
+<script> 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUrl = window.location.href;
+    const courseSlug = getCourseSlugFromUrl(currentUrl);
+    fetchCourseBySlug(courseSlug);
+});
+
+function getCourseSlugFromUrl(url) {
+    const parts = url.split('/');
+    return parts[parts.length - 1];
+}
+
+/* function startPayment(amt, title) {
+// Make an AJAX request to initiate payment
+$.ajax({
+    url: '/start_payment',
+    type: 'POST',
+    data: { amount: amt, title: title },
+    success: function(response) {
+        console.log(response.message); // Log the success message
+        // Optionally, update the UI to reflect that the topic has been marked as completed
+    },
+    error: function(xhr, status, error) {
+        console.error('Error initiating payment:', error); // Log any errors
+    }
+});
+}
+ */
+
+/* function fetchCourseBySlug(courseSlug) {
+    $.ajax({
+        url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
+        type: 'GET',
+
+        success: function(response){
+
+            //let payUrl = `${baseUrl}/init-payment/${parseInt(response.slug) || 100 }`;
+            let payUrl = `${baseUrl}/init-payment/${response.slug || '-' }`;
+
+            let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+            if(response && response.is_enrolled === true && response.slug ){
+
+            $("#startNowButton").attr("href", learnUrl).text(`Continue Learning`);
+
+            }else{
+                // $("#startNowButton").attr("href", payUrl);
+                // Handle form submission within this block
+                document.getElementById('startNowButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default action
+
+                    const submitButton = this;
+                    submitButton.disabled = true; // Disable the button
+                    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                    fetch(payUrl, {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log(response)
+                        console.log(JSON.stringify(data));
+                        
+                        if (data.success) {
+                            response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                            window.location.href = data.redirect_url; // Redirect on success
+                        } else {
+                            response_modal(data.error || 'Unsuccessful');
+                            }
+
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }   
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        submitButton.disabled = false; // Re-enable the button
+                        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+                    });
+                });
+            }
+            
+            if(response.title){
+                // Set the page title dynamically
+                document.title = `${response.title} . Russian Developers`;
+            }
+
+            if(response.id){
+                // Store interactions in local storage (for non-logged-in users)
+                // storeInteractionLocally(response.id, response.title, 'view')
+                trackInteraction(response.title, response.desc, 'click');
+            }
+            
+            // Define an array of IDs to update
+            var idsToUpdate = [
+                'course-fee',
+                'course-title',
+                'course-views',
+                'course-comments',
+                'course-duration',
+                'course-lessons_count',
+                'course-level',
+                'course-created',
+                'course-rating',
+                'course-completedby'
+            ];
+
+            // Loop through the array and update elements dynamically
+            idsToUpdate.forEach(function(id) {
+                var element = $("#" + id);
+                if (element.length) {
+                    var key = id.replace('course-', ''); // Extract key from ID
+                    var value = response[key];
+                    if (value !== undefined) {
+                        // If the value is defined in the response, set the text content
+                        element.text(value);
+                    } else {
+                        // If the value is undefined in the response, set the text content to 'Pending'
+                        element.text('Pending');
+                    }
+                }
+            });
+
+            // Update course poster image
+            if(response.image){
+                let poster_url = `../static/img/course/${response.image}`;
+                $(".player").attr("poster", poster_url);
+                //console.log(poster_url)
+            }
+
+            if (response.video){
+                // Update intro video source
+                let intro_video_url = `../static/videos/course/${response.video}`;
+                $("#videoPlayer source").attr("src", intro_video_url );
+                $("#videoPlayer")[0].load(); // Reload the video player
+
+                // Reload the video player to apply the changes
+                var videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.load();
+
+            }
+            
+            //console.log(typeof JSON.parse(response.desc));
+
+            if(response.desc && typeof response.desc == 'object' || 'string'){
+
+                JSON.parse(response.desc).forEach(function(desc) {
+                //console.log(desc)
+                const descTemplate = document.getElementById('course-desc').cloneNode(true);
+                descTemplate.querySelector('h3').textContent = desc.title; 
+                const descList = descTemplate.querySelector('p');
+                
+                descList.innerHTML = ''; // remove/empty previous/initial ones if it's there.
+
+                desc.desc.forEach(function(data) {
+                    const descItem = document.createElement('p');
+                    descItem.textContent = `- ${data}`;
+                    descList.appendChild(descItem);
+                });
+
+                descTemplate.classList.remove('d-none');
+                document.getElementById('description-div').appendChild(descTemplate);
+
+                });
+            }
+
+            response.lessons.forEach(function(lesson) {
+                const lessonTemplate = document.getElementById('lesson-template').cloneNode(true);
+                lessonTemplate.querySelector('.heading').textContent = lesson.title; 
+                const topicsList = lessonTemplate.querySelector('.list-unstyled');
+                
+                topicsList.innerHTML = ''; // remove/empty previous/initial ones if it's there.
+
+                lesson.topics.forEach(function(topic) {
+                    const topicItem = document.createElement('li');
+                    topicItem.textContent = `- ${topic.title}`;
+                    topicsList.appendChild(topicItem);
+                });
+
+                document.getElementById('lessons-div').appendChild(lessonTemplate);
+
+            });
+
+            $('#lesson-template').remove(); // remove the template after appending lessons
+
+        },
+
+        error: function(xhr, status, error) {
+            console.error('Error fetching course:', error);
+        }
+
+    });
+}
+ */
+
+
+
+
+
+
+
+
+
+
+
+/*  function fetchCourseBySlug(courseSlug) {
+    $.ajax({
+        url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
+        type: 'GET',
+
+        success: function(response) {
+
+            // Construct URLs for payment and learning
+            let payUrl = `${baseUrl}/init-payment/${response.slug || '-'}`;
+            let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+            if (response && response.is_enrolled === true && response.slug) {
+                $("#startNowButton").attr("href", learnUrl).text(`Continue Learning`);
+            } else {
+                document.getElementById('startNowButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default action
+
+                    const submitButton = this;
+                    submitButton.disabled = true; // Disable the button
+                    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>'; // Add spinner
+
+                    fetch(payUrl, {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                            window.location.href = data.redirect_url; // Redirect on success
+                        } else {
+                            response_modal(data.error || 'Unsuccessful');
+                        }
+
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        submitButton.disabled = false; // Re-enable the button
+                        submitButton.innerHTML = 'Submit Payment'; // Reset button text
+                    });
+                });
+            }
+
+            if (response.title) {
+                // Set the page title dynamically
+                document.title = `${response.title} . Russian Developers`;
+            }
+
+            if (response.id) {
+                // Store interactions in local storage (for non-logged-in users)
+                trackInteraction(response.title, response.desc, 'click');
+            }
+
+            // Define an array of IDs to update
+            var idsToUpdate = [
+                'course-fee',
+                'course-title',
+                'course-views',
+                'course-comments',
+                'course-duration',
+                'course-lessons_count',
+                'course-level',
+                'course-created',
+                'course-rating',
+                'course-completedby'
+            ];
+
+            // Loop through the array and update elements dynamically
+            idsToUpdate.forEach(function(id) {
+                var element = $("#" + id);
+                if (element.length) {
+                    var key = id.replace('course-', ''); // Extract key from ID
+                    var value = response[key];
+                    if (value !== undefined) {
+                        // If the value is defined in the response, set the text content
+                        element.text(value);
+                    } else {
+                        // If the value is undefined in the response, set the text content to 'Pending'
+                        element.text('Pending');
+                    }
+                }
+            });
+
+            // Update course poster image
+            if (response.image) {
+                let poster_url = `../static/img/course/${response.image}`;
+                $(".player").attr("poster", poster_url);
+            }
+
+            if (response.video) {
+                // Update intro video source
+                let intro_video_url = `../static/videos/course/${response.video}`;
+                $("#videoPlayer source").attr("src", intro_video_url);
+                $("#videoPlayer")[0].load(); // Reload the video player
+
+                // Reload the video player to apply the changes
+                var videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.load();
+            }
+
+            if (response.desc && typeof response.desc == 'object' || typeof response.desc == 'string') {
+                try {
+                    let descriptions = JSON.parse(response.desc);
+
+                    descriptions.forEach(function(desc) {
+                        const descTemplate = document.getElementById('course-desc').cloneNode(true);
+                        descTemplate.querySelector('h3').textContent = desc.title;
+                        const descList = descTemplate.querySelector('p');
+                        // descList.innerHTML = ''; // Remove/empty previous/initial ones if it's there.
+
+                        desc.desc.forEach(function(data) {
+                            const descItem = document.createElement('p');
+                            descItem.textContent = `- ${data}`;
+                            descList.appendChild(descItem);
+                        });
+
+                        descTemplate.classList.remove('d-none');
+                        document.getElementById('description-div').appendChild(descTemplate);
+                    });
+                } catch (e) {
+                    // Handle the case where the description is not fully curated
+                    // response_modal("The course description is currently being curated. Please check back later.");
+                    response_modal("We're currently curating best content for you. Kindly check back, it's a professional training from experienced developers.");
+                }
+            }
+
+            if (response.lessons && Array.isArray(response.lessons)) {
+                response.lessons.forEach(function(lesson) {
+                    const lessonTemplate = document.getElementById('lesson-template').cloneNode(true);
+                    lessonTemplate.querySelector('.heading').textContent = lesson.title;
+                    const topicsList = lessonTemplate.querySelector('.list-unstyled');
+                    topicsList.innerHTML = ''; // Remove/empty previous/initial ones if it's there.
+
+                    lesson.topics.forEach(function(topic) {
+                        const topicItem = document.createElement('li');
+                        topicItem.textContent = `- ${topic.title}`;
+                        topicsList.appendChild(topicItem);
+                    });
+
+                    document.getElementById('lessons-div').appendChild(lessonTemplate);
+                });
+
+                $('#lesson-template').remove(); // Remove the template after appending lessons
+            } else {
+                // Handle the case where lessons are not fully curated
+                response_modal("The lessons for this course are currently being curated. Please check back later.");
+            }
+
+        },
+
+        error: function(xhr, status, error) {
+            console.error('Error fetching course:', error);
+            response_modal("An error occurred while fetching the course details. Please try again later.");
+        }
+    });
+}
+
+ */
+
+ function fetchCourseBySlug(courseSlug) {
+    $.ajax({
+        url: `/get_course/${courseSlug}?include_lessons=true&include_topics=true`,
+        type: 'GET',
+        success: function(response) {
+            let payUrl = `${baseUrl}/init-payment/${response.slug || '-'}`;
+            let learnUrl = `${baseUrl}/learn/${response.slug}`;
+
+            if (response && response.is_enrolled === true && response.slug) {
+                $("#startNowButton").attr("href", learnUrl).text(`Continue Learning`);
+            } else {
+                document.getElementById('startNowButton').addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const submitButton = this;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>';
+
+                    fetch(payUrl, {
+                        method: 'POST',
+                    })
+                    .then(async (response) => {
+                        const contentType = response.headers.get("content-type");
+
+                        // Check if the response is JSON
+                    if (contentType && contentType.includes("application/json")) {
+                        try {
+                            const data = await response.json();
+
+                            if (data.success) {
+                                response_modal(`<span class="spinner-border spinner-border-sm"></span> ${data.message}` || 'Successful');
+                                window.location.href = data.redirect_url;
+                            } else {
+                                response_modal(`${data.error}` || 'Unsuccessful');
+                                // Use shorthand for redirection
+                                data.redirect_url ? window.location.href = data.redirect_url : null;
+                            }
+                        } catch (jsonError) {
+                            console.error("Error parsing JSON response:", jsonError.message);
+                            throw new Error('Invalid JSON format received');
+                        }
+                    } else {
+                        // If response is not JSON, log it for debugging
+                        const textResponse = await response.text();
+                        console.error('Received non-JSON response:', textResponse);
+                        throw new Error('Received non-JSON response');
+                    }
+
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Submit Payment';
+                    });
+                });
+            }
+
+            // Set the page title dynamically
+            if (response.title) {
+                document.title = `${response.title} . Russian Developers`;
+            }
+
+            if (response.id) {
+                trackInteraction(response.title, response.desc, 'click');
+            }
+
+            const idsToUpdate = [
+                'course-fee', 'course-title', 'course-views', 'course-comments',
+                'course-duration', 'course-lessons_count', 'course-level',
+                'course-created', 'course-rating', 'course-completedby'
+            ];
+
+            idsToUpdate.forEach(function(id) {
+                const element = $("#" + id);
+                if (element.length) {
+                    const key = id.replace('course-', '');
+                    const value = response[key];
+                    element.text(value !== undefined ? value : 'Pending');
+                }
+            });
+
+            if (response.image) {
+                const poster_url = `../static/img/course/${response.image}`;
+                $(".player").attr("poster", poster_url);
+            }
+
+            if (response.video) {
+                const intro_video_url = `../static/videos/course/${response.video}`;
+                $("#videoPlayer source").attr("src", intro_video_url);
+                $("#videoPlayer")[0].load();
+            }
+
+            if (response.desc && (typeof response.desc === 'object' || typeof response.desc === 'string')) {
+                try {
+                    const descriptions = JSON.parse(response.desc);
+
+                    descriptions.forEach(function(desc) {
+                        const descTemplate = document.getElementById('course-desc').cloneNode(true);
+                        descTemplate.querySelector('h3').textContent = desc.title;
+
+                        desc.desc.forEach(function(data) {
+                            const descItem = document.createElement('p');
+                            descItem.textContent = `- ${data}`;
+                            descTemplate.querySelector('p').appendChild(descItem);
+                        });
+
+                        descTemplate.classList.remove('d-none');
+                        document.getElementById('description-div').appendChild(descTemplate);
+                    });
+                } catch (e) {
+                    response_modal("We're currently curating the best content for you. Kindly check back later.");
+                }
+            }
+
+            if (response.lessons && Array.isArray(response.lessons)) {
+                response.lessons.forEach(function(lesson) {
+                    const lessonTemplate = document.getElementById('lesson-template').cloneNode(true);
+                    lessonTemplate.querySelector('.heading').textContent = lesson.title;
+                    const topicsList = lessonTemplate.querySelector('.list-unstyled');
+                    topicsList.innerHTML = '';
+
+                    lesson.topics.forEach(function(topic) {
+                        const topicItem = document.createElement('li');
+                        topicItem.textContent = `- ${topic.title}`;
+                        topicsList.appendChild(topicItem);
+                    });
+
+                    document.getElementById('lessons-div').appendChild(lessonTemplate);
+                });
+
+                $('#lesson-template').remove();
+            } else {
+                response_modal("The lessons for this course are currently being curated. Please check back later.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching course:', error);
+            response_modal("An error occurred while fetching the course details. Please try again later.");
+        }
+    });
+}
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+// Function to open a new window for social sharing
+function socialWindow(url) {
+    var left = (screen.width - 570) / 2;
+    var top = (screen.height - 570) / 2;
+    var params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
+    window.open(url, "NewWindow", params);
+}
+
+// Function to set up share links
+function setShareLinks() {
+    var pageUrl = encodeURIComponent(window.location.href); // Get the current page URL
+    var pageTitle = encodeURIComponent(document.title); // Get the page title or a meta description
+
+    // WhatsApp sharing
+    $(".social-share.whatsapp").on("click", function () {
+        var url = "https://api.whatsapp.com/send?text=" + pageTitle + "%20" + pageUrl;
+        window.open(url, "_blank"); // WhatsApp doesn't allow popups, use "_blank"
+    });
+
+    // Facebook sharing
+    $(".social-share.facebook").on("click", function () {
+        var url = "https://www.facebook.com/sharer/sharer.php?u=" + pageUrl;
+        socialWindow(url);
+    });
+
+    // Twitter sharing
+    $(".social-share.twitter").on("click", function () {
+        var url = "https://twitter.com/intent/tweet?text=" + pageTitle + "&url=" + pageUrl;
+        socialWindow(url);
+    });
+
+    // LinkedIn sharing
+    $(".social-share.linkedin").on("click", function () {
+        var url = "https://www.linkedin.com/shareArticle?mini=true&url=" + pageUrl + "&title=" + pageTitle;
+        socialWindow(url);
+    });
+
+    // Email sharing
+    $(".social-share.email").on("click", function () {
+        var url = "mailto:?subject=" + pageTitle + "&body=Check this out: " + pageUrl;
+        window.location.href = url; // Opens default email client
+    });
+
+    // Instagram sharing (Note: Instagram does not provide direct share links)
+    $(".social-share.instagram").on("click", function () {
+        alert("Instagram sharing is not available through a URL link. You can manually share on Instagram.");
+    });
+}
+
+// Initialize the sharing links
+setShareLinks();
+});
+
+</script>
+{% endblock page_js %}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true">
+<head>
+    <meta charset="utf-8">
+    <title> Settings . Russian Developers </title>
+    {% include('incs/metas.html') %}
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/font/CS-Interface/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/vendor/select2-bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='setting/css/main.css')}}">
+    <!---->
+    <script src="{{url_for('static', filename='setting/js/base/loader.js')}}"></script>
+</head>
+
+<body>
+    <div id="root">
+
+        {% include 'incs/nav.html' %}
+
+        <main>
+            <div class="container">
+
+                <div class="col">
+                    <div class="page-title-container mb-3">
+                        <div class="row">
+                            <div class="col mb-2">
+                                <h1 class="mb-2 pb-0 display-4" id="title">Settings</h1>
+                                <div class="text-muted font-heading text-small">
+                                    Any changes to info ? Update them now.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="small-title">Public Info</h2>
+                    <div class="card mb-5">
+                        <div class="card-body">
+
+                            <h5 class="text-danger">{% include('incs/alerts.html') %}</h5>
+                            
+                            <form class="d-flex flex-column mb-4" method="post" enctype="multipart/form-data" action="">
+                                {{ form.hidden_tag() }}
+                                <div class="mb-3 mx-auto position-relative" id="singleImageUploadExample">
+                                    <img src="{{url_for('static', filename='img/profile/'+ photo )}}"
+                                        alt="alternate text" class="rounded-xl border border-separator-light border-4 sw-12 sh-12"
+                                        id="contactThumbModal">
+                                    <button class="btn btn-sm btn-icon btn-icon-only btn-separator-light position-absolute rounded-xl e-0 
+                                    b-0" type="button"><i data-acorn-icon="upload"></i> </button> 
+                                    {{ form.photo(class="file-upload d-none", id='photo') }}
+                                    {% if form.photo.errors %}
+                                    {% for error in form.photo.errors %}<div class="error">{{ error }} !</div> {%
+                                    endfor %}
+                                    {% endif %} 
+                                </div>
+
+                                <div class="mb-3 filled w-100 d-flex flex-column">
+                                    <i data-acorn-icon="user"></i>
+                                    {{ form.username(class="form-control", placeholder="User Name" ) }}
+                                    {% if form.username.errors %}
+                                    {% for error in form.username.errors %}<div class="error">{{ error }} !</div> {%
+                                    endfor %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="mb-3 filled w-100 d-flex flex-column">
+                                    <i data-acorn-icon="user"></i>
+                                    {{ form.name(class="form-control", placeholder="First & Last Names" ) }}
+                                    {% if form.name.errors %}
+                                    {% for error in form.name.errors %}<div class="error">{{ error }} !</div> {% endfor
+                                    %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-4">
+                                        <div class="filled mb-0 w-100 mb-3 col-md-4">
+                                            <i data-acorn-icon="gender"></i>
+                                            {{ form.gender(class="select-single-no-search-filled", placeholder="Gender")
+                                            }}
+                                            {% if form.gender.errors %}
+                                            {% for error in form.gender.errors %}<div class="error">{{ error }} !</div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="filled mb-0 w-100 mb-3 col-md-4">
+                                            <i data-acorn-icon="web"></i>
+                                            {{ form.lang( value=current_user.lang or '', class="select-single-no-search-filled",  placeholder="Language")
+                                            }}
+                                            {% if form.lang.errors %}
+                                            {% for error in form.lang.errors %}<div class="error">{{ error }} !</div> {%
+                                            endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="filled mb-0 w-100 mb-3 col-md-4">
+                                            <i data-acorn-icon="gender"></i>
+                                            {{ form.city(class="select-single-no-search-filled", placeholder="City" ) }}
+                                            {% if form.city.errors %}
+                                            {% for error in form.city.errors %}<div class="error">{{ error }} !</div> {%
+                                            endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="mb-3 filled w-100 d-flex flex-column">
+                                            <i data-acorn-icon="email"></i>
+                                            {{ form.email(class="form-control", value=current_user.email, placeholder="Email" ) }}
+                                            {% if form.email.errors %}
+                                            {% for error in form.email.errors %}<div class="error">{{ error }} !</div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3 filled w-100 d-flex flex-column">
+                                            <i data-acorn-icon="phone"></i>
+                                            {{ form.phone( value=current_user.phone or form.data.phone or '', class="form-control", placeholder="Phone" ) }}
+                                            {% if form.phone.errors %}
+                                            {% for error in form.phone.errors %}<div class="error">{{ error }} !</div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3 filled w-100 d-flex flex-column">
+                                            <i data-acorn-icon="tag"></i>
+                                            {{ form.time( value=current_user.time or form.data.time or '', class="form-control", placeholder="Your Time" ) }}
+                                            {% if form.time.errors %}
+                                            {% for error in form.time.errors %}<div class="error">{{ error }} !</div> {%
+                                            endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 filled w-100 d-flex flex-column">
+                                    <i data-acorn-icon="user"></i>
+                                    {{ form.about(class="form-control", rows="4", placeholder="Profile Summary") }}
+                                    {% if form.about.errors %}
+                                    {% for error in form.about.errors %}<div class="error">{{ error }} !</div> {% endfor
+                                    %}
+                                    {% endif %}
+                                </div>
+                                <div class="mb-3 filled w-50 d-flex flex-column">
+                                    {{ form.submit(class="btn btn-lg btn-primary") }}
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <h2 class="small-title">Email Settings</h2>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <form class="mb-4">
+                                <div class="mb-3 filled custom-control-container">
+                                    <i data-acorn-icon="shield"></i>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="securityCheck"
+                                            checked="checked">
+                                        <label class="form-check-label" for="securityCheck">Security
+                                            Warnings</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 filled custom-control-container">
+                                    <i data-acorn-icon="money"></i>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="budgetCheck"
+                                            checked="checked">
+                                        <label class="form-check-label" for="budgetCheck">New courses</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 filled custom-control-container">
+                                    <i data-acorn-icon="server"></i>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="quotaCheck"
+                                            checked="checked">
+                                        <label class="form-check-label" for="quotaCheck">Quota Warnings</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 filled custom-control-container">
+                                    <i data-acorn-icon="bell"></i>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="generalCheck"
+                                            checked="checked">
+                                        <label class="form-check-label" for="generalCheck">General
+                                            Notifications</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 filled custom-control-container">
+                                    <i data-acorn-icon="news"></i>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="newsletterCheck">
+                                        <label class="form-check-label" for="newsletterCheck">Monthly
+                                            Newsletter</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <button class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+    </main>
+
+    {% include('incs/footer.html') %}
+    </div>
+    {% include('incs/settings.html') %}
+    {% include('incs/search.html') %}
+
+    <script src="{{url_for('static', filename='setting/js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/autoComplete.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/clamp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/icon/acorn-icons.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/icon/acorn-icons-interface.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/icon/acorn-icons-commerce.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/select2.full.min.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/vendor/singleimageupload.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/base/helpers.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/base/globals.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/base/nav.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/base/search.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/base/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/pages/account.settings.js')}}"></script>
+    <script src="{{url_for('static', filename='setting/js/common.js')}}"></script>
+    
+    <!--use-general-script-here-for-consistency-in-UI-->
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+    <!--use-general-script-here-for-consistency-in-UI-->
+
+</body>
+
+</html>

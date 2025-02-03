@@ -1,0 +1,36 @@
+/* This file is reserved for overriding and extending the template styles. */
+.w-webflow-badge {
+    display: none !important;
+  }
+
+  .owl-carousel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  #all-images {
+    display: none;
+  }
+
+  
+/** 
+for scroll-bar styles
+**/
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 0.1px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 50px;
+  background-size: 8px 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  /*background-color: #5826ee;*/
+  background-color: var(--gradient-1);
+  border-radius: 50px;
+/*border: 2px solid white; */
+
+}

@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %} Join Us . Russian Developers{% endblock title %}
+{% block content %}
+<div id="root">
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div>           
+                        <section class="scroll-section" id="validation">
+                            <h2 class="small-title">Join Russian Developers Today</h2>
+                            <div class="card wizard" id="wizardValidation">
+                                <div class="card-header border-0 pb-0">
+                                    <ul class="nav nav-tabs justify-content-center" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-center"
+                                                href="#validationFirst"
+                                                role="tab">
+                                                <div class="text-small description d-none d-md-block">
+                                                   Personal</div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-center"
+                                                href="#validationSecond"
+                                                role="tab">
+                                                <div class="text-small description d-none d-md-block">
+                                                    Profile Image</div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-center"
+                                                href="#validationThird"
+                                                role="tab">
+                                                <div class="text-small description d-none d-md-block">
+                                                    Contact info</div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-center"
+                                                href="#validationFourth"
+                                                role="tab">
+                                                <div class="text-small description d-none d-md-block">
+                                                    Logins </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item d-none" role="presentation">
+                                            <a class="nav-link text-center"
+                                                href="#validationLast"
+                                                role="tab"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body sh-35">
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane fade" id="validationFirst" role="tabpanel">
+                                            <p class="card-text text-alternate mb-4">
+                                               Personal Information</p>
+                                            <form class="tooltip-end-bottom">
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" required name="names">
+                                                    <span>First & Last Names </span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" type="email" required name="email">
+                                                    <span>Valid Email Address</span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" type="tel" required
+                                                        name="passwordName">
+                                                    <span>Current Phone Number</span>
+                                                </label>
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="validationSecond" role="tabpanel">
+                                            <div class="text-center mt-5">
+                                                <h5 class="card-title">Avater</h5>
+                                                <p class="card-text text-alternate mb-4">Now add profile photo</p>
+                                                <form class="tooltip-end-bottom">
+                                                <button class="btn btn-icon btn-icon-start btn-primary"
+                                                    type="button">
+                                                    <input type="hidden" name="photo"/>
+                                                    <i data-acorn-icon="login"></i>
+                                                    <span>upload</span>
+                                                </button>
+                                            </form>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="validationThird" role="tabpanel">
+                                            <p class="card-text text-alternate mb-4">
+                                              Contact Information</p>
+                                            <form class="tooltip-end-bottom">
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" type="text" required name="title">
+                                                    <span>Enter your title, e.g Senior developer</span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" required name="city">
+                                                    <span>City </span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" type="text" name="language" required>
+                                                    <span>Language</span>
+                                                </label>
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="validationFourth" role="tabpanel">
+                                            <p class="card-text text-alternate mb-4">
+                                              Logins</p>
+                                            <form class="tooltip-end-bottom">
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" type="text" required name="title">
+                                                    <span>About me</span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                    <input class="form-control" required name="city">
+                                                    <span>Set time per week(hours) </span>
+                                                </label>
+                                                <label class="mb-3 top-label">
+                                                   <input class="form-control" type="password" required
+                                                        name="password">
+                                                        <span>Password</span>
+                                                </label>
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="validationLast" role="tabpanel">
+                                            <div class="text-center mt-5">
+                                                <h5 class="card-title">Congrats !</h5>
+                                                <p class="card-text text-alternate mb-4">
+                                                    Success . Registration Completed !</p>
+                                                <a href="/signin" class="btn btn-icon btn-icon-start btn-primary"
+                                                    type="button">
+                                                    <i data-acorn-icon="login"></i>
+                                                    <span>Login</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center border-0 pt-1">
+                                    <button class="btn btn-icon btn-icon-start btn-outline-primary btn-prev"
+                                        type="button">
+                                        <i data-acorn-icon="chevron-left"></i>
+                                        <span>Back</span>
+                                    </button>
+                                    <button class="btn btn-icon btn-icon-end btn-outline-primary btn-next"
+                                        type="button">
+                                        <span>Next</span>
+                                        <i data-acorn-icon="chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}

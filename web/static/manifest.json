@@ -1,0 +1,21 @@
+{
+    "name": "Intellect . Your Digital Learning Companion.",
+    "short_name": "Intellect",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1d1d1d",
+    "theme_color": "#9e62c7",
+    "description": "Intellect . Your Digital Learning Companion. Learn programming online on mobile or desktop for free.",
+    "icons": [
+      {
+        "src": "./img/favicon/favicon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "img/favicon/favicon16x16.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
