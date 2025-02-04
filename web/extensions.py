@@ -1,18 +1,6 @@
-# from flask import Flask
-
-from os import getenv
-
-# from flask_sqlalchemy import SQLAlchemy
-# db = SQLAlchemy()
-
-# from flask_login import LoginManager
-# s_manager = LoginManager()
 
 from flask_mail import Mail
 mail = Mail()
-
-#from flask_bootstrap import Bootstrap
-#bootstrap = Bootstrap()
 
 from flask_moment import Moment
 moment = Moment()
@@ -55,28 +43,24 @@ oauth = OAuth()
 from dotenv import load_dotenv
 load_dotenv()
 
-from redis import Redis
-redis = Redis.from_url(getenv('redis_url', 'redis://'))
+# Determine the environment and set the Redis URL accordingly
+from os import getenv
+if getenv('FLASK_ENV') == 'production':
+    redis_url = getenv('REDIS_URL', 'redis://localhost:6379/0')  # Fallback if not set
+else:
+    redis_url = getenv('REDIS_URL_DEV', 'redis://localhost:6379/0')  # Fallback if not set
 
-""" from flask_limiter import Limiter
-limiter = Limiter(
-    storage_uri=getenv('redis_url'),
-    key_func=lambda: request.remote_addr,
-)
- """
+# Initialize Redis client
+from redis import Redis
+redis = Redis.from_url(redis_url)
+
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-# Initialize Limiter with default settings (using the IP address as the key)
-# limiter = Limiter(
-#     key_func=get_remote_address,
-#     # default_limits=["200 per day", "50 per hour"]
-#     default_limits=["1 per second", "5 per minute"]  # Allow up to 1 request per second or a burst of 5 in a minute
-# )
+# Initialize Flask-Limiter with IP-based rate limiting
 limiter = Limiter(
     key_func=get_remote_address,
-    # default_limits=["200 per day", "50 per hour"]
     default_limits=["1 per second", "5 per minute"],  # Allow up to 1 request per second or a burst of 5 in a minute
-    storage_uri=getenv('REDIS_URL', 'redis://localhost:6379/0')  # Ensure the Redis URL is correct
+    storage_uri=redis_url  # Use the same Redis URL for limiting
 )
 
 from flask_caching import Cache
@@ -86,8 +70,6 @@ cache = Cache(config=Config.REDIS_CONFIG)
 
 from flask_migrate import Migrate
 migrate = Migrate()
-
-
 
 import openai
 openai.api_key = getenv('OPENAI_API_KEY') # Set your API key here

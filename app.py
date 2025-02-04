@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-app = create_app('development')  # Set to 'production' if needed
-# app = create_app('production')  # Set to 'production' if needed
+# app = create_app('development')  # Set to 'production' if needed
+app = create_app('production')  # Set to 'production' if needed
 
 @app.route("/routes")
 def site_map():
