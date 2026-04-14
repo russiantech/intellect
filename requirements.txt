@@ -22,7 +22,6 @@ numpy==2.4.4
 openai==2.31.0
 opencv_python_headless==4.11.0.86
 Pillow==12.2.0
-PyJWT==2.10.1
 PyJWT==2.12.1
 python-dotenv==1.2.2
 python-slugify==8.0.4
