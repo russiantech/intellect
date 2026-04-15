@@ -87,6 +87,9 @@ celerybeat-schedule
 # Environments
 _
 *.env
+*.env.*
+web/.env
+web/.env.*
 *.env.bak
 .env
 .env.bak

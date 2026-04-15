@@ -45,10 +45,8 @@ load_dotenv()
 
 # Determine the environment and set the Redis URL accordingly
 from os import getenv
-if getenv('FLASK_ENV') == 'production':
-    redis_url = getenv('REDIS_URL', 'redis://localhost:6379/0')  # Fallback if not set
-else:
-    redis_url = getenv('REDIS_URL_DEV', 'redis://localhost:6379/0')  # Fallback if not set
+
+redis_url = getenv('REDIS_URL')  # now should work for both development and production based on the .env files
 
 # Initialize Redis client
 from redis import Redis

@@ -67,7 +67,7 @@ class Config:
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
     SESSION_KEY_PREFIX = 'FLASK_SESSION'
-    SESSION_REDIS = getenv('REDIS_URL_DEV', 'redis://localhost:6379/0')
+    SESSION_REDIS = getenv('REDIS_URL')
 
     REDIS_CONFIG = {
         'CACHE_TYPE': 'redis',
